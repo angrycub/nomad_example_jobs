@@ -1,0 +1,38 @@
+REQUIRED_CONSTRAINT = "${node.class}"
+
+main = rule {
+    job_has_required_constraint or all_groups_have_required_constraint
+}
+
+job_has_required_constraint = rule { has_job_required_constraint() }
+all_groups_have_required_constraint = rule { has_groups_required_constraint() }
+
+has_job_required_constraint = func() {
+    for job.constraints as constraint {
+        if constraint.l_target is REQUIRED_CONSTRAINT {
+            return true
+        } 
+    }
+    return false
+}
+
+has_groups_required_constraint = func() {
+    for job.task_groups as tg {
+        group_has_required_constraint = false
+        for tg.constraints as constraint {
+            if constraint.l_target is REQUIRED_CONSTRAINT {
+                group_has_required_constraint = true
+            }
+        }
+        # if there is a group with no node_class, we can stop looking
+        # and fail quickly
+        if not(group_has_required_constraint) {
+            print(tg.name)
+            msg =  "Test" + "."
+            print(msg) 
+            return false 
+        }  
+    }
+    # If we make it here, all of the task groups have node_class set
+    return true
+}

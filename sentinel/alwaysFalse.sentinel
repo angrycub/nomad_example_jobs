@@ -1,0 +1,3 @@
+# Test policy always fails for demonstration purposes
+main = rule { false }
+

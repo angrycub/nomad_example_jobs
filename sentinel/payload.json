@@ -1,0 +1,15 @@
+{
+    "Name": "anonymous",
+    "Description": "Allow read-only access for anonymous requests",
+    "Rules": "
+        namespace \"default\" {
+            policy = \"read\"
+        }
+        agent {
+            policy = \"read\"
+        }
+        node {
+            policy = \"read\"
+        }
+    "
+}
