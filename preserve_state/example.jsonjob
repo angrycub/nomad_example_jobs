@@ -1,0 +1,102 @@
+{
+    "Job": {
+        "AllAtOnce": false,
+        "Constraints": null,
+        "CreateIndex": 11414,
+        "Datacenters": [
+            "dc1"
+        ],
+        "ID": "example",
+        "JobModifyIndex": 11414,
+        "Meta": null,
+        "ModifyIndex": 11414,
+        "Name": "example",
+        "Namespace": "default",
+        "ParameterizedJob": null,
+        "ParentID": "",
+        "Payload": null,
+        "Periodic": {
+            "Enabled": true,
+            "ProhibitOverlap": true,
+            "Spec": "*/15 * * * * *",
+            "SpecType": "cron",
+            "TimeZone": "UTC"
+        },
+        "Priority": 50,
+        "Region": "global",
+        "Stable": false,
+        "Status": "running",
+        "StatusDescription": "",
+        "Stop": false,
+        "SubmitTime": 1522707676229857749,
+        "TaskGroups": [
+            {
+                "Constraints": null,
+                "Count": 5,
+                "EphemeralDisk": {
+                    "Migrate": false,
+                    "SizeMB": 300,
+                    "Sticky": false
+                },
+                "Meta": null,
+                "Name": "sleepers",
+                "RestartPolicy": {
+                    "Attempts": 15,
+                    "Delay": 15000000000,
+                    "Interval": 604800000000000,
+                    "Mode": "delay"
+                },
+                "Tasks": [
+                    {
+                        "Artifacts": null,
+                        "Config": {
+                            "command": "bash",
+                            "args": [
+                                "-c",
+                                "echo Starting; sleep=`shuf -i5-10 -n1`; echo Sleeping $sleep seconds.; sleep $sleep; echo Done; exit 0"
+                            ]
+                        },
+                        "Constraints": null,
+                        "DispatchPayload": null,
+                        "Driver": "raw_exec",
+                        "Env": null,
+                        "KillSignal": "",
+                        "KillTimeout": 5000000000,
+                        "Leader": false,
+                        "LogConfig": {
+                            "MaxFileSizeMB": 10,
+                            "MaxFiles": 10
+                        },
+                        "Meta": null,
+                        "Name": "wait",
+                        "Resources": {
+                            "CPU": 100,
+                            "DiskMB": 0,
+                            "IOPS": 0,
+                            "MemoryMB": 200,
+                            "Networks": null
+                        },
+                        "Services": null,
+                        "ShutdownDelay": 0,
+                        "Templates": null,
+                        "User": "",
+                        "Vault": null
+                    }
+                ],
+                "Update": null
+            }
+        ],
+        "Type": "batch",
+        "Update": {
+            "AutoRevert": false,
+            "Canary": 0,
+            "HealthCheck": "",
+            "HealthyDeadline": 0,
+            "MaxParallel": 0,
+            "MinHealthyTime": 0,
+            "Stagger": 0
+        },
+        "VaultToken": "",
+        "Version": 0
+    }
+}

@@ -1,0 +1,77 @@
+{
+"Job": {
+        "ID": "fabio",
+        "Type": "service",
+        "Priority": 100,
+        "Datacenters": [
+            "dc1"
+        ],
+        "Update":{
+            "Stagger":10000000000,
+            "MaxParallel":1
+        },
+        "TaskGroups": [
+            {
+                "Name": "fabio-group",
+                "Count": 3,
+                "RestartPolicy": {
+                    "Interval": 300000000000,
+                    "Attempts": 30,
+                    "Delay": 10000000000,
+                    "Mode": "delay"
+                },
+                "Tasks": [
+                    {
+                        "Name": "fabio",
+                        "Driver": "docker",
+                        "Config": {
+                            "image": "fabiolb/fabio:1.5.8-go1.10"
+                        },
+                        "Services": [
+                            {
+                                "Name": "fabio-proxy",
+                                "PortLabel": "proxy",
+                                "Checks":[
+                                    {
+                                        "Type":"tcp",
+                                        "Port":9999,
+                                        "Interval":10000000000,
+                                        "Timeout":20000000000
+                                    }
+                                ]
+                            },
+                            {
+                                "Name": "fabio-admin",
+                                "PortLabel": "admin",
+                                "Checks":[
+                                    {
+                                        "Type":"tcp",
+                                        "Port":9998,
+                                        "Interval":10000000000,
+                                        "Timeout":20000000000
+                                    }
+                                ]
+                            }
+                        ],
+                        "Resources": {
+                            "CPU": 200,
+                            "MemoryMB": 256,
+                            "IOPS": 0,
+                            "Networks": [
+                                {
+                                    "ReservedPorts": [{"Label":"admin", "Value": 9998},
+                                                      {"Label":"http", "Value": 80},
+                                                      {"Label":"https", "Value": 443},
+                                                      {"Label":"proxy", "Value": 9999}
+                                                      ],
+                                    "MBits": 10
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
+

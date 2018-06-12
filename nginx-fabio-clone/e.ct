@@ -1,0 +1,30 @@
+{{- range services -}}
+    {{- $name := .Name -}}
+    {{- $service := service .Name -}}
+    {{- if ne $name "nginx-wdg-lb-aus" -}}
+        {{- if ne $name "nginx-wdg-lb" }} 
+upstream {{$name}} { 
+            {{- range $service }} 
+  server {{ .Address }}:{{ .Port }} max_fails=3 fail_timeout=60 weight=1; 
+            {{- end }}
+}
+        {{- end -}}
+    {{- end -}}
+{{- end }}
+
+{{- range $tag, $services := services | byTag -}}
+  {{- if $tag | regexMatch "urlprefix-[^:]" -}}
+    {{- $opts := ($tag | replaceAll "urlprefix-" "urlprefix=") -}}
+    {{- range $opt := $opts | split " " -}}
+      {{- $splitOpt := $opt | split "=" -}}
+      {{- scratch.Set (index $splitOpt 0) (index $splitOpt 1) -}}
+    {{- end -}}
+location {{ scratch.Get "urlprefix" }}
+    {{- if scratch.Key "strip" -}}
+        {{- $regex := ( scratch.Get "strip" | regexReplaceAll "(.*)"  "^$1" ) -}}
+        {{- scratch.Set "urlprefix" ( scratch.Get "urlprefix" | regexReplaceAll $regex "" ) -}}
+    rewrite 
+    {{- end }}
+    proxy-pass http://{{ scratch.Get "urlprefix" }}
+  {{ end -}}
+{{- end -}}

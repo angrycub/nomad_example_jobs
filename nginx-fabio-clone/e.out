@@ -1,0 +1,67 @@
+   
+upstream bar-service { 
+ server 10.0.0.172:31815 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.108:24839 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.128:31970 max_fails=3 fail_timeout=60 weight=1; 
+}    
+upstream consul { 
+ server 10.0.0.52:8300 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.132:8300 max_fails=3 fail_timeout=60 weight=1; 
+}    
+upstream foo-service { 
+ server 10.0.0.172:24438 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.108:25861 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.128:24545 max_fails=3 fail_timeout=60 weight=1; 
+}    
+upstream foo-service-2 { 
+ server 10.0.0.172:24438 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.108:25861 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.128:24545 max_fails=3 fail_timeout=60 weight=1; 
+}    
+upstream nomad { 
+ server 10.0.0.89:4647 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.89:4648 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.89:4646 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.208:4646 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.208:4647 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.208:4648 max_fails=3 fail_timeout=60 weight=1; 
+}    
+upstream nomad-client { 
+ server 10.0.0.172:4646 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.108:4646 max_fails=3 fail_timeout=60 weight=1; 
+ server 10.0.0.128:4646 max_fails=3 fail_timeout=60 weight=1; 
+} 
+
+------------- 
+upstream bar-service { 
+  server 10.0.0.172:31815 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.108:24839 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.128:31970 max_fails=3 fail_timeout=60 weight=1;
+} 
+upstream consul { 
+  server 10.0.0.52:8300 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.132:8300 max_fails=3 fail_timeout=60 weight=1;
+} 
+upstream foo-service { 
+  server 10.0.0.172:24438 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.108:25861 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.128:24545 max_fails=3 fail_timeout=60 weight=1;
+} 
+upstream foo-service-2 { 
+  server 10.0.0.172:24438 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.108:25861 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.128:24545 max_fails=3 fail_timeout=60 weight=1;
+} 
+upstream nomad { 
+  server 10.0.0.89:4647 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.89:4648 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.89:4646 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.208:4646 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.208:4647 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.208:4648 max_fails=3 fail_timeout=60 weight=1;
+} 
+upstream nomad-client { 
+  server 10.0.0.172:4646 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.108:4646 max_fails=3 fail_timeout=60 weight=1; 
+  server 10.0.0.128:4646 max_fails=3 fail_timeout=60 weight=1;
+}

@@ -1,0 +1,23 @@
+{{range services}} {{$name := .Name}} {{$service := service .Name}}{{if ne $name "nginx-wdg-lb-aus"}}{{if ne $name "nginx-wdg-lb"}} 
+upstream {{$name}} { 
+{{range $service}} server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=60 weight=1; 
+{{end}}} {{end}}{{end}}{{end}}
+
+server { 
+listen 80;
+
+  location / { 
+    root /usr/share/nginx/html/; 
+    index index.html; 
+  }
+
+  location /status { 
+    stub_status; 
+  }
+
+{{range $services := services}} {{$name := .Name}}{{range $s_index, $service := service $name}}{{if eq $s_index 0}}{{range $tags := .Tags}}{{$portmap := . | regexMatch "urlprefix-:"}}{{if not $portmap}}{{if . | regexMatch "urlprefix-"}} 
+  location {{$tags | regexReplaceAll "urlprefix-" "" | regexReplaceAll "strip=.*$" ""}} { 
+    rewrite {{ $tags | regexReplaceAll "urlprefix-" "" | regexReplaceAll "\\s*strip\\s*=.*\\s*$" "" }}/(.*)$ /$1 break; 
+    proxy_pass http://{{$name}}; 
+  }{{end}}{{end}}{{end}}{{end}}{{end}}{{end}} 
+}

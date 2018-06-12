@@ -1,0 +1,10 @@
+#! /usr/bin/python
+
+import urllib, json
+baseUrl = "http://127.0.0.1:4646"
+url = baseUrl+"/v1/jobs"
+response = urllib.urlopen(url)
+data = json.loads(response.read())
+for job in data:
+    print(job['Name'], job['Status'], job['Stop'])
+

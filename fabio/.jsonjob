@@ -1,0 +1,165 @@
+{
+    "Job": {
+        "AllAtOnce": false,
+        "Constraints": null,
+        "CreateIndex": 11042,
+        "Datacenters": [
+            "dc1"
+        ],
+        "ID": "hashi-ui",
+        "JobModifyIndex": 11042,
+        "Meta": null,
+        "ModifyIndex": 11042,
+        "Name": "hashi-ui",
+        "Namespace": "default",
+        "ParameterizedJob": null,
+        "ParentID": "",
+        "Payload": null,
+        "Periodic": null,
+        "Priority": 50,
+        "Region": "global",
+        "Stable": false,
+        "Status": "running",
+        "StatusDescription": "",
+        "Stop": false,
+        "SubmitTime": 1522700391289173542,
+        "TaskGroups": [
+            {
+                "Constraints": null,
+                "Count": 1,
+                "EphemeralDisk": {
+                    "Migrate": false,
+                    "SizeMB": 300,
+                    "Sticky": false
+                },
+                "Meta": null,
+                "Name": "nomad-ui",
+                "RestartPolicy": {
+                    "Attempts": 2,
+                    "Delay": 15000000000,
+                    "Interval": 60000000000,
+                    "Mode": "delay"
+                },
+                "Tasks": [
+                    {
+                        "Artifacts": null,
+                        "Config": {
+                            "image": "jippi/hashi-ui",
+                            "port_map": [
+                                {
+                                    "ui": 3000.0
+                                }
+                            ]
+                        },
+                        "Constraints": [
+                            {
+                                "LTarget": "${attr.cpu.arch}",
+                                "Operand": "=",
+                                "RTarget": "amd64"
+                            },
+                            {
+                                "LTarget": "${attr.kernel.name}",
+                                "Operand": "=",
+                                "RTarget": "linux"
+                            }
+                        ],
+                        "DispatchPayload": null,
+                        "Driver": "docker",
+                        "Env": null,
+                        "KillSignal": "",
+                        "KillTimeout": 5000000000,
+                        "Leader": false,
+                        "LogConfig": {
+                            "MaxFileSizeMB": 10,
+                            "MaxFiles": 10
+                        },
+                        "Meta": null,
+                        "Name": "nomad-ui-linux-amd64",
+                        "Resources": {
+                            "CPU": 100,
+                            "DiskMB": 0,
+                            "IOPS": 0,
+                            "MemoryMB": 128,
+                            "Networks": [
+                                {
+                                    "CIDR": "",
+                                    "Device": "",
+                                    "DynamicPorts": null,
+                                    "IP": "",
+                                    "MBits": 1,
+                                    "ReservedPorts": [
+                                        {
+                                            "Label": "ui",
+                                            "Value": 8000
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "Services": [
+                            {
+                                "AddressMode": "auto",
+                                "CheckRestart": null,
+                                "Checks": [
+                                    {
+                                        "AddressMode": "",
+                                        "Args": null,
+                                        "CheckRestart": null,
+                                        "Command": "",
+                                        "Header": null,
+                                        "Id": "",
+                                        "InitialStatus": "",
+                                        "Interval": 10000000000,
+                                        "Method": "",
+                                        "Name": "service: \"hashi-ui-nomad-ui-nomad-ui-linux-amd64\" check",
+                                        "Path": "/",
+                                        "PortLabel": "ui",
+                                        "Protocol": "",
+                                        "TLSSkipVerify": false,
+                                        "Timeout": 2000000000,
+                                        "Type": "tcp"
+                                    }
+                                ],
+                                "Id": "",
+                                "Name": "hashi-ui-nomad-ui-nomad-ui-linux-amd64",
+                                "PortLabel": "ui",
+                                "Tags": null
+                            }
+                        ],
+                        "ShutdownDelay": 0,
+                        "Templates": [
+                            {
+                                "ChangeMode": "restart",
+                                "ChangeSignal": "",
+                                "DestPath": "secrets/file.env",
+                                "EmbeddedTmpl": "        NOMAD_ADDR = \"{{with service \"nomad\"}}http://{{.Address}}:{{.Port}}{{end}}\"\n        NOMAD_ENABLE = 1\n        CONSUL_ENABLE = 1\n        CONSUL_ADDR = \"{{with service \"consul\"}}http://{{.Address}}:{{.Port}}{{end}}\"\n        LOG_LEVEL = \"info\"\n        NOMAD_READ_ONLY = 0\n        CONSUL_READ_ONLY = 0\n",
+                                "Envvars": true,
+                                "LeftDelim": "{{",
+                                "Perms": "0644",
+                                "RightDelim": "}}",
+                                "SourcePath": "",
+                                "Splay": 5000000000,
+                                "VaultGrace": 15000000000
+                            }
+                        ],
+                        "User": "",
+                        "Vault": null
+                    }
+                ],
+                "Update": null
+            }
+        ],
+        "Type": "system",
+        "Update": {
+            "AutoRevert": false,
+            "Canary": 0,
+            "HealthCheck": "",
+            "HealthyDeadline": 0,
+            "MaxParallel": 0,
+            "MinHealthyTime": 0,
+            "Stagger": 0
+        },
+        "VaultToken": "",
+        "Version": 0
+    }
+}

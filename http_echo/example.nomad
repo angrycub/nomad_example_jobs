@@ -1,14 +1,14 @@
-job "docker-iis" {
+job "example" {
   datacenters = ["dc1"]
   type = "service"
   update {
     max_parallel = 1
     min_healthy_time = "10s"
-    healthy_deadline = "9m"
+    healthy_deadline = "3m"
     auto_revert = false
     canary = 0
   }
-  group "windows" {
+  group "cache" {
     count = 1
     restart {
       attempts = 10
@@ -16,17 +16,15 @@ job "docker-iis" {
       delay = "25s"
       mode = "delay"
     }
-    constraint {
-      attribute = "${attr.kernel.name}"
-      operator  = "="
-      value     = "windows"
+    ephemeral_disk {
+      size = 300
     }
-    task "iis-site" {
+    task "redis" {
       driver = "docker"
       config {
-        image = "voiselle/windows-test:v1"
+        image = "redis:3.2"
         port_map {
-          www = 80
+          db = 6379
         }
       }
       resources {
@@ -34,13 +32,13 @@ job "docker-iis" {
         memory = 256 
         network {
           mbits = 10
-          port "www" { }
+          port "db" {}
         }
       }
       service {
-        name = "windows-docker-iis"
-        tags = ["windows","iis"]
-        port = "www"
+        name = "global-redis-check"
+        tags = ["global", "cache"]
+        port = "db"
         check {
           name     = "alive"
           type     = "tcp"

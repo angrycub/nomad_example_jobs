@@ -1,0 +1,152 @@
+{
+    "Job": {
+        "AllAtOnce": false,
+        "Constraints": null,
+        "CreateIndex": 11412,
+        "Datacenters": [
+            "dc1"
+        ],
+        "ID": "bar-service",
+        "JobModifyIndex": 11412,
+        "Meta": null,
+        "ModifyIndex": 11415,
+        "Name": "bar-service",
+        "Namespace": "default",
+        "ParameterizedJob": null,
+        "ParentID": "",
+        "Payload": null,
+        "Periodic": null,
+        "Priority": 50,
+        "Region": "global",
+        "Stable": false,
+        "Status": "running",
+        "StatusDescription": "",
+        "Stop": false,
+        "SubmitTime": 1522707675977824527,
+        "TaskGroups": [
+            {
+                "Constraints": null,
+                "Count": 6,
+                "EphemeralDisk": {
+                    "Migrate": false,
+                    "SizeMB": 300,
+                    "Sticky": false
+                },
+                "Meta": null,
+                "Name": "example",
+                "RestartPolicy": {
+                    "Attempts": 2,
+                    "Delay": 15000000000,
+                    "Interval": 60000000000,
+                    "Mode": "delay"
+                },
+                "Tasks": [
+                    {
+                        "Artifacts": [
+                            {
+                                "GetterMode": "any",
+                                "GetterOptions": {
+                                    "checksum": "sha256:e30b29b72ad5ec1f6dfc8dee0c2fcd162f47127f2251b99e47b9ae8af1d7b917"
+                                },
+                                "GetterSource": "https://github.com/hashicorp/http-echo/releases/download/v0.2.3/http-echo_0.2.3_linux_amd64.tar.gz",
+                                "RelativeDest": "local/"
+                            }
+                        ],
+                        "Config": {
+                            "args": [
+                                "-listen",
+                                ":${NOMAD_PORT_http}",
+                                "-text",
+                                "<html><body><h1>Welcome to the Bar Service.</h1><hr />You are on ${NOMAD_IP_http}.</body></html>"
+                            ],
+                            "command": "http-echo"
+                        },
+                        "Constraints": null,
+                        "DispatchPayload": null,
+                        "Driver": "exec",
+                        "Env": null,
+                        "KillSignal": "",
+                        "KillTimeout": 5000000000,
+                        "Leader": false,
+                        "LogConfig": {
+                            "MaxFileSizeMB": 10,
+                            "MaxFiles": 10
+                        },
+                        "Meta": null,
+                        "Name": "server",
+                        "Resources": {
+                            "CPU": 100,
+                            "DiskMB": 0,
+                            "IOPS": 0,
+                            "MemoryMB": 300,
+                            "Networks": [
+                                {
+                                    "CIDR": "",
+                                    "Device": "",
+                                    "DynamicPorts": [
+                                        {
+                                            "Label": "http",
+                                            "Value": 0
+                                        }
+                                    ],
+                                    "IP": "",
+                                    "MBits": 10,
+                                    "ReservedPorts": null
+                                }
+                            ]
+                        },
+                        "Services": [
+                            {
+                                "AddressMode": "auto",
+                                "CheckRestart": null,
+                                "Checks": [
+                                    {
+                                        "AddressMode": "",
+                                        "Args": null,
+                                        "CheckRestart": null,
+                                        "Command": "",
+                                        "Header": null,
+                                        "Id": "",
+                                        "InitialStatus": "",
+                                        "Interval": 15000000000,
+                                        "Method": "",
+                                        "Name": "health-check",
+                                        "Path": "/",
+                                        "PortLabel": "",
+                                        "Protocol": "",
+                                        "TLSSkipVerify": false,
+                                        "Timeout": 5000000000,
+                                        "Type": "http"
+                                    }
+                                ],
+                                "Id": "",
+                                "Name": "bar-service",
+                                "PortLabel": "http",
+                                "Tags": [
+                                    "urlprefix-/bar"
+                                ]
+                            }
+                        ],
+                        "ShutdownDelay": 0,
+                        "Templates": null,
+                        "User": "",
+                        "Vault": null
+                    }
+                ],
+                "Update": null
+            }
+        ],
+        "Type": "service",
+        "Update": {
+            "AutoRevert": false,
+            "Canary": 0,
+            "HealthCheck": "",
+            "HealthyDeadline": 0,
+            "MaxParallel": 0,
+            "MinHealthyTime": 0,
+            "Stagger": 0
+        },
+        "VaultToken": "",
+        "Version": 0
+    }
+}

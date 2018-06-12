@@ -1,0 +1,138 @@
+{
+    "Job": {
+        "AllAtOnce": false,
+        "Constraints": [
+            {
+                "LTarget": "${attr.cpu.arch}",
+                "Operand": "!=",
+                "RTarget": "arm"
+            },
+            {
+                "LTarget": "${attr.kernel.name}",
+                "Operand": "!=",
+                "RTarget": "windows"
+            }
+        ],
+        "CreateIndex": 11416,
+        "Datacenters": [
+            "dc1"
+        ],
+        "ID": "fabio",
+        "JobModifyIndex": 11416,
+        "Meta": null,
+        "ModifyIndex": 11416,
+        "Name": "fabio",
+        "Namespace": "default",
+        "ParameterizedJob": null,
+        "ParentID": "",
+        "Payload": null,
+        "Periodic": null,
+        "Priority": 50,
+        "Region": "global",
+        "Stable": false,
+        "Status": "running",
+        "StatusDescription": "",
+        "Stop": false,
+        "SubmitTime": 1522707676470085364,
+        "TaskGroups": [
+            {
+                "Constraints": null,
+                "Count": 1,
+                "EphemeralDisk": {
+                    "Migrate": false,
+                    "SizeMB": 300,
+                    "Sticky": false
+                },
+                "Meta": null,
+                "Name": "fabio",
+                "RestartPolicy": {
+                    "Attempts": 2,
+                    "Delay": 15000000000,
+                    "Interval": 60000000000,
+                    "Mode": "delay"
+                },
+                "Tasks": [
+                    {
+                        "Artifacts": [
+                            {
+                                "GetterMode": "any",
+                                "GetterOptions": {
+                                    "checksum": "sha256:7dc786c3dfd8c770d20e524629d0d7cd2cf8bb84a1bf98605405800b28705198"
+                                },
+                                "GetterSource": "https://github.com/fabiolb/fabio/releases/download/v1.5.0/fabio-1.5.0-go1.8.3-linux_amd64",
+                                "RelativeDest": "local/"
+                            }
+                        ],
+                        "Config": {
+                            "command": "fabio-1.5.0-go1.8.3-linux_amd64"
+                        },
+                        "Constraints": null,
+                        "DispatchPayload": null,
+                        "Driver": "exec",
+                        "Env": null,
+                        "KillSignal": "",
+                        "KillTimeout": 5000000000,
+                        "Leader": false,
+                        "LogConfig": {
+                            "MaxFileSizeMB": 10,
+                            "MaxFiles": 10
+                        },
+                        "Meta": null,
+                        "Name": "fabio",
+                        "Resources": {
+                            "CPU": 500,
+                            "DiskMB": 0,
+                            "IOPS": 0,
+                            "MemoryMB": 64,
+                            "Networks": [
+                                {
+                                    "CIDR": "",
+                                    "Device": "",
+                                    "DynamicPorts": null,
+                                    "IP": "",
+                                    "MBits": 1,
+                                    "ReservedPorts": [
+                                        {
+                                            "Label": "http",
+                                            "Value": 9999
+                                        },
+                                        {
+                                            "Label": "ui",
+                                            "Value": 9998
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "Services": null,
+                        "ShutdownDelay": 0,
+                        "Templates": null,
+                        "User": "",
+                        "Vault": null
+                    }
+                ],
+                "Update": {
+                    "AutoRevert": false,
+                    "Canary": 0,
+                    "HealthCheck": "checks",
+                    "HealthyDeadline": 300000000000,
+                    "MaxParallel": 1,
+                    "MinHealthyTime": 10000000000,
+                    "Stagger": 5000000000
+                }
+            }
+        ],
+        "Type": "system",
+        "Update": {
+            "AutoRevert": false,
+            "Canary": 0,
+            "HealthCheck": "",
+            "HealthyDeadline": 0,
+            "MaxParallel": 1,
+            "MinHealthyTime": 0,
+            "Stagger": 5000000000
+        },
+        "VaultToken": "",
+        "Version": 0
+    }
+}
