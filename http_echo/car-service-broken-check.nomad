@@ -1,11 +1,16 @@
-job "foo-service" {
+job "car-service" {
   datacenters = ["dc1"]
-  meta {
-    foo-service = "true"
+  update {
+    max_parallel      = 1
+    health_check      = "checks"
+    min_healthy_time  = "10s"
+    healthy_deadline  = "30s"
+    progress_deadline = "2m"
+    auto_revert       = false
+    stagger           = "30s"
   }
   group "example" {
     count = 3
-
     task "server" {
       artifact {
         source      = "https://github.com/hashicorp/http-echo/releases/download/v0.2.3/http-echo_0.2.3_linux_amd64.tar.gz" 
@@ -19,7 +24,7 @@ job "foo-service" {
         command = "http-echo"
         args = [
           "-listen", ":${NOMAD_PORT_http}",
-          "-text", "<html><body><h1>Welcome to the Foo Service.</h1><hr />You are on ${NOMAD_IP_http}.</body></html>",
+          "-text", "<html><body><h1>Welcome to the Car Service.</h1><hr />You are on ${NOMAD_IP_http}.</body></html>",
         ]
       }
 
@@ -27,25 +32,14 @@ job "foo-service" {
         memory = 10
         network {
           port "http" {}
+          port "supernotreal" {}
         }
       }
 
       service {
-        name = "foo-service"
-        tags = ["urlprefix-/foo"]
-        port = "http"
-        check {
-          type = "http"
-          name = "health-check"
-          interval = "15s"
-          timeout = "5s"
-          path = "/"
-        }
-      }
-      service {
-        name = "foo-service-2"
-        tags = ["urlprefix-/foo2"]
-        port = "http"
+        name = "car-service"
+        tags = ["urlprefix-/car"]
+        port = "supernotreal"
         check {
           type = "http"
           name = "health-check"

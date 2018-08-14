@@ -1,9 +1,7 @@
 job "bar-service" {
   datacenters = ["dc1"]
-
   group "example" {
     count = 6
-
     task "server" {
       artifact {
         source      = "https://github.com/hashicorp/http-echo/releases/download/v0.2.3/http-echo_0.2.3_linux_amd64.tar.gz" 
@@ -22,8 +20,8 @@ job "bar-service" {
       }
 
       resources {
+        memory = 10
         network {
-          mbits = 10
           port "http" {}
         }
       }
