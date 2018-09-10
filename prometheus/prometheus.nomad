@@ -29,7 +29,7 @@ job "prometheus" {
         image = "grafana/grafana:5.0.4"
         port_map {
           grafana_ui = 3000
-        }        
+        }
       }
       resources {
         network {
@@ -58,7 +58,7 @@ job "prometheus" {
         data = <<EOH
 ---
 global:
-  scrape_interval:     15s 
+  scrape_interval:     15s
 scrape_configs:
   - job_name: 'prometheus'
     scrape_interval: 5s
@@ -88,15 +88,15 @@ EOH
         image = "prom/prometheus:v2.2.1"
         volumes = [
           "local/prometheus.yml:/etc/prometheus/prometheus.yml"
-        ]       
+        ]
         port_map {
           prometheus_ui = 9090
         }
 
       }
       resources {
-        cpu    = 500 
-        memory = 256 
+        cpu    = 500
+        memory = 256
         network {
           port "prometheus_ui" {}
         }
