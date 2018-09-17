@@ -9,7 +9,7 @@ job "repro" {
 #      value = "darwin"
 #    }
 
-    task "artifact" {
+    task "echo-task" {
       driver = "exec"
 
       config {
