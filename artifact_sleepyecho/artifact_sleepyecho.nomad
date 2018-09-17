@@ -10,7 +10,7 @@ job "repro" {
 #    }
 
     task "artifact" {
-      driver = "raw_exec"
+      driver = "exec"
 
       config {
         command = "local/bin/SleepyEcho.sh"
@@ -18,7 +18,7 @@ job "repro" {
       }
 
       artifact {
-	source = "https://angrycub-hc.s3.amazonaws.com/public/SleepyEcho.sh"
+	      source = "https://angrycub-hc.s3.amazonaws.com/public/SleepyEcho.sh"
         destination = "local/bin"
       }
     }
