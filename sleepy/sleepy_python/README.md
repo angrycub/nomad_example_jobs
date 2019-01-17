@@ -1,3 +1,5 @@
 # sleepy_python
 
-Let's talk about this
+Background : Python's interpreter for sys.stdout is default to disabled
+
+Solution : do sys.stdout.flush() after write
