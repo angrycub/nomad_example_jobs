@@ -31,6 +31,12 @@ EOH
       config {
         command = "${NOMAD_TASK_DIR}/sleepy.sh"
       }
+      
+      vault {
+        policies = ["nomad-client"]
+        change_mode   = "signal"
+        change_signal = "SIGUSR1"
+      }
 
       resources {
         memory = 10
