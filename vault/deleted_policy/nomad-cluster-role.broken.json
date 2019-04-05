@@ -1,0 +1,9 @@
+{
+  "disallowed_policies": ["nomad-server"],
+  "allowed_policies": ["nomad-client"],
+  "explicit_max_ttl": 0,
+  "name": "nomad-cluster",
+  "orphan": true,
+  "period": 600,
+  "renewable": true
+}
