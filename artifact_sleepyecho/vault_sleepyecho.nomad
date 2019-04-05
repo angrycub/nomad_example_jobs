@@ -6,7 +6,9 @@ job "repro" {
 
     task "echo-task" {
       driver = "exec"
-
+      env {
+          EXTRAS = "${VAULT_TOKEN}"
+      }
       config {
         command = "local/bin/SleepyEcho.sh"
         args = ["2"]
