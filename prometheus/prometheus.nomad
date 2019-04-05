@@ -71,7 +71,8 @@ scrape_configs:
     params:
         format: ['prometheus']
     consul_sd_configs:
-      - server: '10.0.0.52:8500'
+      - server: '{{ env "NOMAD_IP_prometheus_ui" }}:8500'
+        token: "3ef34421-1b20-e543-65d4-54067560d377"
         services:
           - "nomad"
           - "nomad-client"
