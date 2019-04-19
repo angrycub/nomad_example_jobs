@@ -5,7 +5,7 @@ job "template" {
     count = 1
     task "command" {
       resources { network { port "export" {} port "exstat" { static=8080 } } }
-      driver = "raw_exec"
+      driver = "exec"
       config {
         command = "bash"
         args = ["-c", "cat local/template.out"]
