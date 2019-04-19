@@ -32,7 +32,9 @@ EOH
       driver = "exec"
 
       config {
-        command = "${NOMAD_TASK_DIR}/files.py"
+        command = "python"
+        args = ["${NOMAD_TASK_DIR}/files.py"]
+        # command = "${NOMAD_TASK_DIR}/files.py"
       }
 
       resources {
