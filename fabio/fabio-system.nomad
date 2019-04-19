@@ -27,7 +27,7 @@ job "fabio" {
       }
       resources {
         cpu = 200
-        memory = 32
+        memory = 256 
         network {
           mbits = 1
           port "http" {static=9999}
