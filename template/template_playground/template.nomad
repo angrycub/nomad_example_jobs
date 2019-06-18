@@ -11,7 +11,7 @@ job "template" {
         args = ["-c", "cat local/template.out"]
       }
       template {
-        data = <<EOH        
+        data = <<EOH
                  node.unique.id: {{ env "node.unique.id" }}
                 node.datacenter: {{ env "node.datacenter" }}
                node.unique.name: {{ env "node.unique.name" }}
@@ -61,16 +61,10 @@ attr.platform.aws.instance-type: {{ env "attr.platform.aws.instance-type" }}
                           SHELL: {{env "SHELL"}}
                           SHLVL: {{env "SHLVL"}}
                            USER: {{env "USER"}}
-                           
-   concat key:  service/fabio/{{ env "NOMAD_JOB_NAME" }}/listeners
-    key:         {{ keyOrDefault ( printf "service/fabio/%s/listeners" ( env "NOMAD_JOB_NAME" ) ) ":9999" }}
-
-{{ define "custom" }}service/fabio/{{env "NOMAD_JOB_NAME" }}/listeners{{ end }}
-    key:         {{ keyOrDefault (executeTemplate "custom") ":9999" }}
 
    math - alloc_id + 1: {{env "NOMAD_ALLOC_INDEX" | parseInt | add 1}}
 
-  EOH
+EOH
 
         destination = "local/template.out"
       }
