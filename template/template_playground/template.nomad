@@ -3,7 +3,17 @@ job "template" {
   type = "batch"
   group "group" {
     count = 1
-    task "command" {
+    task "env-output" {
+      resources { network { port "sample" {} } }
+      driver = "raw_exec"
+      config { command = "env" }
+    }
+    task "date-output" {
+      resources { network { port "sample" {} } }
+      driver = "raw_exec"
+      config { command = "date" }
+    }
+    task "template" {
       resources { network { port "export" {} port "exstat" { static=8080 } } }
       driver = "raw_exec"
       config {
@@ -62,7 +72,19 @@ attr.platform.aws.instance-type: {{ env "attr.platform.aws.instance-type" }}
                           SHLVL: {{env "SHLVL"}}
                            USER: {{env "USER"}}
 
-   math - alloc_id + 1: {{env "NOMAD_ALLOC_INDEX" | parseInt | add 1}}
+Further Consul Template Magic:
+
+Math
+  math - alloc_id + 1: {{env "NOMAD_ALLOC_INDEX" | parseInt | add 1}}
+
+Composition using inline templates
+
+  {{- define "custom" }}NOMAD_ADDR_{{"date-output" | replaceAll "-" "_" }}_sample{{ end }}
+  {{ executeTemplate "custom" }}: {{ env (executeTemplate "custom") }}
+
+Composition using printf
+  {{ $envKey := printf "NOMAD_ADDR_%s_%s" ("date-output" | replaceAll "-" "_" ) "sample" }}
+  {{ $envKey }}: {{ env $envKey }}
 
 EOH
 
