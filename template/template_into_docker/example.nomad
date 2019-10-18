@@ -10,7 +10,7 @@ job "example" {
 window.env = {
   apiUrl: "http://example.com/api
 }
-        EOH
+EOH
       }
 
       driver = "docker"
