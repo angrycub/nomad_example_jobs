@@ -42,7 +42,7 @@ job "mysql-server" {
 
       resources {
         cpu    = 500
-        memory = 225 
+        memory = 512 
 
         network {
           port "db" {

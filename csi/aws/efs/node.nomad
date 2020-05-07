@@ -1,8 +1,5 @@
-job "plugin-aws-ebs-nodes" {
+job "plugin-aws-efs-nodes" {
   datacenters = ["dc1"]
-
-  # you can run node plugins as service jobs as well, but this ensures
-  # that all nodes in the DC have a copy.
   type = "system"
 
   group "nodes" {
@@ -10,11 +7,10 @@ job "plugin-aws-ebs-nodes" {
       driver = "docker"
 
       config {
-        image = "amazon/aws-ebs-csi-driver:latest"
+        image = "amazon/aws-efs-csi-driver:latest"
 
         args = [
-          "node",
-          "--endpoint=unix://csi/csi.sock",
+          "--endpoint=unix:///csi/csi.sock",
           "--logtostderr",
           "--v=5",
         ]
@@ -25,8 +21,8 @@ job "plugin-aws-ebs-nodes" {
       }
 
       csi_plugin {
-        id        = "aws-ebs0"
-        type      = "node"
+        id        = "aws-efs"
+        type      = "monolith"
         mount_dir = "/csi"
       }
 
