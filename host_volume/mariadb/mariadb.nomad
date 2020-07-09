@@ -1,8 +1,8 @@
-job "example" {
+job "mariadb" {
   datacenters = ["dc1"]
 
   group "database" {
-    volume "mysql" { type="host" config { source = "mysql" } }
+    volume "mysql" { type="host"  source = "mysql"  }
     task "maria" {
       driver = "docker"
       volume_mount { volume="mysql" destination="/var/lib/mysql" }
