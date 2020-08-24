@@ -1,13 +1,13 @@
 job "init-artifacts" {
   datacenters = ["dc1"]
-  type = "service"
+  type = "batch"
 
   group "test" {
     task "init" {
       template {
         data = <<EOH
 
-NOMAD_ALLOC_DIR: [[ env "NOMAD_ALLOC_DIR" ]]
+NOMAD_ALLOC_ID:  [[ env "NOMAD_ALLOC_ID" ]]
 
 EOH
         destination = "alloc/hello.levant"
@@ -42,20 +42,13 @@ echo "$(date) - Starting."
 
 ${NOMAD_ALLOC_DIR}/linux-amd64-levant render ${NOMAD_ALLOC_DIR}/hello.levant;
 
-# sleepLoop ensures that the task remains running to meet Nomad's
-# requirement that services never stop. If this is a batch task,
-# you can comment it out.
-sleepLoop
-
 EOH
         destination = "local/renderTemplate.sh"
       }
 
       driver = "exec"
       config {
-#       command = "${NOMAD_TASK_DIR}/renderTemplate.sh"
-        command = "/bin/bash"
-        args = ["-c", "while true;do sleep 300; done"]
+        command = "${NOMAD_TASK_DIR}/renderTemplate.sh"
       }
       resources {
         cpu    = 100
