@@ -26,4 +26,4 @@ host_volume "prometheus" {
 
   read_only = "false"
 }
-'
+```
