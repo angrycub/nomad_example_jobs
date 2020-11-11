@@ -1,6 +1,6 @@
 ## exec-zip
 
-This sample creates an exec job that downloads a tarball artifact with directoru permissions set.  This should enable the jailed user to write into the writable file, but not the non-writable one.
+This sample creates an exec job that downloads a tarball artifact with directory permissions set.  This should enable the jailed user to write into the writable file, but not the non-writable one.
 
 
 ```
