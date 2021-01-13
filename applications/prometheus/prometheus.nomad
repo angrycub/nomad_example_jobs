@@ -1,3 +1,6 @@
+# For ACL-enabled Consul Clusters, you need to specify a Consul ACL token down
+# in the `prometheus` task's scrape config.
+
 job "prometheus" {
   datacenters = ["dc1"]
   type = "service"
@@ -15,6 +18,39 @@ job "prometheus" {
       interval = "5m"
       delay = "25s"
       mode = "delay"
+    }
+    network {
+      port "prometheus_ui" {
+        to = 9090 
+      }
+      port "grafana_ui" {
+        to = 3000
+      }
+    }
+
+    service {
+      name = "prometheus-ui"
+      #tags = ["urlprefix-/prometheus"]
+      tags = ["urlprefix-/prometheus strip=/prometheus"]
+      port = "prometheus_ui"
+      check {
+        name     = "prometheus_ui port alive"
+        type     = "tcp"
+        interval = "10s"
+        timeout  = "2s"
+      }
+    }
+
+    service {
+      name = "grafana-ui"
+      port = "grafana_ui"
+      tags = ["urlprefix-/grafana strip=/grafana"] 
+      check {
+        name     = "grafana-ui port alive"
+        type     = "tcp"
+        interval = "10s"
+        timeout  = "2s"
+      }
     }
     ephemeral_disk { size = 1000 }
     task "grafana" {
@@ -50,31 +86,17 @@ datasources:
   - name: Prometheus
     type: prometheus
     access: proxy
-    url: http://{{ env "NOMAD_ADDR_prometheus_prometheus_ui" }}
+    url: http://{{ env "NOMAD_ADDR_prometheus_ui" }}
 EOH
       }
       env {
-        "GF_SERVER_ROOT_URL"="http://127.0.0.1:9999/grafana/"
-        "GF_PATHS_PROVISIONING"="/${NOMAD_TASK_DIR}/provisioning"
+        GF_SERVER_ROOT_URL = "http://127.0.0.1:9999/grafana/"
+        GF_PATHS_PROVISIONING ="/${NOMAD_TASK_DIR}/provisioning"
       }
       driver = "docker"
       config {
         image = "grafana/grafana:6.1.4"
-        port_map { grafana_ui = 3000 }
-      }
-      resources {
-        network { port "grafana_ui" {} }
-      }
-      service {
-        name = "grafana-ui"
-        port = "grafana_ui"
-        tags = ["urlprefix-/grafana strip=/grafana"] 
-        check {
-          name     = "grafana-ui port alive"
-          type     = "tcp"
-          interval = "10s"
-          timeout  = "2s"
-        }
+        ports = ["grafana_ui"]
       }
     }
 
@@ -99,7 +121,7 @@ scrape_configs:
         format: ['prometheus']
     consul_sd_configs:
       - server: '{{ env "NOMAD_IP_prometheus_ui" }}:8500'
-        token: "3ef34421-1b20-e543-65d4-54067560d377"
+#        token: "c62d8564-c0c5-8dfe-3e75-005debbd0e40"
         services:
           - "nomad"
           - "nomad-client"
@@ -119,24 +141,11 @@ EOH
           "--web.route-prefix=/",
           "--config.file=/local/prometheus.yml"     
         ]
-        port_map { prometheus_ui = 9090 }
+        ports = ["prometheus_ui"]
       }
       resources {
         cpu    = 500
         memory = 256
-        network { port "prometheus_ui" {} }
-      }
-      service {
-        name = "prometheus-ui"
-        #tags = ["urlprefix-/prometheus"]
-        tags = ["urlprefix-/prometheus strip=/prometheus"]
-        port = "prometheus_ui"
-        check {
-          name     = "prometheus_ui port alive"
-          type     = "tcp"
-          interval = "10s"
-          timeout  = "2s"
-        }
       }
     }
   }
