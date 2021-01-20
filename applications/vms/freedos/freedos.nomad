@@ -30,7 +30,7 @@ job "freedos" {
       }
 
       config {
-        image = "registry.service.consul:5000/novnc"
+        image = "voiselle/novnc"
         ports = ["webvnc"]
       }
     }
@@ -38,8 +38,11 @@ job "freedos" {
     task "freedos" {
 
       artifact {
-        source      = "http://10.0.0.145:8000/freedos.img.tgz"
+        source      = "https://github.com/angrycub/nomad_example_jobs/raw/master/applications/vms/freedos/freedos.img.tgz"
         destination = "local"
+        options {
+          checksum  = "sha256:8d2817126bf46ba2b4fca0b0c49eed2cc208c6f6448651e82c6d973fcba36569"
+        }
       }
 
       driver = "qemu"
