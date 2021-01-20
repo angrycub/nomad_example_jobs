@@ -7,9 +7,15 @@ job "httpd_site" {
   }
   group "httpd" {
     count = 1
+    network {
+      port "http" {
+        to = 80
+      }
+    }
+
     task "httpd-docker" {
       artifact {
-        source = "https://angrycub-hc.s3.amazonaws.com/public/templated-industrious.zip"
+        source = "https://raw.githubusercontent.com/angrycub/nomad_example_jobs/master/httpd_site/site-content.tgz"
         destination = "tarball"
       }
       driver = "docker"
@@ -18,16 +24,11 @@ job "httpd_site" {
         volumes = [
           "tarball:/usr/local/apache2/htdocs"
         ]
-        port_map {
-          http = 80
-        }      
+        ports = ["http"]
       }
       resources {
         cpu = 200
         memory = 32
-        network {
-          port "http" {}
-        }
       }
     }
   }
