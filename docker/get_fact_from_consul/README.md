@@ -1,4 +1,4 @@
-## get_tag_from_consul
+## get_fact_from_consul
 
 These demonstration jobs use Consul templates to fetch values for substitution in
 Docker jobs. These values can be used as interpolated values at workload runtime
