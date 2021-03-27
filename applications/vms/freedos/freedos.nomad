@@ -38,7 +38,7 @@ job "freedos" {
     task "freedos" {
 
       artifact {
-        source      = "https://github.com/angrycub/nomad_example_jobs/raw/master/applications/vms/freedos/freedos.img.tgz"
+        source      = "https://github.com/angrycub/nomad_example_jobs/raw/main/applications/vms/freedos/freedos.img.tgz"
         destination = "local"
         options {
           checksum  = "sha256:8d2817126bf46ba2b4fca0b0c49eed2cc208c6f6448651e82c6d973fcba36569"
