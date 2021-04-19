@@ -1,5 +1,6 @@
 job "jar-test.nomad" {
   datacenters = ["dc1"]
+  type = "batch"
 
   group "java" {
     task "sample" {
