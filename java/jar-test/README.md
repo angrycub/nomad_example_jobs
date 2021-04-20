@@ -16,8 +16,8 @@ $ nomad run jar-test.nomad
 
 ```shell-session
 $ nomad alloc logs 6027314e
+Counted 1515 chars.
 ```
-
 
 ## Building the source
 
