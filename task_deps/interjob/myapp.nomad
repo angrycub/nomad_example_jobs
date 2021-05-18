@@ -1,4 +1,4 @@
-ijob "myapp" {
+job "myapp" {
   datacenters = ["dc1"]
   type        = "service"
 
@@ -15,6 +15,7 @@ ijob "myapp" {
         image       = "busybox:1.28"
         command     = "sh"
         args        = ["-c", "echo -n 'Waiting for service'; until nslookup myservice.service.consul 2>&1 >/dev/null; do echo '.'; sleep 2; done"]
+        dns_servers = ["10.0.2.21"]
       }
 
       resources {

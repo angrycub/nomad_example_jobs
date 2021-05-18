@@ -1,0 +1,8 @@
+{
+  "SchedulerAlgorithm": "spread",
+  "PreemptionConfig": {
+    "SystemSchedulerEnabled": true,
+    "BatchSchedulerEnabled": true,
+    "ServiceSchedulerEnabled": true
+  }
+}

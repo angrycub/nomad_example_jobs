@@ -51,14 +51,6 @@ job "countdash" {
     }
 
     task "dashboard" {
-      template {
-        data = <<EOF
-{{ range services }}{{ .Name | service | byTag | toJSONPretty }}
-{{end}}
-EOF
-        destination = "local/template.txt"
-      } 
-
       driver = "docker"
 
       env {

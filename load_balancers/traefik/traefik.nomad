@@ -32,7 +32,7 @@ job "traefik" {
 
 # Enable Consul Catalog configuration backend.
 [providers.consulCatalog]
-    prefix           = "traefik"
+    prefix           = "charlie"
     exposedByDefault = false
 
     [providers.consulCatalog.endpoint]

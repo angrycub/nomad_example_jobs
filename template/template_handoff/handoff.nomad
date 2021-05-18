@@ -8,7 +8,7 @@ job "handoff" {
       }
       template {
         data=<<EOF
-This is a {{ printf "%s %s" "template" ". yay!" }}
+This allocation is running on {{ env "attr.unique.network.ip-address" }}
 EOF
         destination = "../alloc/template.out"
       }

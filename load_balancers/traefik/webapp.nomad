@@ -28,8 +28,8 @@ job "demo-webapp" {
         port = "http"
 
         tags = [
-          "traefik.enable=true",
-          "traefik.http.routers.http.rule=Path(`/myapp`)",
+          "charlie.enable=true",
+          "charlie.http.routers.http.rule=Path(`/myapp`)",
         ]
 
         check {

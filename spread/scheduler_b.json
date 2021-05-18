@@ -1,0 +1,8 @@
+{
+  "SchedulerAlgorithm": "binpack",
+  "PreemptionConfig": {
+    "SystemSchedulerEnabled": true,
+    "BatchSchedulerEnabled": true,
+    "ServiceSchedulerEnabled": true
+  }
+}
