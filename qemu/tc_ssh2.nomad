@@ -2,6 +2,26 @@ job "j1" {
   datacenters = ["dc1"]
 
   group "g1" {
+
+    network {
+      port "http"{}
+      port "ssh"{}
+    }
+
+    service {
+      tags = ["tag1"]
+      port = "http"
+
+      check {
+        type     = "http"
+        port     = "http"
+        path     = "/index.html"
+        interval = "10s"
+        timeout  = "2s"
+      }
+    }
+
+
     task "t1" {
       template {
         data = <<EOH
@@ -13,26 +33,6 @@ job "j1" {
 
       artifact {
         source = "http://10.0.0.166:8000/tinycore.qcow2"
-      }
-
-      resources {
-        network {
-          port "http"{}
-          port "ssh"{}
-        }
-      }
-
-      service {
-        tags = ["tag1"]
-        port = "http"
-
-        check {
-          type     = "http"
-          port     = "http"
-          path     = "/index.html"
-          interval = "10s"
-          timeout  = "2s"
-        }
       }
 
       driver = "qemu"

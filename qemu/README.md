@@ -14,7 +14,7 @@ Download the boot image - <http://tinycorelinux.net/12.x/x86/release/Core-curren
 
 <https://fabianstumpf.de/articles/tinycore_images.htm> Original article
 
-docker run -v $(pwd):/working --privileged -it ubuntu /bin/bash
+docker run -v $(pwd)/working:/working --privileged --name=imagebuilder --rm -it ubuntu /bin/bash
 
 ```
 apt update;
@@ -22,7 +22,9 @@ apt install -y \
   qemu \
   qemu-utils \
   libguestfs-tools \
-  linux-image-generic
+  linux-image-generic \
+  nbdfuse \
+  nbd-client
 ```
 
 ```
@@ -31,27 +33,57 @@ wget http://tinycorelinux.net/12.x/x86/release/Core-current.iso
 mkdir /mnt/cdrom
 mkdir /mnt/tinycore
 mount Core-current.iso /mnt/cdrom
-qemu-img create -f qcow2 core-image.qcow2 64M
+
+
 ```
-guestmount -a /working/core-image.qcow2 -i /mnt
 
-
-
-
+docker run -v $(pwd):/working --privileged --rm --name=imagebuilder -it imagebuilder /bin/bash
 
 
 
 ---------
+```
+qemu-img create -f qcow2 /working/core-image.qcow2 64M
+qemu-nbd -c /dev/nbd0 /working/core-image.qcow2
+```
+
+```
+fdisk /dev/nbd0
+```
+
+```
+qemu-nbd -d /dev/nbd0
+```
+
+guestfish -a /working/core-image.qcow2
+
+```
+run
 
 
 ```
-nbd-server 1043 /working/core-image.img 
+qemu-img create -f qcow2 /working/core-image.qcow2 64M
+mkdir -p /block
+nbdfuse /block/nbd0 --socket-activation qemu-nbd -f qcow2 /working/core-image.qcow2 & 
 ```
 
 ```
-nbdfuse /working/core-disk nbd://localhost
+fusermount3 -u dir
+rmdir dir
 ```
 
 
-nbdfuse block/disk.raw \
-   --socket-activation qemu-nbd -f qcow2 core-image.img & 
+
+---
+```
+guestfish -N core-image.qcow2=fs:ext4:64M:mbr exit
+guestmount -a /working/core-image.qcow2 -m /dev/sda1 /mnt/tinycore
+
+
+rm -rf /mnt/tinycore/lost+found
+mkdir -p /mnt/tinycore/boot
+mkdir -p /mnt/tinycore/tce/optional
+touch /mnt/tinycore/tce/onboot.lst
+grub-install --boot-directory=/mnt/tinycore/boot
+cp /mnt/cdrom/boot/vmlinuz
+```
