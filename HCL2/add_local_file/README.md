@@ -1,4 +1,4 @@
-# Include a Local Files at Job Runtime
+# Include a Local File at Job Runtime
 
 You can use the HCL2 file function and a runtime variable to include a file in
 your Nomad jobs. **These files should be small because they are stored in the
