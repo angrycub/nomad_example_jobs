@@ -1,13 +1,19 @@
-## Use HCL2 to make re-runnable batch jobs
+# Use HCL2 to make re-runnable batch jobs
 
 Nomad will refuse to run a batch job again unless it detects a change to the job.
-You can make extraneous changes to the job using the `meta` stanza.
-Using HCL2's `uuidv4()` function provides a suitable random value.
+This behavior exists to prevent duplicate job submissions from creating unnecessary
+work—unchanged jobs are "the same job" to Nomad. A Nomad job's `meta` stanza is
+an ideal place to make changes to a Nomad job that do not change the behavior of
+the job itself. Some ways to provide variation in a meta value are using an HCL2
+variable or the `uuidv4()` function.
 
-- `before.nomad` - demonstrates the normal behavior.
-- `uuid.nomad` - demonstrates a fix using a random UUID.
-- `variable.nomad` - demonstrates a middle-ground solution using a variable.
+- [`before.nomad`] — Demonstrates the normal behavior.
 
+- [`uuid.nomad`] — Use a random UUID to change the job every time it is run. This
+  guarantees that Nomad will always run the submitted job.
+
+- [`variable.nomad`] — Submit a variable at runtime. This can preserve the single
+  run behavior in cases where the job submission is a duplicate.
 
 ## Nomad's default behavior
 
@@ -92,9 +98,11 @@ If your job should always run you can use one of the following
 techniques to inject variation in ways that don't require you
 to alter the job files contents.
 
-## Using a UUID as an ever-changing value
+## Techniques
 
-```
+### Use a UUID as an ever-changing value
+
+```text
 $ nomad run uuid.nomad 
 ==> Monitoring evaluation "27fe0c84"
     Evaluation triggered by job "uuid.nomad"
@@ -104,7 +112,7 @@ $ nomad run uuid.nomad
 ==> Evaluation "27fe0c84" finished with status "complete"
 ```
 
-```
+```text
 $ nomad alloc status 6de
 ID                  = 6de97aa7-e6b1-c6bf-e8e0-16d5f7ed39bf
 Eval ID             = 27fe0c84
@@ -140,14 +148,14 @@ Time                       Type        Description
 2021-05-18T14:07:31-04:00  Received    Task received by client
 ```
 
-```
+```text
 $ nomad status          
 ID            Type     Priority  Status   Submit Date
 uuid.nomad    batch    50        dead     2021-05-18T14:07:30-04:00
 before.nomad  batch    50        dead     2021-05-18T14:03:00-04:00
 ```
 
-```
+```text
 $ nomad run uuid.nomad
 ==> Monitoring evaluation "2943fe82"
     Evaluation triggered by job "uuid.nomad"
@@ -157,13 +165,13 @@ $ nomad run uuid.nomad
 ==> Evaluation "2943fe82" finished with status "complete"
 ```
 
-## Variables
+### Use an HCL2 variable
 
 Using a variable can allow you to leverage Nomad's default behavior
-of not running unchanged work, but also to easily provide a change
-to the job without requiring a round trip to source control.
+of not running unchanged work, but also to provide a change to the
+job without requiring a round trip to source control.
 
-```
+```text
 $ nomad run -var run_index=1 variable.nomad
 ==> Monitoring evaluation "454f6fb4"
     Evaluation triggered by job "variable.nomad"
@@ -173,7 +181,7 @@ $ nomad run -var run_index=1 variable.nomad
 ==> Evaluation "454f6fb4" finished with status "complete"
 ```
 
-```
+```text
 $ nomad alloc status 74f                    
 ID                  = 74f9cbf5-a793-5022-c831-b83e31712725
 Eval ID             = 454f6fb4
@@ -209,7 +217,7 @@ Time                       Type        Description
 2021-05-18T14:21:24-04:00  Received    Task received by client
 ```
 
-```
+```text
 $ nomad status          
 ID              Type   Priority  Status  Submit Date
 variable.nomad  batch  50        dead    2021-05-18T14:21:23-04:00
@@ -217,7 +225,7 @@ variable.nomad  batch  50        dead    2021-05-18T14:21:23-04:00
 
 Resubmit the job with the same run_index value [1].
 
-```
+```text
 $ nomad run -var run_index=1 variable.nomad      
 ==> Monitoring evaluation "4d7064ea"
     Evaluation triggered by job "variable.nomad"
@@ -229,7 +237,8 @@ $ nomad run -var run_index=1 variable.nomad
 Note that Nomad does not re-run the job. Now, change the
 run_index value to `2` and run the command again.
 
-```
+```text
+>>>>>>> main
 $ nomad run -var run_index=2 variable.nomad
 ==> Monitoring evaluation "73e7902f"
     Evaluation triggered by job "variable.nomad"
@@ -240,3 +249,11 @@ $ nomad run -var run_index=2 variable.nomad
 ```
 
 Nomad runs a fresh allocation of the batch job.
+
+## Clean up
+
+Run `nomad job stop variable.nomad` to stop the job.
+
+[`before.nomad`]: ./before.nomad
+[`uuid.nomad`]: ./uuid.nomad
+[`variable.nomad`]: ./variable.nomad

@@ -1,0 +1,16 @@
+This is the input file content
+
+Particularly evil stuff:
+
+Single quotes: 'hello'
+Double quotes: "howdy"
+Go-template: {{ "hello" }}
+Backticks: `this is a raw-string in go, but raw strings can't be in rawstrings`
+JSON:
+{
+	"object": {
+		"foo": true,
+		"bar": 5,
+		"baz": [1,2,3]
+	}
+}
