@@ -1,19 +1,19 @@
-# Use HCL2 to Make Rerunnable Batch Jobs
+# Use HCL2 to make re-runnable batch jobs
 
 Nomad will refuse to run a batch job again unless it detects a change to the job.
 This behavior exists to prevent duplicate job submissions from creating unnecessary
 work—unchanged jobs are "the same job" to Nomad. A Nomad job's `meta` stanza is
 an ideal place to make changes to a Nomad job that do not change the behavior of
-the job itself. Some ways to provide variation in a meta value are using an HCL2 variable or the `uuidv4()` function.
+the job itself. Some ways to provide variation in a meta value are using an HCL2
+variable or the `uuidv4()` function.
 
 - [`before.nomad`] — Demonstrates the normal behavior.
 
 - [`uuid.nomad`] — Use a random UUID to change the job every time it is run. This
   guarantees that Nomad will always run the submitted job.
- 
+
 - [`variable.nomad`] — Submit a variable at runtime. This can preserve the single
   run behavior in cases where the job submission is a duplicate.
-
 
 ## Nomad's default behavior
 
@@ -225,7 +225,7 @@ variable.nomad  batch  50        dead    2021-05-18T14:21:23-04:00
 
 Resubmit the job with the same run_index value [1].
 
-```
+```text
 $ nomad run -var run_index=1 variable.nomad      
 ==> Monitoring evaluation "4d7064ea"
     Evaluation triggered by job "variable.nomad"
@@ -238,6 +238,7 @@ Note that Nomad does not re-run the job. Now, change the
 run_index value to `2` and run the command again.
 
 ```text
+>>>>>>> 02e089a (Fix merge conflict)
 $ nomad run -var run_index=2 variable.nomad
 ==> Monitoring evaluation "73e7902f"
     Evaluation triggered by job "variable.nomad"
@@ -248,6 +249,10 @@ $ nomad run -var run_index=2 variable.nomad
 ```
 
 Nomad runs a fresh allocation of the batch job.
+
+## Clean up
+
+Run `nomad job stop variable.nomad` to stop the job.
 
 [`before.nomad`]: ./before.nomad
 [`uuid.nomad`]: ./uuid.nomad
