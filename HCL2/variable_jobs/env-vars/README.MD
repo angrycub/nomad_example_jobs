@@ -8,6 +8,7 @@ CLI. This can be a very powerful feature when paired with [`direnv`],
 ## Run the sample
 
 ### Read in the environment variables
+
 ```bash
 source ./env.vars
 ```
@@ -15,6 +16,7 @@ source ./env.vars
 ```bash
 nomad job run job1.nomad
 ```
+
 Nomad will start a Redis 3 container
 
 ```bash

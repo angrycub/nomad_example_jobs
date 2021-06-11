@@ -1,15 +1,18 @@
 # Decode the contents of an external file into a `local` variable
 
-The HCL2 `file` function when paired with the `jsondecode` or `yamldecode` function enables you to externalize shared configuration elements for Nomad jobs to a JSON or YAML file.
+The HCL2 `file` function when paired with the `jsondecode` or `yamldecode`
+function enables you to externalize shared configuration elements for Nomad jobs
+to a JSON or YAML file.
 
-This example contains two jobs that read the `env.json` file to and use values from it to configure the Nomad job during submission from the CLI.
-
+This example contains two jobs that read the `env.json` file to and use values
+from it to configure the Nomad job during submission from the CLI.
 
 ## Run the examples
 
 ```bash
 nomad job run -var="config=env.json" job1.nomad
 ```
+
 Nomad will start a Redis 3 container
 
 ```bash
