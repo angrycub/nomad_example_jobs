@@ -39,7 +39,7 @@ export ALLOCATION_ID=«allocation id from the output above»
 ### Connect to the job
 
 ```
-nomad alloc exec -task=2001 /bin/sh
+nomad alloc exec -task=2001 $ALLOCATION_ID /bin/sh
 ```
 
 
