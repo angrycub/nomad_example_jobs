@@ -13,8 +13,7 @@ job "scratch" {
 
     task "2001" {
       driver = "docker"
-      user = "2001"
-      group = "12001"
+      user = "2001:12001"
 
       config {
         image   = "alpine:latest"
@@ -30,8 +29,7 @@ job "scratch" {
 
     task "2002" {
       driver = "docker"
-      user = "2002"
-      group = "12001"
+      user = "2002:12001"
 
       config {
         image   = "alpine:latest"
