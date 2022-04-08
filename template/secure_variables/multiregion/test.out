@@ -1,0 +1,25 @@
+-- dc1 --
+[
+  {
+    "Namespace": "default",
+    "Path": "test",
+    "CreateIndex": 27,
+    "ModifyIndex": 36,
+    "CreateTime": 1661479577849684000,
+    "ModifyTime": 1661479936710065000
+  }
+]
+map[region-dc1:foo]
+
+-- global --
+[
+  {
+    "Namespace": "default",
+    "Path": "test",
+    "CreateIndex": 22,
+    "ModifyIndex": 22,
+    "CreateTime": 1661479585837614000,
+    "ModifyTime": 1661479585837614000
+  }
+]
+map[region-global:foo]

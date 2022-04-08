@@ -10,6 +10,7 @@ This example contains two jobs that read the `env.json` file to and use values f
 ```bash
 nomad job run -var="config=env.json" job1.nomad
 ```
+
 Nomad will start a Redis 3 container
 
 ```bash

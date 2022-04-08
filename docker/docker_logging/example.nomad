@@ -1,15 +1,21 @@
 job "example" {
   datacenters = ["dc1"]
-  type = "service"
+
   group "cache" {
-    count = 1
+    network {
+      port "db" {
+        to = 6379
+      }
+    }
+
     task "redis" {
       driver = "docker"
+
       config {
-        image = "redis:3.2"
-        port_map {
-          db = 6379
-        }
+        image          = "redis:7"
+        ports          = ["db"]
+        auth_soft_fail = true
+
         logging {
           type = "journald"
           config {
@@ -17,21 +23,10 @@ job "example" {
           }
         }
       }
+
       resources {
-        network {
-          port "db" {}
-        }
-      }
-      service {
-        name = "global-redis-check"
-        tags = ["global", "cache"]
-        port = "db"
-        check {
-          name     = "alive"
-          type     = "tcp"
-          interval = "10s"
-          timeout  = "2s"
-        }
+        cpu    = 500
+        memory = 256
       }
     }
   }

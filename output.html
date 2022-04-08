@@ -1,0 +1,493 @@
+<html><head><title>Nomad Job Tester Output</title>
+<style>
+body {
+  font-family: Helvetica, sans-serif;
+}
+.out {
+    white-space: pre-wrap;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+</head>
+<body>
+<table border="1" width="100%" id="results">
+<thead><tr><th></th><th>Filename</th><th>Output</th></tr></thead>
+<tbody>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/add_local_file/raw_file_b64.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/add_local_file/raw_file_b64.nomad:
+<nil>: Unset variable "input_file"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/add_local_file/raw_file_delims.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/add_local_file/raw_file_delims.nomad:
+<nil>: Unset variable "input_file"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/add_local_file/raw_file_json.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/add_local_file/raw_file_json.nomad:
+<nil>: Unset variable "input_file"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/add_local_file/use_file.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/add_local_file/use_file.nomad:
+<nil>: Unset variable "input_file"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./HCL2/always_change/before.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./HCL2/always_change/uuid.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/always_change/variable.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/always_change/variable.nomad:
+<nil>: Unset variable "run_index"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./HCL2/dynamic/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/variable_jobs/decode-external-file/job1.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/variable_jobs/decode-external-file/job1.nomad:
+<nil>: Unset variable "config_file"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/variable_jobs/decode-external-file/job2.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/variable_jobs/decode-external-file/job2.nomad:
+<nil>: Unset variable "config_file"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/variable_jobs/env-vars/job1.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/variable_jobs/env-vars/job1.nomad:
+<nil>: Unset variable "datacenters"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.
+<nil>: Unset variable "docker_image_job1"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/variable_jobs/env-vars/job2.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/variable_jobs/env-vars/job2.nomad:
+<nil>: Unset variable "datacenters"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.
+<nil>: Unset variable "docker_image_job2"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/variable_jobs/job.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/variable_jobs/job.nomad:
+<nil>: Unset variable "docker_image"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.
+<nil>: Unset variable "image_version"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/variable_jobs/multiple-var-files/job1.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/variable_jobs/multiple-var-files/job1.nomad:
+<nil>: Unset variable "datacenters"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.
+<nil>: Unset variable "docker_image"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.
+<nil>: Unset variable "image_version_job1"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/variable_jobs/multiple-var-files/job2.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/variable_jobs/multiple-var-files/job2.nomad:
+<nil>: Unset variable "datacenters"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.
+<nil>: Unset variable "docker_image"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.
+<nil>: Unset variable "image_version_job2"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./HCL2/variable_jobs/multiple-var-files/job3.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./HCL2/variable_jobs/multiple-var-files/job3.nomad:
+<nil>: Unset variable "image_version_job3"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.
+<nil>: Unset variable "datacenters"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.
+<nil>: Unset variable "docker_image"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./alloc_folder/mount_alloc.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./alloc_folder/sidecar.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/artifactory_oss/registry.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/docker_registry/registry.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/docker_registry_v2/registry.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/docker_registry_v3/registry.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/mariadb/mariadb.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/membrane-soa/soap-proxy-v1-linux.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/membrane-soa/soap-proxy-v1-windows.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/membrane-soa/soap-proxy.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/minio/minio.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/minio/secure-variables/minio.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/postgres/postgres.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/prometheus/fabio-service.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/prometheus/node-exporter.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/prometheus/prometheus.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/vms/freedos/freedos.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/vms/tinycore/tc_ssh.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./applications/wordpress/distributed/build-site.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./applications/wordpress/distributed/build-site.nomad:
+build-site.nomad:22,5-6: Invalid character; This character is not used within the language., and 15 other diagnostic(s)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/wordpress/distributed/nginx.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/wordpress/distributed/wordpress-db.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./applications/wordpress/distributed/wordpress.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./applications/wordpress/distributed/wordpress.nomad:
+<nil>: Unset variable "site_name"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./applications/wordpress/simple/wordpress.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./artifact_sleepyecho/artifact_sleepyecho.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./artifact_sleepyecho/vault_sleepyecho.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy1.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy1.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy10.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy10.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy2.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy2.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy3.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy3.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy4.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy4.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy5.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy5.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy6.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy6.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy7.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy7.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy8.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy8.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/dispatch/sleepy9.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy9.nomad:17,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./batch/dont_restart_fail/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/lost_batch/batch.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+batch.nomad:6,27-35: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./batch/lost_batch/periodic.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./batch/periodic/prohibit-overlap.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./batch/periodic/template.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/spread_batch/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example.nomad:4,5-6: Invalid argument name; Argument names must not be quoted.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./batch/spread_batch/example2.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example2.nomad:4,5-6: Invalid argument name; Argument names must not be quoted.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./batch_overload/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./batch_overload/periodic.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./blocked_eval/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./cni/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./complex_meta/template_env.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./complex_meta/template_meta.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+template_meta.nomad:7,2-3: Invalid argument name; Argument names must not be quoted.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./connect/consul.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./connect/dns-via-mesh/consul-dns.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./connect/dns-via-mesh/consul-dns2.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./connect/ingress_gateways/ingress_gateway.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+ingress_gateway.nomad:29,9-10: Invalid argument name; Argument names must not be quoted.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./connect/native/cn-demo.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./connect/nginx_ingress/countdash.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./connect/nginx_ingress/ingress.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./connect/sidecar/countdash.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./connect/sidecar/countdash2.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./consul/add_check/e1.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./consul/add_check/e2.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./consul/add_check/e3.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+e3.nomad:5,5-6: Invalid argument name; Argument names must not be quoted.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./consul/use_consul_for_kv_path/template.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./consul-template/coordination/sample.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sample.nomad:19,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./consul-template/missing_vault_value/sample.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sample.nomad:27,31-34: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./consul-template/my_first_kv/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example.nomad:18,19-28: Argument definition required; A single-line block definition can contain only a single argument. If you meant to define argument "network", use an equals sign to assign it a value. To define a nested block, place it on a line of its own within its parent block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./countdash/connect/countdash.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./countdash/simple/countdash.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./csi/aws/ebs/busybox.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error during plan: Unexpected response code: 500 (1 error occurred:
+	* Task group mysql validation failed: 1 error occurred:
+	* Task group volume validation for mysql failed: 2 errors occurred:
+	* CSI volumes must have an attachment mode
+	* CSI volumes must have an access mode)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./csi/aws/ebs/mysql-server.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error during plan: Unexpected response code: 500 (1 error occurred:
+	* Task group mysql-server validation failed: 1 error occurred:
+	* Task group volume validation for mysql failed: 2 errors occurred:
+	* CSI volumes must have an attachment mode
+	* CSI volumes must have an access mode)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./csi/aws/ebs/plugin-ebs-controller.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./csi/aws/ebs/plugin-ebs-nodes.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./csi/aws/efs/busybox.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error during plan: Unexpected response code: 500 (1 error occurred:
+	* Task group group validation failed: 1 error occurred:
+	* Task group volume validation for jobVolume failed: 2 errors occurred:
+	* CSI volumes must have an attachment mode
+	* CSI volumes must have an access mode)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./csi/aws/efs/node.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./csi/gcp/gce-pd/config.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./csi/gcp/gce-pd/config.nomad:
+config.nomad:1,1-7: Unsupported block type; Blocks of type "plugin" are not expected here.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./csi/gcp/gce-pd/controller.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+controller.nomad:13,12-13: Invalid argument name; Argument names must not be quoted.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./csi/gcp/gce-pd/job.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error during plan: Unexpected response code: 500 (1 error occurred:
+	* Task group alloc validation failed: 1 error occurred:
+	* Task group volume validation for jobVolume failed: 2 errors occurred:
+	* CSI volumes must have an attachment mode
+	* CSI volumes must have an access mode)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./csi/gcp/gce-pd/nodes.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+nodes.nomad:13,13-14: Argument or block definition required; An argument or block definition is required here.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./csi/hetzner/volume/config.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./csi/hetzner/volume/config.nomad:
+config.nomad:1,1-7: Unsupported block type; Blocks of type "plugin" are not expected here.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./csi/hetzner/volume/job.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error during plan: Unexpected response code: 500 (1 error occurred:
+	* Task group alloc validation failed: 1 error occurred:
+	* Task group volume validation for jobVolume failed: 2 errors occurred:
+	* CSI volumes must have an attachment mode
+	* CSI volumes must have an access mode)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./csi/hetzner/volume/node.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./csi/hostpath/csi-hostpath-driver.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./csi/hostpath/job.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error during plan: Unexpected response code: 500 (1 error occurred:
+	* Task group alloc validation failed: 1 error occurred:
+	* Task group volume validation for jobVolume failed: 2 errors occurred:
+	* CSI volumes must have an attachment mode
+	* CSI volumes must have an access mode)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./deployments/failing_deployment/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/auth_from_template/auth.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/datadog/container_network.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+container_network.nomad:8,51-52: Unexpected comma after argument; Argument definitions must be separated by newlines, not commas. An argument definition must end with a newline.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/datadog/ex3.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+ex3.nomad:8,51-52: Unexpected comma after argument; Argument definitions must be separated by newlines, not commas. An argument definition must end with a newline.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/datadog/example2.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example2.nomad:8,51-52: Unexpected comma after argument; Argument definitions must be separated by newlines, not commas. An argument definition must end with a newline.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/docker+host_volume/task_deps.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+task_deps.nomad:25,26-32: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition., and 1 other diagnostic(s)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/docker+host_volume/unsafe.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+unsafe.nomad:26,1-27,1: Invalid single-argument block definition; An argument definition on the same line as its containing block creates a single-line block definition, which must also be closed on the same line. Place the block's closing brace immediately after the argument definition., and 1 other diagnostic(s)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/docker_dynamic_hostname/finished.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/docker_entrypoint/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/docker_image_not_found/reschedule.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/docker_image_not_found/restart.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+restart.nomad:4,5-6: Invalid argument name; Argument names must not be quoted.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/docker_interpolated_image_name/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/docker_interpolated_image_name/hostname.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/docker_logging/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/docker_mac_address/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/docker_network/example1.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error during plan: Unexpected response code: 500 (1 error occurred:
+	* Task group cache validation failed: 1 error occurred:
+	* Task 2 redefines 'redis' from task 1)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/docker_network/example2.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/docker_nfs/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example.nomad:15,28-29: Missing key/value separator; Expected an equals sign ("=") to mark the beginning of the attribute value., and 2 other diagnostic(s)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/docker_template/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example.nomad:22,28-29: Missing key/value separator; Expected an equals sign ("=") to mark the beginning of the attribute value., and 1 other diagnostic(s)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/docker_twice_in_alloc/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example.nomad:10,19-28: Argument definition required; A single-line block definition can contain only a single argument. If you meant to define argument "network", use an equals sign to assign it a value. To define a nested block, place it on a line of its own within its parent block., and 1 other diagnostic(s)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/docker_windows_abs_mount/repro.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/get_fact_from_consul/args.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./docker/get_fact_from_consul/image.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/host-volumes-and-users/scratch.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./docker/host-volumes-and-users/scratch.nomad:
+scratch.nomad:17,7-12: Unsupported argument; An argument named "group" is not expected here.
+scratch.nomad:34,7-12: Unsupported argument; An argument named "group" is not expected here.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/labels/heredoc.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+heredoc.nomad:15,11-14: Argument or block definition required; An argument or block definition is required here. To set an argument, use the equals sign "=" to introduce the argument value.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/labels/interpolation.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+interpolation.nomad:32,11-14: Argument or block definition required; An argument or block definition is required here. To set an argument, use the equals sign "=" to introduce the argument value.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./docker/labels/literal.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+literal.nomad:11,11-12: Invalid argument name; Argument names must not be quoted.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./docker/mount_alloc/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "cache" has warnings: 2 errors occurred:
+	* 1 error occurred:
+	* Task "redis2": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.
+	* 1 error occurred:
+	* Task "redis": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./drain/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./dummy/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./echo_stack/fabio-system.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./echo_stack/login-service.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./echo_stack/profile-service.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./environment/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./exec/host-volumes-and-users/scratch.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./exec-zip/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./fabio/fabio-docker.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./fabio/fabio-service.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./fabio/fabio-system.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./fabio-ssl/fabio-ssl.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "fabio" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "fabio": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./failing_jobs/failing_sidecar/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example.nomad:11,19-28: Argument definition required; A single-line block definition can contain only a single argument. If you meant to define argument "network", use an equals sign to assign it a value. To define a nested block, place it on a line of its own within its parent block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./failing_jobs/impossible_constratint/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./giant/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example.nomad:5,35-41: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./host_volume/mariadb/mariadb.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+mariadb.nomad:5,35-41: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./host_volume/prometheus/prometheus.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+prometheus.nomad:12,39-45: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition., and 2 other diagnostic(s)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./host_volume/read_only/read_only.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+read_only.nomad:5,34-40: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./http_echo/arm-service.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./http_echo/bar-service.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./http_echo/car-service-broken-check.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./http_echo/foo-service.deployment.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+foo-service.deployment.nomad:11,7-8: Invalid argument name; Argument names must not be quoted.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./http_echo/foo-service.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./http_echo/foo-test.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./http_echo/template/echo_template.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./http_echo/template/ets.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./http_echo/template/ets2.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./http_echo/template/ets3.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./httpd_site/httpd.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./ipv6/SimpleHTTPServer/sample.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sample.nomad:36,31-34: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./java/JavaDriverTest/java-driver-test.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./java/JavaDriverTest/test2.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./java/apache_camel/java_files.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+java_files.nomad:2,24-25: Unexpected comma after argument; Argument definitions must be separated by newlines, not commas. An argument definition must end with a newline.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./java/jar-test/jar-test.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./job_examples/base-batch.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./job_examples/meta/meta-batch.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+meta-batch.nomad:8,5-6: Invalid argument name; Argument names must not be quoted.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./json-jobs/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./load_balancers/traefik/traefik.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "traefik" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "traefik": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./load_balancers/traefik/webapp.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "demo" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "server": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./load_balancers/traefik/webapp2.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "demo" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "server": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./meta/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./microservice/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example.nomad:49,9-17: Argument or block definition required; An argument or block definition is required here. To set an argument, use the equals sign "=" to introduce the argument value.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./minecraft/minecraft.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+minecraft.nomad:40,30-31: Unexpected comma after argument; Argument definitions must be separated by newlines, not commas. An argument definition must end with a newline.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./minecraft/minecraft_exec.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./minecraft/plugin.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./monitoring/sensu/fabio-docker.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./monitoring/sensu/sensu.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./nginx-fabio-clone/bar-service.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./nginx-fabio-clone/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./nginx-fabio-clone/foo-service.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./oom/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./parameterized/docker_hello_world/hello-world.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./parameterized/template.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./parameterized/to_specific_client/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./parameterized/to_specific_client/workaround/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./parameterized/to_specific_client/workaround/example.nomad:
+<nil>: Unset variable "node_id"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./ports/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./qemu/hass/hass.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+hass.nomad:24,26-27: Unexpected comma after argument; Argument definitions must be separated by newlines, not commas. An argument definition must end with a newline.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./qemu/tc_ssh.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./qemu/tc_ssh2.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./qemu/tc_ssh_arm.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./raw_exec/env.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./raw_exec/mkdir/mkdir-bash.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./raw_exec/mkdir/mkdir.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./raw_exec/ps.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./raw_exec/quoted_args/quoted_args.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./raw_exec/quoted_args/quoted_args_2.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./raw_exec/user/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./reproductions/cpu_rescheduling/repro.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./reschedule/ex.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./restart/restart.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+restart.nomad:32,13-14: Missing key/value separator; Expected an equals sign ("=") to mark the beginning of the attribute value.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./rolling_upgrade/cv-new.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./rolling_upgrade/cv.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./rolling_upgrade/example-new.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./rolling_upgrade/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./sentinel/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example.nomad:5,44-49: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./sentinel/exampleGroupMissingNodeClass.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+exampleGroupMissingNodeClass.nomad:24,46-51: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./sentinel/exampleGroupNodeClass.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+exampleGroupNodeClass.nomad:7,47-52: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./sentinel/exampleJobNodeClass.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+exampleJobNodeClass.nomad:5,44-49: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./sentinel/exampleNoNodeClass.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "cache" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "redis": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./server-variables/build-site.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./server-variables/build-site.nomad:
+build-site.nomad:22,5-6: Invalid character; This character is not used within the language., and 15 other diagnostic(s)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./server-variables/nginx.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./server-variables/wordpress-db.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./server-variables/wordpress.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./server-variables/wordpress.nomad:
+<nil>: Unset variable "site_name"; A used variable must be set or have a default value; see https://www.nomadproject.io/docs/job-specification/hcl2/variables for details.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./sleepy/sleepy_bash/sleepy.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./sleepy/sleepy_python/batch_sleepy_python.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "group" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "python": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./sleepy/sleepy_python/sleepy_python.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./spread/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./stress/cpu_throttled_time/stress.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "cache" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "redis": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./super_big/super_big.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./super_big/super_big2.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "cache" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "redis": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./system_jobs/sleepy/sleepy_bash/sleepy.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+sleepy.nomad:18,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./system_jobs/sleepy/sleepy_python/batch_sleepy_python.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "group" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "python": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./system_jobs/sleepy/sleepy_python/sleepy_python.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./system_jobs/system_deployment/deploy_jdk.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./system_jobs/system_deployment/fabio-system.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "linux-amd64" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "fabio": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./system_jobs/system_deployment/foo-system.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "example" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "server": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./system_jobs/system_filter/filtered.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./system_jobs/system_filter/host_vol.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./task_deps/consul-lock/myapp.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./task_deps/disk_check/disk.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./task_deps/init_artifact/batch-init-artifact.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+batch-init-artifact.nomad:38,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./task_deps/init_artifact/service-init-artifact.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+service-init-artifact.nomad:38,24-25: Extra characters after interpolation expression; Expected a closing brace to end the interpolation expression, but found extra characters.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./task_deps/interjob/myapp.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./task_deps/interjob/myservice.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./task_deps/k8sdoc/init.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./task_deps/k8sdoc/init.nomad:
+init.nomad:19,7-14: Argument or block definition required; An argument or block definition is required here. To set an argument, use the equals sign "=" to introduce the argument value.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./task_deps/k8sdoc/k8sdoc1.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./task_deps/k8sdoc/myapp.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./task_deps/k8sdoc/myservice.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./task_deps/notebook/mysql.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./task_deps/notebook/mysql.nomad:
+<nil>: Missing job block; A job block is required</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./task_deps/notebook/notebook.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./task_deps/notebook/notebook.nomad:
+<nil>: Missing job block; A job block is required</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./task_deps/sidecar/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "cache" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "redis": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./task_deps/sidecar/poo.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "cache" has warnings: 1 error occurred:
+	* 1 error occurred:
+	* Task "redis": task network resources have been deprecated as of Nomad 0.12.0. Please configure networking via group network block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/batch/context.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/batch/parameter.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/batch/services.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+services.nomad:1,40-2,1: Invalid single-argument block definition; An argument definition on the same line as its containing block creates a single-line block definition, which must also be closed on the same line. Place the block's closing brace immediately after the argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/batch/template.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/from_consul/artifact.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/from_consul/init.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./template/from_consul/init.nomad:
+<nil>: Missing job block; A job block is required</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/from_consul/issue.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/rerender/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/secure_variables/example.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/secure_variables/multiregion/template.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/secure_variables/template-playground.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/secure_variables/variable_view.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Error parsing job file from ./template/secure_variables/variable_view.nomad:
+variable_view.nomad:44,16-21: Error in function call; Call to function "file" failed: no file exists at template.tmpl.
+variable_view.nomad:44,16-21: Unsuitable value type; Unsuitable value: value must be known</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/services/byTag.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+byTag.nomad:7,19-28: Argument definition required; A single-line block definition can contain only a single argument. If you meant to define argument "network", use an equals sign to assign it a value. To define a nested block, place it on a line of its own within its parent block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/template-system/composed_keys.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+composed_keys.nomad:7,19-28: Argument definition required; A single-line block definition can contain only a single argument. If you meant to define argument "network", use an equals sign to assign it a value. To define a nested block, place it on a line of its own within its parent block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/template-system/services-on-nomad-client.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+services-on-nomad-client.nomad:6,30-33: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/template-system/template.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+template.nomad:6,30-33: Invalid single-argument block definition; A single-line block definition must end with a closing brace immediately after its single argument definition.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/template_handoff/handoff.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/template_handoff/handoff_restart.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/template_into_docker/example.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+example.nomad:28,26-27: Missing key/value separator; Expected an equals sign ("=") to mark the beginning of the attribute value.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/template_playground/composed_keys.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+composed_keys.nomad:7,19-28: Argument definition required; A single-line block definition can contain only a single argument. If you meant to define argument "network", use an equals sign to assign it a value. To define a nested block, place it on a line of its own within its parent block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/template_playground/template-exec.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+template-exec.nomad:17,19-28: Argument definition required; A single-line block definition can contain only a single argument. If you meant to define argument "network", use an equals sign to assign it a value. To define a nested block, place it on a line of its own within its parent block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./template/template_playground/template-hcl2.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/template_playground/template.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+template.nomad:7,19-28: Argument definition required; A single-line block definition can contain only a single argument. If you meant to define argument "network", use an equals sign to assign it a value. To define a nested block, place it on a line of its own within its parent block., and 2 other diagnostic(s)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./template/use_whitespace/byTag.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error getting job struct: Failed to parse using HCL 2. Use the HCL 1 parser with `nomad run -hcl1`, or address the following issues:
+byTag.nomad:7,19-28: Argument definition required; A single-line block definition can contain only a single argument. If you meant to define argument "network", use an equals sign to assign it a value. To define a nested block, place it on a line of its own within its parent block.</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./vault/deleted_policy/temp1.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./vault/deleted_policy/workload.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./vault/pki/sleepy_bash_pki.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./vault/pki/test.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./vault/root_policy/sleepy_bash.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🔴</td><td width="25%">./vault/root_policy/test.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Error during plan: Unexpected response code: 500 (1 error occurred:
+	* Task group group validation failed: 1 error occurred:
+	* Task sleepy-bash validation failed: 1 error occurred:
+	* Vault validation failed: 1 error occurred:
+	* Can not specify "root" policy)</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./vault/sleepy_vault_bash/sleepy_bash.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./vault/sleepy_vault_bash/test.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./vault_reload_triggered_by_consul/sample.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./victoriametrics/vm.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./win_rawexec_restart/artifact_sleepyecho.nomad</td><td></td></tr>
+<tr><td style="width: 2em;" align="center">🟡</td><td width="25%">./windows_docker/docker-iis.nomad</td><td><details><summary>Show Output</summary><pre class=out><code>Job Warnings:
+1 warning(s):
+* Group "windows" has warnings: 1 error occurred:
+	* mbits has been deprecated as of Nomad 0.12.0. Please remove mbits from the network block</code></pre></details></td></tr>
+<tr><td style="width: 2em;" align="center">✅</td><td width="25%">./windows_docker/windows-test.nomad</td><td></td></tr>
+</tbody>
+</table>
+<script>
+$(document).ready( function () {
+    $('#results').DataTable({
+      paging: false
+    });
+} );
+</script>

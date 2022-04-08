@@ -2,22 +2,17 @@ job "example" {
   datacenters = ["dc1"]
 
   group "cache" {
-    task "nginx" {
-      template {
-        destination = "conf.js"
-
-        data = <<EOH
-window.env = {
-  apiUrl: "http://example.com/api
-}
-EOH
+    network {
+      port "http" {
+        to = 80
       }
-
+    }
+    task "nginx" {
       driver = "docker"
 
       config {
         image = "nginx:alpine"
-
+        ports = ["http"]
         mounts = [
           {
             type     = "bind"
@@ -30,20 +25,15 @@ EOH
             }
           },
         ]
-
-        port_map {
-          http = 80
-        }
       }
 
-      resources {
-        cpu    = 500
-        memory = 256
-
-        network {
-          mbits = 10
-          port  "http"{}
-        }
+      template {
+        destination = "conf.js"
+        data        = <<EOH
+window.env = {
+  apiUrl: "http://example.com/api
+}
+EOH
       }
     }
   }

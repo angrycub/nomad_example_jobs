@@ -7,6 +7,7 @@
 #----------------------------------------------------------------------------
 variable "config_file" {
   type = string
+  description = "Path to JSON formatted shared job configuration."
 }
 
 locals {

@@ -1,53 +1,72 @@
 job "foo-service" {
   datacenters = ["dc1"]
 
+  meta {
+    foo-service = "true"
+  }
+
   group "example" {
     count = 3
-    meta { "foo"="bar" }
-    update {
-    max_parallel = 1
-    min_healthy_time = "10s"
-    healthy_deadline = "3m"
-    auto_revert = false
-    canary = 1
+    meta {
+      "foo"="bar"
     }
-    task "server" {
-      artifact {
-        source      = "https://github.com/hashicorp/http-echo/releases/download/v0.2.3/http-echo_0.2.3_linux_amd64.tar.gz" 
-        options {
-          checksum = "sha256:e30b29b72ad5ec1f6dfc8dee0c2fcd162f47127f2251b99e47b9ae8af1d7b917"
-        }
+
+    update {
+      max_parallel     = 1
+      min_healthy_time = "10s"
+      healthy_deadline = "3m"
+      auto_revert      = false
+      canary           = 1
+    }
+
+    network {
+      port "http" {}
+    }
+
+    service {
+      name = "foo-service"
+      tags = ["urlprefix-/foo"]
+      port = "http"
+      check {
+        type = "http"
+        name = "health-check"
+        interval = "15s"
+        timeout = "5s"
+        path = "/"
       }
+    }
+
+    service {
+      name = "foo-service-2"
+      tags = ["urlprefix-/foo2"]
+      port = "http"
+      check {
+        type = "http"
+        name = "health-check"
+        interval = "15s"
+        timeout = "5s"
+        path = "/"
+      }
+    }
+
+    task "server" {
       driver = "exec"
 
       config {
         command = "http-echo"
-        args = [
+        args    = [
           "-listen", ":${NOMAD_PORT_http}",
           "-text", "<html><body><h1>Welcome to the Foo Service.</h1><hr />You are on ${NOMAD_IP_http}.</body></html>",
         ]
       }
 
-      resources {
-        network {
-          mbits = 10
-          port "http" {}
-        }
-      }
+      artifact {
+        source = "https://github.com/hashicorp/http-echo/releases/download/v0.2.3/http-echo_0.2.3_linux_amd64.tar.gz"
 
-      service {
-        name = "foo-service"
-        tags = ["urlprefix-/foo"]
-        port = "http"
-        check {
-          type = "http"
-          name = "health-check"
-          interval = "15s"
-          timeout = "5s"
-          path = "/"
+        options {
+          checksum = "sha256:e30b29b72ad5ec1f6dfc8dee0c2fcd162f47127f2251b99e47b9ae8af1d7b917"
         }
       }
     }
   }
 }
-

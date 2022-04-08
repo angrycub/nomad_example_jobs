@@ -35,7 +35,7 @@ job "j1" {
       }
 
       artifact {
-        source = "http://10.0.0.166:8000/tinycore.qcow2"
+        source = "http://10.0.0.254:8000/tinycore.qcow2"
         destination = "tinycore.qcow2"
         mode = "file"
       }

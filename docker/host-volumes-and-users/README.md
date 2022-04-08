@@ -30,16 +30,16 @@ to provide more complex file access permissions to your workloads and to share f
 nomad job run scratch.nomad
 ```
 
-### Make an ALLOCATION_ID environment variable
+### Make an ALLOC_ID environment variable
 
 ```
-export ALLOCATION_ID=«allocation id from the output above»
+export ALLOC_ID=«allocation id from the output above»
 ```
 
 ### Connect to the job
 
 ```
-nomad alloc exec -task=2001 /bin/sh
+nomad alloc exec -task=2001 ${ALLOC_ID} /bin/sh
 ```
 
 

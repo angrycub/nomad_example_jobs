@@ -6,8 +6,13 @@ job "template" {
   }
   group "group" {
     count = 1
+    network { 
+      port "export" {} 
+      port "exstat" { 
+        static = 8080 
+      } 
+    } 
     task "command" {
-      resources { network { port "export" {} port "exstat" { static=8080 } } }
       driver = "exec"
       config {
         command = "bash"

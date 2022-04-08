@@ -1,17 +1,26 @@
 job "template" {
   datacenters = ["dc1"]
-  type = "batch"
+  type        = "batch"
+
   group "group" {
-    count = 1
+    network {
+      port "export" {}
+      port "exstat" {
+        static = 8080
+      }
+    }
+
     task "command" {
-      resources { network { port "export" {} port "exstat" { static=8080 } } }
       driver = "exec"
+
       config {
         command = "bash"
-        args = ["-c", "cat local/template.out"]
+        args    = ["-c", "cat local/template.out"]
       }
+
       template {
-        data = <<EOH
+        destination = "local/template.out"
+        data        = <<EOH
 Constructive Play
 {{ printf "%q" ( services | byTag ) }}
 ---
@@ -28,7 +37,7 @@ no services
     {{ end -}}
 {{ end }}
 ---
-Get Service By Tag.  0utput Alternate if None found
+Get Service By Tag.  Output Alternate if None found
 {{ $nomad := service "nomad" | byTag }}
 {{- if eq (len $nomad.notATag) 0 -}}
 no services
@@ -38,7 +47,7 @@ no services
     {{ end -}}
 {{ end }}
 ---
-Get Service By Tag.  0utput Alternate if None found
+Get Service By Tag.  Output Alternate if None found
 {{ $tag := "notATag" }}
 {{ $nomad := service "nomad" | byTag }}
 {{- if eq (len (index $nomad $tag) ) 0 -}}
@@ -51,7 +60,6 @@ no services
 
 EOH
 
-        destination = "local/template.out"
       }
     }
   }

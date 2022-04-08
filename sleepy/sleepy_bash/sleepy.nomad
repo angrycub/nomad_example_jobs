@@ -12,10 +12,10 @@ job sleepy {
 
 task "sleepy.sh" {
       template {
-        data = <<EOH
+        data =<<EOH
 #!/bin/bash
 
-SLEEP_SECS=${SLEEP_SECS:-2} # provide default of 2 seconds
+SLEEP_SECS=$${SLEEP_SECS:-2} # provide default of 2 seconds
 echo "$(date) - Starting. SLEEP_SECS=${SLEEP_SECS}"
 while true; do echo "$(date) - Sleeping for ${SLEEP_SECS} seconds."; sleep ${SLEEP_SECS}; done
 
@@ -24,8 +24,15 @@ EOH
       }
 
       driver = "exec"
-      config { command = "${NOMAD_TASK_DIR}/sleepy.sh" }
-      resources { memory = 100 cpu = 100 }
+ 
+      config {
+        command = "${NOMAD_TASK_DIR}/sleepy.sh"
+      }
+ 
+      resources {
+        memory = 100
+        cpu = 100
+      }
     }
   }
 }

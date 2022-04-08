@@ -19,8 +19,6 @@ job "sensu" {
   }
 
   group "sensu-backend" {
-    count = 1
-
     restart {
       attempts = 2
       interval = "30m"
@@ -28,60 +26,52 @@ job "sensu" {
       mode     = "fail"
     }
 
-    ephemeral_disk {
-      size = 300
+    network {
+      port  "web_ui"{
+        to = 3000
+      }
+
+      port  "api" {
+        to = 8080
+      }
+
+      port  "ws_api"{
+        to = 8081
+      }
+    }
+
+    service {
+      name = "sensu"
+      tags = ["ui", "urlprefix-/sensu strip=/sensu"]
+      port = "web_ui"
+
+      check {
+        name     = "alive"
+        type     = "tcp"
+        interval = "10s"
+        timeout  = "2s"
+      }
     }
 
     task "sensu-docker" {
       driver = "docker"
 
-      env {
-        "SENSU_BACKEND_CLUSTER_ADMIN_USERNAME" = "sensu_admin"
-        "SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD" = "password"
-      }
-
       config {
         image   = "sensu/sensu:latest"
         command = "sensu-backend"
-
-        args = [
+        args    = [
           "start",
           "--state-dir",
           "/var/lib/sensu/sensu-backend",
           "--log-level",
           "debug",
         ]
-
-        port_map {
-          web_ui = 3000
-          api    = 8080
-          ws_api = 8081
-        }
+        ports   = ["web_ui","api","ws_api"]
       }
 
-      resources {
-        cpu    = 500 # 500 MHz
-        memory = 256 # 256MB
-
-        network {
-          mbits = 10
-          port  "web_ui"{}
-          port  "api" {}
-          port  "ws_api"{}
-        }
-      }
-
-      service {
-        name = "sensu"
-        tags = ["ui", "urlprefix-/sensu strip=/sensu"]
-        port = "web_ui"
-
-        check {
-          name     = "alive"
-          type     = "tcp"
-          interval = "10s"
-          timeout  = "2s"
-        }
+      env {
+        SENSU_BACKEND_CLUSTER_ADMIN_USERNAME = "sensu_admin"
+        SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD = "password"
       }
     }
   }

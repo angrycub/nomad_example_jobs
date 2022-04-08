@@ -1,0 +1,2 @@
+{{ nomadVarPut "from/ct@bad" "excite=wow" }}
+{{ with nomadVar "from/ct" }}{{ sprig_toPrettyJson . }}{{end}}

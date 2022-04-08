@@ -1,13 +1,13 @@
 job "template" {
   datacenters = ["dc1"]
   type = "batch"
+
   group "group" {
-    count = 1
-    network { 
-      port "sample" {} 
+    network {
+      port "sample" {}
       port "export" {}
-      port "exstat" { 
-        static=8080 
+      port "exstat" {
+        static=8080
       }
     }
 
@@ -22,14 +22,16 @@ job "template" {
     }
 
     task "template" {
-
       driver = "raw_exec"
+
       config {
         command = "bash"
         args = ["-c", "cat local/template.out"]
       }
+
       template {
-        data = <<EOH
+        destination = "local/template.out"
+        data        = <<EOH
                  node.unique.id: {{ env "node.unique.id" }}
                 node.datacenter: {{ env "node.datacenter" }}
                node.unique.name: {{ env "node.unique.name" }}
@@ -107,8 +109,6 @@ MEMBRANE_HOME={{$MEMBRANE_HOME}}
 
 
 EOH
-
-        destination = "local/template.out"
       }
     }
   }

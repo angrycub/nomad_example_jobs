@@ -7,20 +7,20 @@ an ideal place to make changes to a Nomad job that do not change the behavior of
 the job itself. Some ways to provide variation in a meta value are using an HCL2
 variable or the `uuidv4()` function.
 
-- [`before.nomad`] — Demonstrates the normal behavior.
+- [`before.nomad`]—Demonstrates the normal behavior.
 
-- [`uuid.nomad`] — Use a random UUID to change the job every time it is run. This
+- [`uuid.nomad`]—Use a random UUID to change the job every time it's run. This
   guarantees that Nomad will always run the submitted job.
 
-- [`variable.nomad`] — Submit a variable at runtime. This can preserve the single
+- [`variable.nomad`]—Submit a variable at runtime. This can preserve the single
   run behavior in cases where the job submission is a duplicate.
 
 ## Nomad's default behavior
 
-Run the `before.nomad` job. Nomad will start a copy of the 
-`hello-world:latest` docker container. This container outputs some text and exits.
+Run the `before.nomad` job. Nomad will start a copy of the `hello-world:latest`
+docker container. This container outputs some text and exits.
 
-```
+```text
 $ nomad run before.nomad
 ==> Monitoring evaluation "1fef4d80"
     Evaluation triggered by job "before.nomad"
@@ -32,8 +32,8 @@ $ nomad run before.nomad
 
 Check the status of the allocation created by the run command.
 
-```
-$ nomad alloc status 7eg   
+```text
+$ nomad alloc status 7eg
 ID                  = 7e6a767b-5604-5268-653b-905948928de5
 Eval ID             = 1fef4d80
 Name                = before.nomad.before[0]
@@ -51,7 +51,7 @@ Modified            = 6m45s ago
 Task "hello-world" is "dead"
 Task Resources
 CPU      Memory   Disk     Addresses
-100 MHz  300 MiB  300 MiB  
+100 MHz  300 MiB  300 MiB
 
 Task Events:
 Started At     = 2021-05-18T18:03:10Z
@@ -72,15 +72,15 @@ As expected, the Docker container finished and exited with exit code 0.
 
 Check the status of the job to verify that its status is `dead`.
 
-```
-$ nomad status             
+```text
+$ nomad status
 ID            Type     Priority  Status   Submit Date
 before.nomad  batch    50        dead     2021-05-18T14:03:00-04:00
 ```
 
 Try running the `before.nomad` job again.
 
-```
+```text
 $ nomad run before.nomad
 ==> Monitoring evaluation "a855fa2b"
     Evaluation triggered by job "before.nomad"
@@ -103,7 +103,7 @@ to alter the job files contents.
 ### Use a UUID as an ever-changing value
 
 ```text
-$ nomad run uuid.nomad 
+$ nomad run uuid.nomad
 ==> Monitoring evaluation "27fe0c84"
     Evaluation triggered by job "uuid.nomad"
 ==> Monitoring evaluation "27fe0c84"
@@ -131,7 +131,7 @@ Modified            = 6m50s ago
 Task "hello-world" is "dead"
 Task Resources
 CPU      Memory   Disk     Addresses
-100 MHz  300 MiB  300 MiB  
+100 MHz  300 MiB  300 MiB
 
 Task Events:
 Started At     = 2021-05-18T18:07:33Z
@@ -149,7 +149,7 @@ Time                       Type        Description
 ```
 
 ```text
-$ nomad status          
+$ nomad status
 ID            Type     Priority  Status   Submit Date
 uuid.nomad    batch    50        dead     2021-05-18T14:07:30-04:00
 before.nomad  batch    50        dead     2021-05-18T14:03:00-04:00
@@ -182,7 +182,7 @@ $ nomad run -var run_index=1 variable.nomad
 ```
 
 ```text
-$ nomad alloc status 74f                    
+$ nomad alloc status 74f
 ID                  = 74f9cbf5-a793-5022-c831-b83e31712725
 Eval ID             = 454f6fb4
 Name                = variable.nomad.variable[0]
@@ -200,7 +200,7 @@ Modified            = 6m48s ago
 Task "hello-world" is "dead"
 Task Resources
 CPU      Memory   Disk     Addresses
-100 MHz  300 MiB  300 MiB  
+100 MHz  300 MiB  300 MiB
 
 Task Events:
 Started At     = 2021-05-18T18:21:27Z
@@ -218,15 +218,15 @@ Time                       Type        Description
 ```
 
 ```text
-$ nomad status          
+$ nomad status
 ID              Type   Priority  Status  Submit Date
 variable.nomad  batch  50        dead    2021-05-18T14:21:23-04:00
 ```
 
-Resubmit the job with the same run_index value [1].
+Resubmit the job with the same `run_index` value—`1`.
 
 ```text
-$ nomad run -var run_index=1 variable.nomad      
+$ nomad run -var run_index=1 variable.nomad
 ==> Monitoring evaluation "4d7064ea"
     Evaluation triggered by job "variable.nomad"
 ==> Monitoring evaluation "4d7064ea"
@@ -235,10 +235,9 @@ $ nomad run -var run_index=1 variable.nomad
 ```
 
 Note that Nomad does not re-run the job. Now, change the
-run_index value to `2` and run the command again.
+`run_index` value to `2` and run the command again.
 
 ```text
->>>>>>> main
 $ nomad run -var run_index=2 variable.nomad
 ==> Monitoring evaluation "73e7902f"
     Evaluation triggered by job "variable.nomad"

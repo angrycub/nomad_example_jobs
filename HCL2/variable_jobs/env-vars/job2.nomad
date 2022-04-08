@@ -9,12 +9,9 @@ variable "docker_image_job2" {
 }
 
 job "job2" {
-
   datacenters = var.datacenters
-  type = "service"
 
   group "job2" {
-
     task "job2" {
       driver = "docker"
 

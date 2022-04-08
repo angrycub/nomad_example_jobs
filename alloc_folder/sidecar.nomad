@@ -6,9 +6,9 @@ job "alloc_folder" {
       driver = "docker"
 
       config {
-        image = "busybox:latest"
+        image   = "busybox:latest"
         command = "sh"
-        args=["-c","while true; do echo $(date) | tee -a /alloc/output.txt; sleep 2; done"]
+        args    = ["-c", "while true; do echo $(date) | tee -a /alloc/output.txt; sleep 2; done"]
       }
 
       resources {
@@ -19,12 +19,16 @@ job "alloc_folder" {
 
     task "exec" {
       driver = "exec"
+
       config {
         command = "tail"
-        args = ["-f", "/alloc/output.txt"]
+        args    = ["-f", "/alloc/output.txt"]
       }
-      resources { cpu=100 memory=100 }
 
+      resources {
+        cpu    = 100
+        memory = 100
+      }
     }
   }
 }

@@ -1,0 +1,51 @@
+[
+  {
+    "Namespace": "default",
+    "Path": "from/ct",
+    "CreateIndex": 163,
+    "ModifyIndex": 281,
+    "CreateTime": 1661553118420858000,
+    "ModifyTime": 1661555678363949000
+  },
+  {
+    "Namespace": "default",
+    "Path": "test-kv-get/path",
+    "CreateIndex": 203,
+    "ModifyIndex": 322,
+    "CreateTime": 1661554646385247000,
+    "ModifyTime": 1661556594727468000
+  },
+  {
+    "Namespace": "default",
+    "Path": "test-kv-list/prefix/foo",
+    "CreateIndex": 252,
+    "ModifyIndex": 329,
+    "CreateTime": 1661555400029986000,
+    "ModifyTime": 1661556594738143000
+  },
+  {
+    "Namespace": "default",
+    "Path": "test-kv-list/prefix/wave/ocean",
+    "CreateIndex": 254,
+    "ModifyIndex": 325,
+    "CreateTime": 1661555400030957000,
+    "ModifyTime": 1661556594729702000
+  },
+  {
+    "Namespace": "default",
+    "Path": "test-kv-list/prefix/zip",
+    "CreateIndex": 253,
+    "ModifyIndex": 324,
+    "CreateTime": 1661555400030321000,
+    "ModifyTime": 1661556594729216000
+  },
+  {
+    "Namespace": "default",
+    "Path": "var/foo",
+    "CreateIndex": 17,
+    "ModifyIndex": 331,
+    "CreateTime": 1661547722124356000,
+    "ModifyTime": 1661556594739606000
+  }
+]
+

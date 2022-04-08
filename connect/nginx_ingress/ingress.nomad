@@ -1,9 +1,42 @@
 job "ingress" {
   datacenters = ["dc1"]
-  type = "service"
+
   group "cache" {
-    count = 1
+
+    network {
+      port "http" {
+        to = 8080
+      }
+    }
+
+    service {
+      name = "ingress"
+      tags = []
+      port = "http"
+      check {
+        name     = "alive"
+        type     = "tcp"
+        interval = "10s"
+        timeout  = "2s"
+      }
+    }
+
     task "nginx" {
+      driver = "docker"
+
+      config {
+        image = "nginx:1.19.1-alpine"
+        ports = ["http"]
+
+        mounts = [
+          {
+            type = "bind"
+            target = "/etc/nginx/nginx.conf"
+            source = "local/nginx-proxy.conf"
+            readonly = true
+          }
+        ]
+      }
 
       template {
         destination = "local/nginx-proxy.conf"
@@ -55,41 +88,6 @@ EOH
 {{ with caLeaf "ingress" }}{{ .PrivateKeyPEM }}{{ end }}
 EOH
       }
-
-      driver = "docker"
-      config {
-        mounts = [
-          {
-            type = "bind"
-            target = "/etc/nginx/nginx.conf"
-            source = "local/nginx-proxy.conf"
-            readonly = true
-          }
-        ]
-
-        image = "nginx:1.19.1-alpine"
-#        entrypoint = ["/bin/sh", "-c", "sleep 10000"]
-        port_map {
-          http = 8080
-        }
-      }
-      resources {
-        network {
-          port "http" {}
-        }
-      }
-      service {
-        name = "ingress"
-        tags = []
-        port = "http"
-        check {
-          name     = "alive"
-          type     = "tcp"
-          interval = "10s"
-          timeout  = "2s"
-        }
-      }
     }
   }
 }
-

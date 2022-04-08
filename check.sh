@@ -82,10 +82,14 @@ body {
     white-space: pre-wrap;
 }
 </style>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 </head>
 <body>
-<table border="1" width="100%">
-<tr><th></th><th>Filename</th><th>Output</th></tr>
+<table border="1" width="100%" id="results">
+<thead><tr><th></th><th>Filename</th><th>Output</th></tr></thead>
+<tbody>
 HERE
 }
 
@@ -102,14 +106,21 @@ asHTML() {
 
 endHTML() {
     cat <<HERE >> output.html
+</tbody>
 </table>
-</body></html>
+<script>
+\$(document).ready( function () {
+    \$('#results').DataTable({
+      paging: false
+    });
+} );
+</script>
 HERE
 }
 
 
 
-## Main begins here 
+## Main begins here
 
 setupOutput
 
@@ -118,7 +129,7 @@ for file in ${files}; do
 
   CUR_FILE=${file}
   out=$(nomad plan ${CUR_FILE} 2>&1)
-  ec=$? 
+  ec=$?
 
   if [ "${ec}" == "255" ]; then
     printError "${out}"

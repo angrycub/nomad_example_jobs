@@ -1,17 +1,26 @@
 job "template" {
   datacenters = ["dc1"]
-  type = "batch"
+  type        = "batch"
+
   group "group" {
-    count = 1
+    network {
+      port "export" {}
+      port "exstat" {
+        static=8080
+      }
+    }
+
     task "command" {
-      resources { network { port "export" {} port "exstat" { static=8080 } } }
       driver = "raw_exec"
+
       config {
         command = "bash"
         args = ["-c", "cat local/template.out"]
       }
+
       template {
-        data = <<EOH
+        destination = "local/template.out"
+        data        = <<EOH
                  node.unique.id: {{ env "node.unique.id" }}
                 node.datacenter: {{ env "node.datacenter" }}
                node.unique.name: {{ env "node.unique.name" }}
@@ -61,7 +70,7 @@ attr.platform.aws.instance-type: {{ env "attr.platform.aws.instance-type" }}
                           SHELL: {{env "SHELL"}}
                           SHLVL: {{env "SHLVL"}}
                            USER: {{env "USER"}}
-                           
+
    concat key:  service/fabio/{{ env "NOMAD_JOB_NAME" }}/listeners
     key:         {{ keyOrDefault ( printf "service/fabio/%s/listeners" ( env "NOMAD_JOB_NAME" ) ) ":9999" }}
 
@@ -71,8 +80,6 @@ attr.platform.aws.instance-type: {{ env "attr.platform.aws.instance-type" }}
    math - alloc_id + 1: {{env "NOMAD_ALLOC_INDEX" | parseInt | add 1}}
 
 EOH
-
-        destination = "local/template.out"
       }
     }
   }

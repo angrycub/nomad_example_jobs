@@ -13,10 +13,10 @@ instances.
 ### Create the host volume in the configuration
 
 Create a folder on one of your Nomad clients to host your registry files. This
-example uses `/opt/volumes/docker-registry`
+example uses `/opt/nomad/volumes/docker-registry`
 
 ```shell-session
-$ mkdir -p /opt/volumes/docker-registry
+$ mkdir -p /opt/nomad/volumes/docker-registry
 ```
 
 Add the host_volume information to the client stanza in the Nomad configuration.
@@ -25,7 +25,7 @@ Add the host_volume information to the client stanza in the Nomad configuration.
 client {
 # ...
   host_volume "docker-registry" {
-    path = "/opt/volumes/docker-registry"
+    path = "/opt/nomad/volumes/docker-registry"
     read_only = false
   }
 }
@@ -51,4 +51,3 @@ clients and restart Docker.
 
 You will need to do this on any machine that you would like to push to or pull
 from your registry.
-

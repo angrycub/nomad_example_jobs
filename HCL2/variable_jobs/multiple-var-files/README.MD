@@ -3,7 +3,7 @@
 This example contains two jobs that consumes multiple HCL2 variable files and
 populates the Nomad job with them during submission from the CLI.
 
-The shared.vars file defines 2 variables:
+The `shared.vars` file defines 2 variables:
 
 - `datacenters = [ "dc1" ]`
 - `docker_image = "redis"`
@@ -16,6 +16,7 @@ job specification.
 ```bash
 nomad job run -var-file=./shared.vars -var-file=./job1.vars job1.nomad
 ```
+
 Nomad will start a Redis 3 container
 
 ```bash

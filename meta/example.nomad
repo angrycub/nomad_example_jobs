@@ -1,6 +1,4 @@
 job "meta-stanza-test-job" {
-
-  type = "service"
   datacenters = ["dc1"]
 
   meta {
@@ -11,36 +9,25 @@ job "meta-stanza-test-job" {
   }
 
   group "meta-stanza-test-group" {
+    network {
+      port "http" {
+        to = 5000
+      }
+    }
 
     task "meta-stanza-test-task" {
+      driver = "docker"
+
+      config {
+        image = "registry:latest"
+        ports = ["http"]
+      }
 
       env {
         TEST_NUMBER = "${NOMAD_META_TEST_NUMBER}"
         TEST_STRING = "${NOMAD_META_TEST_STRING}"
         TEST_INTERPOLATION = "${NOMAD_META_TEST_INTERPOLATION}"
         ENV_TEST_INTERPOLATION = "${NOMAD_DC}-${NOMAD_JOB_NAME}"
-      }
-
-      driver = "docker"
-
-      config {
-        image = "registry:latest"
-
-        port_map {
-          http = 5000
-        }
-      }
-
-      resources {
-        cpu    = 500
-        memory = 512 
-
-        network {
-          mbits = 25
-
-          port "http" {
-          }
-        }
       }
     }
   }

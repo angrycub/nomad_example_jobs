@@ -1,29 +1,34 @@
 job "handoff" {
   datacenters = ["dc1"]
-  type = "service"
+
   group "template-job" {
     task "render-template" {
-      lifecycle {
-        hook = "prestart"
-        sidecar = true
-      }
-      template {
-        data=<<EOF
-This is a {{ printf "%s %s" "template" ". yay!" }}
-EOF
-        destination = "../alloc/template.out"
-        change_mode = "restart"
-      }
       driver = "exec"
+
       config {
         command = "bash"
         args = ["-c", "echo \"This would be a great place to upload the template from\"; cat /alloc/template.out; while true; do sleep 300; done"]
       }
+
+      lifecycle {
+        hook    = "prestart"
+        sidecar = true
+      }
+
+      template {
+        destination = "../alloc/template.out"
+        change_mode = "restart"
+        data        = <<EOF
+This is a {{ printf "%s %s" "template" ". yay!" }}
+EOF
+      }
+
       resources {
         cpu = 100
         memory = 100
       }
     }
+
     task "main" {
       driver = "exec"
 
