@@ -1,6 +1,7 @@
 variable "input_file" {
-  type = string
+  type        = string
   description = "local path to the redis configuration to inject into the job."
+  default     = "./input.file"
 }
 
 job "raw_file_delims.nomad" {
@@ -13,16 +14,16 @@ job "raw_file_delims.nomad" {
       config {
         image   = "alpine"
         command = "sh"
-        args    = [
+        args = [
           "-c",
           "cat local/file.out; while true; do sleep 30; done",
         ]
       }
 
       template {
-        destination = "local/file.out"
-        data = file(var.input_file)
-        left_delimiter = "🚫"
+        destination     = "local/file.out"
+        data            = file(var.input_file)
+        left_delimiter  = "🚫"
         right_delimiter = "🚫"
       }
     }

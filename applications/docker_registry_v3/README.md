@@ -1,4 +1,4 @@
-# Docker Registry
+# Docker registry
 
 This job uses Nomad Host Volumes to provide an internal Docker registry which
 can be used to host private containers for a Nomad cluster.

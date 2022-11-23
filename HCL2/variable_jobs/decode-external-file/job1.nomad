@@ -6,8 +6,9 @@
 #   `nomad job run job1.nomad`
 #----------------------------------------------------------------------------
 variable "config_file" {
-  type = string
+  type        = string
   description = "Path to JSON formatted shared job configuration."
+  default     = "./env.json"
 }
 
 locals {

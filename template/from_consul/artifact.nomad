@@ -3,10 +3,14 @@ job "template" {
   type        = "batch"
 
   group "group" {
-    count = 1
-
     task "command" {
       driver = "raw_exec"
+
+      config {
+        command = "bash"
+        args    = ["-c", "cat local/rendered.out"]
+      }
+
 
       artifact {
         source      = "http://consul.service.consul:8500/v1/kv/template/test?raw"
@@ -16,11 +20,6 @@ job "template" {
 #        headers {
 #          X-Consul-Token = "«a consul token with access to the kv path»"
 #        }
-      }
-
-      config {
-        command = "bash"
-        args    = ["-c", "cat local/rendered.out"]
       }
 
       template {

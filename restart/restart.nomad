@@ -1,11 +1,11 @@
 job "fail-service" {
   datacenters = ["dc1"]
-  type = "service"
+  type        = "service"
 
   reschedule {
-    delay = "15s"
+    delay          = "15s"
     delay_function = "constant"
-    unlimited = true
+    unlimited      = true
   }
 
   group "api" {
@@ -14,8 +14,8 @@ job "fail-service" {
     restart {
       attempts = 3
       interval = "30s"
-      delay = "5s"
-      mode = "fail"
+      delay    = "5s"
+      mode     = "fail"
     }
 
     network {
@@ -25,20 +25,20 @@ job "fail-service" {
       }
     }
 
-    service = {
+    service {
       name = "fail-service-nomad"
       port = "http"
 
       check {
-        type = "http"
-        port = "http"
-        path = "/health"
+        type     = "http"
+        port     = "http"
+        path     = "/health"
         interval = "10s"
-        timeout = "2s"
+        timeout  = "2s"
 
         check_restart {
-          limit = 1
-          grace = "10s"
+          limit           = 1
+          grace           = "10s"
           ignore_warnings = false
         }
       }
@@ -53,15 +53,14 @@ job "fail-service" {
       }
 
       env = {
-        HEALTHY_FOR = 20
+        HEALTHY_FOR   = 20
         UNHEALTHY_FOR = 120
       }
 
-      resources = {
-        cpu = 100
+      resources {
+        cpu    = 100
         memory = 128
       }
     }
   }
 }
-
