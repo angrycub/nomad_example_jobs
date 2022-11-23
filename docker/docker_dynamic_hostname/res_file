@@ -1,0 +1,5 @@
+Allocation ID\tNode Name (Nomad)\tHostname (Docker)
+nomad-client-3.node.consul\tnomad-client-3.node.consul\t
+nomad-client-1.node.consul\tnomad-client-1.node.consul\t
+nomad-client-1.node.consul\tnomad-client-1.node.consul\t
+nomad-client-3.node.consul\tnomad-client-3.node.consul\t

@@ -1,0 +1,103 @@
+<html>
+<head>
+<title>Secure Variables</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+        }
+
+        body { 
+          font-family: "Helvetica Neue",Helvetica,Arial;
+        }
+
+        .content { 
+          margin: 1rem 1rem;
+        }
+
+        .header {
+            background: linear-gradient(to right,#16704d,#1d9467);
+            padding-left: .5em;
+        }
+        .secondary {
+            background: #1d9467;
+        }
+
+        h1 {
+          color: white;
+          letter-spacing: -0.1rem;
+          font-size: 3rem;
+          line-height: 3.5rem;
+          vertical-align: center;
+        }
+
+        h2 {
+          font-weight: 100;
+          letter-spacing: +0.05rem;
+          color: white;
+          font-size: 2rem;
+          line-height: 2.25rem;
+          vertical-align: center;
+        }
+
+        table {
+          border-collapse: collapse;
+          background-color: white
+        }
+        
+        th { background-color: white; }
+        th, td {
+          border: 1px solid black;
+          padding: .5em .75em;
+        }
+
+        td.path {
+          background-color: #60DEA9;
+          vertical-align: top;
+          text-align: right;
+          font-weight: bold;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: white;
+        }
+
+        td.error { 
+          color: red;
+          font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="header"><h1>Nomad</h1></div>
+<div class="header secondary"><h2>Secure Variables</h2></div>
+<div class="content">
+<table>
+<thead>
+<tr><th>Path</th><th>Metadata</th></tr>
+</thead>
+<tbody>
+{{- range $I, $P := nomadVarList }}
+<tr><td class="path">{{$P}}</td><td>
+<table width="100%"><tbody>
+<tr><td>Namespace</td><td>{{$P.Namespace}}</td></tr>
+<tr><td>Path</td><td>{{$P.Path}}</td></tr>
+<tr><td>Create Time</td><td>{{$P.CreateTime}}</td></tr>
+<tr><td>Create Index</td><td>{{$P.CreateIndex}}</td></tr>
+<tr><td>Modify Time</td><td>{{$P.ModifyTime}}</td></tr>
+<tr><td>Modify Index</td><td>{{$P.ModifyIndex}}</td></tr>
+<tr><td>Items</td><td>
+  {{ with nomadVar $P.Path}}<table><thead><th>Key</th><th>Value</th></thead>{{range $K, $V := .}}<tr><td class="path">{{$K}}</td><td>{{$V}}</td></tr>{{end}}</table>{{end}}</td></tr>
+</tbody></table>
+</td></tr>
+{{else}}
+<tr><td colspan="2" class="error">No Secure Variables Found</tr></td>
+{{end}}
+</tbody>
+</table>
+</div>
+</body>

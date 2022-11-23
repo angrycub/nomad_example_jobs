@@ -1,12 +1,19 @@
 job "http-echo" {
   datacenters = ["dc1"]
-  type        = "service"
 
   update {
     max_parallel = 1
   }
 
   group "web" {
+    constraint {
+      distinct_hosts = true
+    }
+
+    network {
+      port "http" {}
+    }
+
     restart {
       attempts = 10
       interval = "5m"
@@ -15,20 +22,22 @@ job "http-echo" {
     }
 
     task "server" {
-      artifact {
-        source      = "https://github.com/hashicorp/http-echo/releases/download/v0.2.3/http-echo_0.2.3_linux_amd64.tar.gz" 
-        options {
-          checksum = "sha256:e30b29b72ad5ec1f6dfc8dee0c2fcd162f47127f2251b99e47b9ae8af1d7b917"
-        }
-      }
       driver = "exec"
 
       config {
         command = "/bin/bash"
-        args = [
+        args    = [
           "-c",
           "local/http-echo -listen :${NOMAD_PORT_http} -text \"`cat local/template.out`\""
         ]
+      }
+
+      artifact {
+        source = "https://github.com/hashicorp/http-echo/releases/download/v0.2.3/http-echo_0.2.3_linux_amd64.tar.gz"
+
+        options {
+          checksum = "sha256:e30b29b72ad5ec1f6dfc8dee0c2fcd162f47127f2251b99e47b9ae8af1d7b917"
+        }
       }
 
       template {
@@ -103,7 +112,7 @@ attr.platform.aws.instance-type: {{ env "attr.platform.aws.instance-type" }}
                           SHLVL: {{env "SHLVL"}}
                            USER: {{env "USER"}}
                     VAULT_TOKEN: {{env "VAULT_TOKEN"}}
-                           
+
    concat key:  service/fabio/{{ env "NOMAD_JOB_NAME" }}/listeners
     key:         {{ keyOrDefault ( printf "service/fabio/%s/listeners" ( env "NOMAD_JOB_NAME" ) ) ":9999" }}
 
@@ -116,12 +125,6 @@ attr.platform.aws.instance-type: {{ env "attr.platform.aws.instance-type" }}
   EOH
 
         destination = "local/template.out"
-      }
-
-      resources {
-        network {
-          port "http" { }
-        }
       }
     }
   }

@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>Secure Variables</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+        }
+
+        body { 
+          font-family: "Helvetica Neue",Helvetica,Arial;
+        }
+
+        .content { 
+          margin: 1rem 1rem;
+        }
+
+        .header {
+            background: linear-gradient(to right,#16704d,#1d9467);
+            padding-left: .5em;
+        }
+        .secondary {
+            background: #1d9467;
+        }
+
+        h1 {
+          color: white;
+          letter-spacing: -0.1rem;
+          font-size: 3rem;
+          line-height: 3.5rem;
+          vertical-align: center;
+        }
+
+        h2 {
+          font-weight: 100;
+          letter-spacing: +0.05rem;
+          color: white;
+          font-size: 2rem;
+          line-height: 2.25rem;
+          vertical-align: center;
+        }
+
+        table {
+          border-collapse: collapse;
+          background-color: white
+        }
+        
+        th { background-color: white; }
+        th, td {
+          border: 1px solid black;
+          padding: .5em .75em;
+        }
+
+        td.path {
+          background-color: #60DEA9;
+          vertical-align: top;
+          text-align: right;
+          font-weight: bold;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: white;
+        }
+
+        td.error { 
+          color: red;
+          font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="header"><h1>Nomad</h1></div>
+<div class="header secondary"><h2>Secure Variables</h2></div>
+<div class="content">
+<table>
+<thead>
+<tr><th>Path</th><th>Metadata</th></tr>
+</thead>
+<tbody>
+<tr><td class="path">my/var/a</td><td>
+<table width="100%"><tbody>
+<tr><td>Namespace</td><td>default</td></tr>
+<tr><td>Path</td><td>my/var/a</td></tr>
+<tr><td>Create Time</td><td>2022-08-22 15:56:13.771313 -0400 EDT</td></tr>
+<tr><td>Create Index</td><td>28</td></tr>
+<tr><td>Modify Time</td><td>2022-08-22 15:56:13.771313 -0400 EDT</td></tr>
+<tr><td>Modify Index</td><td>28</td></tr>
+<tr><td>Items</td><td>
+  <table><thead><th>Key</th><th>Value</th></thead><tr><td class="path">k1</td><td>v1</td></tr><tr><td class="path">k2</td><td>v2</td></tr></table></td></tr>
+</tbody></table>
+</td></tr>
+
+<tr><td class="path">my/var/b</td><td>
+<table width="100%"><tbody>
+<tr><td>Namespace</td><td>default</td></tr>
+<tr><td>Path</td><td>my/var/b</td></tr>
+<tr><td>Create Time</td><td>2022-08-22 15:56:13.934377 -0400 EDT</td></tr>
+<tr><td>Create Index</td><td>29</td></tr>
+<tr><td>Modify Time</td><td>2022-08-22 15:56:13.934377 -0400 EDT</td></tr>
+<tr><td>Modify Index</td><td>29</td></tr>
+<tr><td>Items</td><td>
+  <table><thead><th>Key</th><th>Value</th></thead><tr><td class="path">k1</td><td>v1</td></tr><tr><td class="path">k2</td><td>v2</td></tr></table></td></tr>
+</tbody></table>
+</td></tr>
+
+<tr><td class="path">other/var/a</td><td>
+<table width="100%"><tbody>
+<tr><td>Namespace</td><td>default</td></tr>
+<tr><td>Path</td><td>other/var/a</td></tr>
+<tr><td>Create Time</td><td>2022-08-22 15:56:14.10122 -0400 EDT</td></tr>
+<tr><td>Create Index</td><td>30</td></tr>
+<tr><td>Modify Time</td><td>2022-08-22 15:56:14.10122 -0400 EDT</td></tr>
+<tr><td>Modify Index</td><td>30</td></tr>
+<tr><td>Items</td><td>
+  <table><thead><th>Key</th><th>Value</th></thead><tr><td class="path">k1</td><td>v1</td></tr><tr><td class="path">k2</td><td>v2</td></tr></table></td></tr>
+</tbody></table>
+</td></tr>
+
+</tbody>
+</table>
+</div>
+</body>

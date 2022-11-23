@@ -1,7 +1,6 @@
 
 job "sticky" {
   datacenters = ["dc1"]
-  type = "service"
 
   update {
     stagger = "10s"
@@ -11,11 +10,10 @@ job "sticky" {
   group "cache" {
     count = 6
 
-    restart {
-      attempts = 10
-      interval = "5m"
-      delay = "25s"
-      mode = "delay"
+    network {
+      port "db" {
+        to = 6378
+      }
     }
 
     ephemeral_disk {
@@ -24,36 +22,29 @@ job "sticky" {
       size = 3000
     }
 
+    service {
+      name = "sticky-redis"
+      tags = ["global", "sticky", "redis", "cache"]
+      port = "db"
+      check {
+        name     = "alive"
+        type     = "tcp"
+        interval = "10s"
+        timeout  = "2s"
+      }
+    }
+
     task "redis" {
       driver = "docker"
 
       config {
-        image = "redis:3.2"
-        port_map {
-          db = 6379
-        }
+        image = "redis:7"
+        ports = ["db"]
       }
 
       resources {
         cpu    = 500
         memory = 256
-
-        network {
-          mbits = 10
-          port "db" {}
-        }
-      }
-
-      service {
-        name = "sticky-redis"
-        tags = ["global", "sticky", "redis", "cache"]
-        port = "db"
-        check {
-          name     = "alive"
-          type     = "tcp"
-          interval = "10s"
-          timeout  = "2s"
-        }
       }
     }
   }

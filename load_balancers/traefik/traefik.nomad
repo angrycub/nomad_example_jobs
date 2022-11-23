@@ -1,10 +1,28 @@
 job "traefik" {
-  region      = "global"
   datacenters = ["dc1"]
-  type        = "service"
 
   group "traefik" {
-    count = 1
+    network {
+      port "http" {
+        static = 8080
+      }
+
+      port "api" {
+        static = 8081
+      }
+    }
+
+    service {
+      name = "traefik"
+
+      check {
+        name     = "alive"
+        type     = "tcp"
+        port     = "http"
+        interval = "10s"
+        timeout  = "2s"
+      }
+    }
 
     task "traefik" {
       driver = "docker"
@@ -32,7 +50,7 @@ job "traefik" {
 
 # Enable Consul Catalog configuration backend.
 [providers.consulCatalog]
-    prefix           = "traefik"
+    prefix           = "charlie"
     exposedByDefault = false
 
     [providers.consulCatalog.endpoint]
@@ -46,32 +64,7 @@ EOF
       resources {
         cpu    = 100
         memory = 128
-
-        network {
-          mbits = 10
-
-          port "http" {
-            static = 8080
-          }
-
-          port "api" {
-            static = 8081
-          }
-        }
-      }
-
-      service {
-        name = "traefik"
-
-        check {
-          name     = "alive"
-          type     = "tcp"
-          port     = "http"
-          interval = "10s"
-          timeout  = "2s"
-        }
       }
     }
   }
 }
-

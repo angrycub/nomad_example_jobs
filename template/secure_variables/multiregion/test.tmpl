@@ -1,0 +1,7 @@
+-- dc1 --
+{{ with nomadVarList "t@default.dc1" }}{{ sprig_toPrettyJson . }}{{end}}
+{{ nomadVar "test@default.dc1" }}
+
+-- global --
+{{ with nomadVarList "t@default.global" }}{{ sprig_toPrettyJson . }}{{end}}
+{{ nomadVar "test@default.global" }}

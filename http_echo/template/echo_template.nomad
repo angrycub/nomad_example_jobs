@@ -1,6 +1,5 @@
 job "http-echo" {
   datacenters = ["dc1"]
-  type        = "service"
 
   update {
     max_parallel = 1
@@ -18,27 +17,41 @@ job "http-echo" {
       mode     = "delay"
     }
 
+    network {
+      port "http" {
+        static = 8080
+        to     = 8080
+      }
+    }
+
+    service {
+      name = "http-echo"
+      port = "http"
+
+      check {
+        name     = "alive"
+        type     = "http"
+        interval = "10s"
+        timeout  = "2s"
+        path     = "/"
+      }
+    }
+
+
     task "http-echo" {
       driver = "docker"
 
       config {
         image = "hashicorp/http-echo"
-
-        args = [
-          "-text",
-          "$content",
-          "-listen",
-          ":8080",
-        ]
-
-        port_map {
-          http = 8080
-        }
+        args  = ["-text", "$content", "-listen",":8080"]
+        ports = ["http"]
       }
 
- template {
-        data = <<EOH
-content = "        
+      template {
+        destination = "local/template.out"
+        env         = true
+        data        = <<EOH
+content = "
                  node.unique.id: {{ env "node.unique.id" }}
                 node.datacenter: {{ env "node.datacenter" }}
                node.unique.name: {{ env "node.unique.name" }}
@@ -102,7 +115,7 @@ attr.platform.aws.instance-type: {{ env "attr.platform.aws.instance-type" }}
                           SHLVL: {{env "SHLVL"}}
                            USER: {{env "USER"}}
                     VAULT_TOKEN: {{env "VAULT_TOKEN"}}
-                           
+
    concat key:  service/fabio/{{ env "NOMAD_JOB_NAME" }}/listeners
     key:         {{ keyOrDefault ( printf "service/fabio/%s/listeners" ( env "NOMAD_JOB_NAME" ) ) ":9999" }}
 
@@ -114,36 +127,6 @@ attr.platform.aws.instance-type: {{ env "attr.platform.aws.instance-type" }}
 
 "
   EOH
-
-        destination = "local/template.out"
-        env = true
-      }
-
-      resources {
-        cpu    = 500 # 500 MHz
-        memory = 256 # 256MB
-
-        network {
-          mbits = 10
-
-          port "http" {
-            static = 8080
-          }
-        }
-      }
-
-      service {
-        name = "http-echo"
-
-        port = "http"
-
-        check {
-          name     = "alive"
-          type     = "http"
-          interval = "10s"
-          timeout  = "2s"
-          path     = "/"
-        }
       }
     }
   }

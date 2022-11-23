@@ -1,6 +1,6 @@
 job "nginx" {
   datacenters = ["dc1"]
-  type = "service"
+
   update {
     max_parallel = 1
     min_healthy_time = "10s"
@@ -8,15 +8,43 @@ job "nginx" {
     auto_revert = false
     canary = 0
   }
+
   group "group" {
-    count = 1
     restart {
       attempts = 10
       interval = "5m"
       delay = "25s"
       mode = "delay"
     }
+
+    network {
+      port "http" {
+        to = 80
+      }
+    }
+
+    service {
+      name = "nginx"
+      tags = ["lb"]
+      port = "http"
+
+      check {
+        name     = "alive"
+        type     = "tcp"
+        interval = "10s"
+        timeout  = "2s"
+      }
+    }
+
     task "nginx_docker" {
+      driver = "docker"
+
+      config {
+        image   = "nginx:1.13.11"
+        volumes = ["local/nginx.conf:/etc/nginx/conf.d/default.conf"]
+        ports   = ["http"]
+      }
+
       template {
         destination   = "local/nginx.conf"
         change_mode   = "signal"
@@ -48,33 +76,6 @@ server {
 {{end}}{{end}}{{end}}{{end}}{{end}}
 }
 EOH
-
-      }
-      driver = "docker"
-      config {
-        image = "nginx:1.13.11"
-        volumes = [ "local/nginx.conf:/etc/nginx/conf.d/default.conf"]
-        port_map {
-          http = 80
-        }
-      }
-      resources {
-        memory = 128 
-        network {
-          mbits = 10
-          port "http" {}
-        }
-      }
-      service {
-        name = "nginx"
-        tags = ["lb"]
-        port = "http"
-        check {
-          name     = "alive"
-          type     = "tcp"
-          interval = "10s"
-          timeout  = "2s"
-        }
       }
     }
   }

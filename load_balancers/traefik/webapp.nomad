@@ -4,42 +4,37 @@ job "demo-webapp" {
   group "demo" {
     count = 3
 
-    task "server" {
-      env {
-        PORT    = "${NOMAD_PORT_http}"
-        NODE_IP = "${NOMAD_IP_http}"
-      }
+    network {
+      port "http" {}
+    }
 
+    service {
+      name = "demo-webapp"
+      port = "http"
+      tags = [
+        "charlie.enable=true",
+        "charlie.http.routers.http.rule=Path(`/myapp`)",
+      ]
+
+      check {
+        type     = "http"
+        path     = "/"
+        interval = "2s"
+        timeout  = "2s"
+      }
+    }
+
+    task "server" {
       driver = "docker"
 
       config {
         image = "hashicorp/demo-webapp-lb-guide"
       }
 
-      resources {
-        network {
-          mbits = 10
-          port  "http"{}
-        }
-      }
-
-      service {
-        name = "demo-webapp"
-        port = "http"
-
-        tags = [
-          "traefik.enable=true",
-          "traefik.http.routers.http.rule=Path(`/myapp`)",
-        ]
-
-        check {
-          type     = "http"
-          path     = "/"
-          interval = "2s"
-          timeout  = "2s"
-        }
+      env {
+        PORT    = "${NOMAD_PORT_http}"
+        NODE_IP = "${NOMAD_IP_http}"
       }
     }
   }
 }
-

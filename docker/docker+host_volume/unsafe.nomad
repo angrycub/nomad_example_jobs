@@ -14,7 +14,7 @@ job "example" {
         destination = "/host_vol"
       }
       config {
-        image = "redis:3.2"
+        image = "redis:7"
         port_map { db = 6379 }
         volumes = [
           "/opt/nomad/volumes/container-test/folder1:/folder1",

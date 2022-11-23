@@ -20,14 +20,14 @@ job "example" {
       }
       config {
         command = "/bin/bash"
-        args = ["-c","while true; do sleep 300; done"]   
+        args = ["-c","while true; do sleep 300; done"]
       }
       resources { cpu=20 memory=100 }
     }
     task "redis" {
       driver = "docker"
       config {
-        image = "redis:3.2"
+        image = "redis:7"
         port_map { db = 6379 }
         mounts = [
           {
@@ -39,7 +39,7 @@ job "example" {
               propagation = "rshared"
             }
           }
-        ]        
+        ]
       }
       resources { network { port "db" {} } }
     }

@@ -1,16 +1,18 @@
 job "example" {
   datacenters = ["dc1"]
-  type = "batch"
+  type        = "batch"
+
   group "nodes" {
-    count = 1
     reschedule {
-      attempts = 0
+      attempts  = 0
       unlimited = false
     }
+
     restart {
       attempts = 0
-      mode = "fail"
+      mode     = "fail"
     }
+
     task "payload" {
       driver = "exec"
       config {

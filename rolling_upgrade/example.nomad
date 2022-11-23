@@ -26,7 +26,7 @@ job "rolling-upgrade-test" {
     task "zookeeper-1" {
       driver = "docker"
       config {
-        image = "redis:3.2"
+        image = "redis:7"
       }
     }
   }
@@ -49,7 +49,7 @@ job "rolling-upgrade-test" {
     task "zookeeper-2" {
       driver = "docker"
       config {
-        image = "redis:3.2"
+        image = "redis:7"
       }
     }
   }
@@ -72,9 +72,8 @@ job "rolling-upgrade-test" {
     task "zookeeper-3" {
       driver = "docker"
       config {
-        image = "redis:3.2"
+        image = "redis:7"
       }
     }
   }
 }
-

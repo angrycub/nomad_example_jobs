@@ -1,27 +1,41 @@
 job "template" {
   datacenters = ["dc1"]
-  type = "batch"
+  type        = "batch"
+
   group "group" {
-    count = 1
+    network {
+      port "sample" {}
+      port "export" {}
+      port "exstat" {
+        static = 8080
+      }
+    }
+
     task "env-output" {
-      resources { network { port "sample" {} } }
       driver = "raw_exec"
-      config { command = "env" }
+      config {
+        command = "env"
+      }
     }
+
     task "date-output" {
-      resources { network { port "sample" {} } }
       driver = "raw_exec"
-      config { command = "date" }
+      config {
+        command = "date"
+      }
     }
+
     task "template" {
-      resources { network { port "export" {} port "exstat" { static=8080 } } }
       driver = "raw_exec"
+
       config {
         command = "bash"
         args = ["-c", "cat local/template.out"]
       }
+
       template {
-        data = <<EOH
+        destination = "local/template.out"
+        data        = <<EOH
                  node.unique.id: {{ env "node.unique.id" }}
                 node.datacenter: {{ env "node.datacenter" }}
                node.unique.name: {{ env "node.unique.name" }}
@@ -87,8 +101,6 @@ Composition using printf
   {{ $envKey }}: {{ env $envKey }}
 
 EOH
-
-        destination = "local/template.out"
       }
     }
   }
