@@ -7,7 +7,7 @@ can be used to host private containers for a Nomad cluster.
 
 - **Nomad 1.4+** - This job leverages:
   - Nomad service discovery for locating the registry instances.
-  - Nomad Variables for maintaining the user authentication information
+  - Nomad variables for maintaining the user authentication information
 
 ## Necessary configuration
 

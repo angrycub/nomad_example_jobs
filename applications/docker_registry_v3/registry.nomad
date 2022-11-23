@@ -34,7 +34,7 @@ job "registry" {
       template {
         destination = "secrets/htpasswd"
         data = <<EOH
-{{ with nomadVar "nomad/jobs/registry/docker/container"}}{{.htaccess}}{{end}}
+{{ with nomadVar "nomad/jobs/registry/docker/container"}}{{range $K, $V := .}}{{printf "%s:%s\n" $K $V}}{{end}}{{end}}
 EOH
       }
 

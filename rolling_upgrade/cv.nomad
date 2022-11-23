@@ -20,9 +20,8 @@ job "rolling-upgrade-test" {
     task "redis" {
       driver = "docker"
       config {
-        image = "redis:3.2"
+        image = "redis:7"
       }
     }
   }
 }
-

@@ -1,17 +1,25 @@
 job "template" {
   datacenters = ["dc1"]
-  type = "batch"
+  type        = "batch"
+
   group "group" {
-    count = 1
     task "meta-output" {
-    
-template {
-  data = <<EOH
+      driver = "raw_exec"
+
+      config {
+        command = "bash"
+        args=["-c", "echo $RULES | jq ."]
+      }
+
+      template {
+        destination = "secrets/rules.env"
+        env         = true
+        data        = <<EOH
 {{- define "RULES" -}}
 [
   {
     "cloudwatch":{
-      "asg_cpu_usage_upper_bound": { 
+      "asg_cpu_usage_upper_bound": {
         "backend":"test-backend",
         "dimension_name":"AutoScalingGroupName",
         "metric_namespace": "AWS/EC2",
@@ -33,16 +41,6 @@ template {
 {{- end }}
 RULES={{ executeTemplate "RULES" | toJSON }}
 EOH
-
-  destination = "secrets/rules.env"
-  env         = true
-}
-
-  driver = "raw_exec"
-      resources { memory = 10 }
-      config { 
-        command = "bash"
-        args=["-c", "echo $RULES | jq ."]
       }
     }
   }

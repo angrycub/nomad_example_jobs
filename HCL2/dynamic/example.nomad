@@ -12,7 +12,7 @@ locals {
     "redis": {"name":"db","port":6379}
   }
   docker_versions = {
-    "zpool": "redis:3.2"
+    "zpool": "redis:7"
     "zmirror": "redis:latest"
   }
   job_name = "%{ if var.job_name != "" }${var.job_name}%{ else }example%{ endif }"
@@ -34,7 +34,7 @@ job "example" {
             to = port.value.port
           }
         }
-      }      
+      }
 
       dynamic "task" {
         labels = ["${local.job_name}-${group.value}-${task.key}"]
@@ -42,7 +42,7 @@ job "example" {
 
         content {
           driver = "docker"
-    
+
           config {
             image = local.docker_versions[group.value]
             ports = ["${local.job_name}-${group.value}-${task.key}-${task.value.name}-${task.value.port}"]
@@ -50,5 +50,5 @@ job "example" {
         }
       }
     }
-  }    
+  }
 }

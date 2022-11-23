@@ -2,12 +2,15 @@ job {{jobname}} {
   group {{groupname}}
     task {{taskname}}
       driver = "raw_exec" # you could use exec, but that will be so much slower...
+
       config {
         command = {{command}}
-        args = [{{args}}]
+        args    = [{{args}}]
       }
     }
-    resources { cpu={{cpu}} memory={{memory}} }
+    resources {
+      cpu    = {{cpu}}
+      memory = {{memory}}
+    }
   }
 }
-

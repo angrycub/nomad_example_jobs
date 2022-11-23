@@ -1,7 +1,7 @@
 job "example" {
   datacenters = ["dc1"]
 
-  meta {
+  meta = {
     "test" = "rebootparty"
   }
 
@@ -31,11 +31,6 @@ job "example" {
         image          = "redis:7"
         ports          = ["db"]
         auth_soft_fail = true
-      }
-
-      resources {
-        cpu    = 500
-        memory = 256
       }
     }
   }

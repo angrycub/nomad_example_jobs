@@ -6,7 +6,7 @@ job "example" {
       driver = "docker"
 
       config {
-        image = "redis:3.2"
+        image = "redis:7"
         mac_address = "A0:97:FA:13:93:03"
       }
 

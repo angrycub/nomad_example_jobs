@@ -1,66 +1,66 @@
 job "countdash" {
-   datacenters = ["dc1"]
-   group "api" {
-     network {
-       mode = "bridge"
-     }
+  datacenters = ["dc1"]
 
-     service {
-       name = "count-api"
-       port = "9001"
+  group "api" {
+    network {
+      mode = "bridge"
+    }
 
-       connect {
-         sidecar_service {}
-       }
-     }
+    service {
+      name = "count-api"
+      port = "9001"
 
-     task "web" {
-       driver = "docker"
-       config {
-         image = "hashicorpnomad/counter-api:v1"
-       }
-     }
-   }
+      connect {
+        sidecar_service {}
+      }
+    }
 
-   group "dashboard" {
-     network {
-       mode ="bridge"
-       port "http" {
-         static = 9002
-         to     = 9002
-       }
-     }
+    task "web" {
+      driver = "docker"
 
-     service {
-       name = "count-dashboard"
-       port = "9002"
-       check {
-         type = "http"
-         path = "/"
-         interval = "5s"
-         timeout  = "2s"
-       }
-       connect {
-         sidecar_service {
-           proxy {
-             upstreams {
-               destination_name = "count-api"
-               local_bind_port = 8080
-             }
-           }
-         }
-       }
-     }
+      config {
+        image = "hashicorpdev/counter-api:v3"
+      }
+    }
+  }
 
-     task "dashboard" {
-       driver = "docker"
-       env {
-         COUNTING_SERVICE_URL = "http://${NOMAD_UPSTREAM_ADDR_count_api}"
-       }
-       config {
-         image = "hashicorpnomad/counter-dashboard:v1"
-       }
-     }
-   }
- }
+  group "dashboard" {
+    network {
+      mode = "bridge"
+
+      port "http" {
+        static = 9002
+        to     = 9002
+      }
+    }
+
+    service {
+      name = "count-dashboard"
+      port = "http"
+
+      connect {
+        sidecar_service {
+          proxy {
+            upstreams {
+              destination_name = "count-api"
+              local_bind_port  = 8080
+            }
+          }
+        }
+      }
+    }
+
+    task "dashboard" {
+      driver = "docker"
+
+      env {
+        COUNTING_SERVICE_URL = "http://${NOMAD_UPSTREAM_ADDR_count_api}"
+      }
+
+      config {
+        image = "hashicorpdev/counter-dashboard:v3"
+      }
+    }
+  }
+}
 

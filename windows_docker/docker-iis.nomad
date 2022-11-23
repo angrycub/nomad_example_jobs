@@ -9,7 +9,6 @@ job "docker-iis" {
     }
 
     network {
-      mbits = 10
       port "www" {
         to = 80
       }

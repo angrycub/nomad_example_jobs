@@ -17,7 +17,7 @@ job "lifecycle" {
 GBFREE=$(($(stat -f --format="%a*%S/1073741824" .)))
 if [[ $GBFREE -lt $1 ]]
 then
-  echo "ERROR: Not enough disk free.  Wanted $1 gb, had $GBFREE available." 
+  echo "ERROR: Not enough disk free.  Wanted $1 gb, had $GBFREE available."
   exit 1
 fi
 
@@ -28,7 +28,7 @@ EOH
       driver = "exec"
       lifecycle {
         hook = "prestart"
-      } 
+      }
       config {
         command = "${NOMAD_TASK_DIR}/diskfree.sh"
         args = ["3"]
@@ -42,7 +42,7 @@ EOH
     task "zebra-main-app" {
       driver = "docker"
       config {
-        image = "redis:3.2"
+        image = "redis:7"
       }
       resources {
         cpu    = 500

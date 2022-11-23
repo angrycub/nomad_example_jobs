@@ -1,14 +1,21 @@
 job "template" {
   datacenters = ["dc1"]
-  type = "batch"
+  type        = "batch"
+
   group "group" {
+    network {
+      port "export" {}
+      port "exstat" {
+        static = 8080
+      }
+    }
 
     meta {
- "rules" = <<EOH
+      "rules" = <<EOH
 [
     {
       cloudwatch":{
-        "asg_cpu_usage_upper_bound": { 
+        "asg_cpu_usage_upper_bound": {
           "backend":"test-backend",
           "dimension_name":"AutoScalingGroupName",
           "metric_namespace": "AWS/EC2",
@@ -28,48 +35,58 @@ job "template" {
     }
   ]
 EOH
-
-}
-
-    count = 1
-    task "env-output" {
-      resources { memory=10 network { port "sample" {} } }
-      driver = "raw_exec"
-      config { command = "env" }
     }
-    task "meta-output" {
-    
-template {
-  data = <<EOH
-RULES="{{ "charlie" | toJSON }}"
-EOH
 
-  destination = "secrets/rules.env"
-  env         = true
-}
+    task "env-output" {
+      driver = "raw_exec"
 
+      config {
+        command = "env"
+      }
 
-  driver = "raw_exec"
-      resources { memory = 10 }
-      config { 
-        command = "bash"
-        args=["-c", "echo $RULES"]
+      resources {
+        memory = 10
       }
     }
+
+    task "meta-output" {
+      driver = "raw_exec"
+
+      config {
+        command = "bash"
+        args    = [ "-c", "echo $RULES" ]
+      }
+
+      template {
+        destination = "secrets/rules.env"
+        env         = true
+        data        = <<EOH
+RULES="{{ "charlie" | toJSON }}"
+EOH
+      }
+
+      resources {
+        memory = 10
+      }
+    }
+
     task "date-output" {
       resources {memory=10 network { port "sample" {} } }
       driver = "raw_exec"
       config { command = "date" }
     }
+
     task "template" {
-      resources { memory=10 network { port "export" {} port "exstat" { static=8080 } } }
       driver = "raw_exec"
+
       config {
         command = "bash"
-        args = ["-c", "cat local/template.out"]
+        args    = ["-c", "cat local/template.out"]
       }
+
       template {
-        data = <<EOH
+        destination = "local/template.out"
+        data        = <<EOH
                  node.unique.id: {{ env "node.unique.id" }}
                 node.datacenter: {{ env "node.datacenter" }}
                node.unique.name: {{ env "node.unique.name" }}
@@ -135,8 +152,10 @@ Composition using printf
   {{ $envKey }}: {{ env $envKey }}
 
 EOH
+      }
 
-        destination = "local/template.out"
+      resources {
+        memory = 10
       }
     }
   }

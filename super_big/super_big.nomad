@@ -38,7 +38,7 @@ job "sticky" {
       driver = "docker"
 
       config {
-        image = "redis:3.2"
+        image = "redis:7"
         ports = ["db"]
       }
 
