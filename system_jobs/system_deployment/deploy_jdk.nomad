@@ -1,6 +1,6 @@
-job deploy_jdk {
+job "deploy_jdk" {
   datacenters = ["dc1"]
-  type = "system"
+  type        = "system"
 
   group "group" {
     task "deploy_and_sleep" {
@@ -8,14 +8,13 @@ job deploy_jdk {
 
       config {
         command = "/bin/bash"
-        args = ["-c", "yum install java; echo \"Deployment Complete\"; while true; do echo -n \".\"; sleep 5; done"]
+        args    = ["-c", "yum install java; echo \"Deployment Complete\"; while true; do echo -n \".\"; sleep 5; done"]
       }
 
       resources {
         memory = 10
-        cpu = 50
+        cpu    = 50
       }
     }
   }
 }
-

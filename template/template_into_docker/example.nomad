@@ -20,7 +20,7 @@ job "example" {
             source   = "conf.js"
             readonly = false
 
-            bind_options {
+            bind_options = {
               propagation = "rshared"
             }
           },

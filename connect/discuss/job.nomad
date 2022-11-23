@@ -1,16 +1,17 @@
 variable "config_data" {
-  type = string
+  type        = string
   description = "Plain text config file for blocky"
+  default     = "./blocky.yaml"
 }
 
 job "blocky" {
   datacenters = ["dc1"]
-  type = "system"
-  priority = 100
+  type        = "system"
+  priority    = 100
 
   update {
     max_parallel = 1
-    auto_revert = true
+    auto_revert  = true
   }
 
   group "blocky" {
@@ -52,24 +53,24 @@ job "blocky" {
 
             expose {
               path {
-                path = "/metrics"
-                protocol = "http"
+                path            = "/metrics"
+                protocol        = "http"
                 local_path_port = 4000
-                listener_port = "api"
+                listener_port   = "api"
               }
             }
 
             upstreams {
               destination_name = "redis"
-              local_bind_port = 6379
+              local_bind_port  = 6379
             }
           }
         }
 
         sidecar_task {
           resources {
-            cpu    = 50
-            memory = 20
+            cpu        = 50
+            memory     = 20
             memory_max = 50
           }
         }
@@ -93,22 +94,22 @@ job "blocky" {
         ports = ["dns", "api"]
 
         mount {
-          type = "bind"
+          type   = "bind"
           target = "/app/config.yml"
           source = "app/config.yml"
         }
       }
 
       resources {
-        cpu = 50
-        memory = 50
+        cpu        = 50
+        memory     = 50
         memory_max = 100
       }
 
       template {
-        data = file(var.config_data)
+        data        = file(var.config_data)
         destination = "app/config.yml"
-        splay = "1m"
+        splay       = "1m"
       }
     }
   }

@@ -2,8 +2,8 @@ job "example" {
   datacenters = ["dc1"]
   type        = "batch"
 
-  meta {
-    "version" = "2"
+  meta = {
+    version = "2"
   }
 
   group "nodes" {

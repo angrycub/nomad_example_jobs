@@ -11,7 +11,7 @@ job "template" {
     }
 
     meta {
-      "rules" = <<EOH
+      rules = <<EOH
 [
     {
       cloudwatch":{
@@ -54,7 +54,7 @@ EOH
 
       config {
         command = "bash"
-        args    = [ "-c", "echo $RULES" ]
+        args    = ["-c", "echo $RULES"]
       }
 
       template {
@@ -71,9 +71,15 @@ EOH
     }
 
     task "date-output" {
-      resources {memory=10 network { port "sample" {} } }
       driver = "raw_exec"
-      config { command = "date" }
+
+      config {
+        command = "date"
+      }
+
+      resources {
+        memory = 10
+      }
     }
 
     task "template" {

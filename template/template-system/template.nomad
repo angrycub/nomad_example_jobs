@@ -1,16 +1,26 @@
 job "template" {
   datacenters = ["dc1"]
-  type = "system"
+  type        = "system"
+
   group "group" {
+    network {
+      port "export" {}
+      port "exstat" {
+        static = 8080
+      }
+    }
+
     task "template" {
-      resources { memory=100 cpu=100 network { port "export" {} port "exstat" { static=8080 } } }
       driver = "raw_exec"
+
       config {
         command = "bash"
-        args = ["-c", "cat local/template.out; while true; do sleep 10; done"]
+        args    = ["-c", "cat local/template.out; while true; do sleep 10; done"]
       }
+
       template {
-        data = <<EOH
+        destination = "local/template.out"
+        data        = <<EOH
                  node.unique.id: {{ env "node.unique.id" }}
                 node.datacenter: {{ env "node.datacenter" }}
                node.unique.name: {{ env "node.unique.name" }}
@@ -76,9 +86,13 @@ Composition using printf
   {{ $envKey }}: {{ env $envKey }}
 
 EOH
-
-        destination = "local/template.out"
       }
+
+      resources {
+        memory = 100
+        cpu    = 100
+      }
+
     }
   }
 }

@@ -1,17 +1,26 @@
 job "template" {
   datacenters = ["dc1"]
-  type = "batch"
+  type        = "batch"
+
   group "group" {
-    count = 1
+    network {
+      port "export" {}
+      port "exstat" {
+        static = 8080
+      }
+    }
+
     task "command" {
-      resources { network { port "export" {} port "exstat" { static=8080 } } }
       driver = "exec"
+
       config {
         command = "bash"
-        args = ["-c", "cat local/template.out"]
+        args    = ["-c", "cat local/template.out"]
       }
+
       template {
-        data = <<EOH
+        destination = "local/template.out"
+        data        = <<EOH
 Constructive Play
 {{ printf "%q" ( services | byTag ) }}
 ---
@@ -50,8 +59,6 @@ no services
 {{ end }}
 
 EOH
-
-        destination = "local/template.out"
       }
     }
   }

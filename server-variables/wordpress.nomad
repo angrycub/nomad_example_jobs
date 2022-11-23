@@ -1,12 +1,13 @@
 variable "site_name" {
-  type = string
+  type        = string
   description = "The site_name is used to set the consul tag for the website. This makes them available at \"site_name.wordpress-sites.service.consul\""
+  default     = "mysite"
 }
 
 job "my-website" {
-  name = "wp-site-${var.site_name}"
-  id = "wp-site-${var.site_name}"
   datacenters = ["dc1"]
+  name        = "wp-site-${var.site_name}"
+  id          = "wp-site-${var.site_name}"
 
   group "wordpress" {
     count = 2
@@ -33,10 +34,21 @@ job "my-website" {
     task "await-wordpress-db" {
       driver = "docker"
 
+      config {
+        image        = "alpine:latest"
+        command      = "local/await-db.sh"
+        network_mode = "host"
+      }
+
+      lifecycle {
+        hook    = "prestart"
+        sidecar = false
+      }
+
       template {
         destination = "local/await-db.sh"
-        perms = 700
-        data =<<EOT
+        perms       = 700
+        data        = <<EOT
 #!/bin/sh
 echo -n 'Waiting for wordpress-db service...'
 until nslookup -port=8600 wordpress-db.service.consul ${NOMAD_IP_http} 2>&1 >/dev/null
@@ -50,25 +62,21 @@ echo " Done."
 EOT
       }
 
-      config {
-        image        = "alpine:latest"
-        command      = "local/await-db.sh"
-        network_mode = "host"
-      }
-
       resources {
         cpu    = 200
         memory = 128
       }
 
-      lifecycle {
-        hook    = "prestart"
-        sidecar = false
-      }
+
     }
 
     task "wordpress" {
       driver = "docker"
+
+      config {
+        image = "wordpress:latest"
+        ports = ["http"]
+      }
 
       template {
         data = <<EOH
@@ -83,12 +91,7 @@ WORDPRESS_DB_NAME=wordpress-${var.site_name}
   EOH
 
         destination = "local/envvars.txt"
-        env = true
-      }
-
-      config {
-        image = "wordpress:latest"
-        ports = ["http"]
+        env         = true
       }
 
       resources {

@@ -3,7 +3,7 @@ job "example" {
   type        = "batch"
 
   meta {
-    "version" = "2"
+    version = "2"
   }
 
   group "nodes" {

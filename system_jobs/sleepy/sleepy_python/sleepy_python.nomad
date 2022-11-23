@@ -1,17 +1,18 @@
-job sleepy {
+job "sleepy" {
   datacenters = ["dc1"]
-  group "group" {
-    count = 1
 
-## You might want to constrain this, so here's one to help
-#    constraint {
-#      attribute = "${attr.unique.hostname}"
-#      operator  = "="
-#      value     = "nomad-client-1.node.consul"
-#    }
+  group "group" {
     task "python" {
+      driver = "exec"
+
+      config {
+        command = "python"
+        args    = ["${NOMAD_TASK_DIR}/files.py"]
+      }
+
       template {
-        data = <<EOH
+        destination = "local/files.py"
+        data        = <<EOH
 #! /usr/bin/python
 
 import datetime
@@ -26,22 +27,12 @@ while True:
 print(str(datetime.datetime.now())+" - Ending.")
 sys.stdout.flush()
 EOH
-        destination = "local/files.py"
-      }
-
-      driver = "exec"
-
-      config {
-        command = "python"
-        args = ["${NOMAD_TASK_DIR}/files.py"]
-        # command = "${NOMAD_TASK_DIR}/files.py"
       }
 
       resources {
         memory = 10
-        cpu = 50
+        cpu    = 50
       }
     }
   }
 }
-

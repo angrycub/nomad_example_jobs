@@ -1,6 +1,7 @@
 variable "input_file" {
-  type = string
+  type        = string
   description = "local path to the redis configuration to inject into the job."
+  default     = "./input.file"
 }
 
 job "use_file.nomad" {
@@ -13,7 +14,7 @@ job "use_file.nomad" {
       config {
         image   = "alpine"
         command = "sh"
-        args    = [
+        args = [
           "-c",
           "cat local/file.out; while true; do sleep 30; done",
         ]
@@ -21,7 +22,7 @@ job "use_file.nomad" {
 
       template {
         destination = "local/file.out"
-        data = file(var.input_file)
+        data        = file(var.input_file)
       }
     }
   }

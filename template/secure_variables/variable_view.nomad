@@ -15,7 +15,7 @@ job "variable" {
         image          = "nginx:1.23.1-alpine"
         ports          = ["www"]
         auth_soft_fail = true
-        volumes = [ 
+        volumes = [
           "local/nginx.conf:/etc/nginx/conf.d/default.conf",
           "local/www/index.html:/usr/share/nginx/html/index.html",
         ]
@@ -25,9 +25,10 @@ job "variable" {
         cpu    = 500
         memory = 256
       }
+
       template {
         destination = "local/nginx.conf"
-        data = <<EOF
+        data        = <<EOF
 error_log stderr info;
 access_log stdout;
 server {
@@ -39,9 +40,10 @@ server {
 }
 EOF
       }
+
       template {
         destination = "local/www/index.html"
-        data = file("./template.tmpl")
+        data        = file("./template.tmpl")
       }
     }
   }

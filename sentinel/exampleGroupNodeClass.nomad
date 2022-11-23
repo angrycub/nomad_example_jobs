@@ -1,40 +1,44 @@
 job "example" {
   datacenters = ["dc1"]
-  type = "service"
-  constraint { distinct_hosts = true }
+
+  constraint {
+    distinct_hosts = true
+  }
+
   group "cache" {
-    count = 1
-     constraint { attribute = "${node.class}" value = "gpu" }
+    constraint {
+      attribute = "${node.class}"
+      value     = "gpu"
+    }
+
+    network {
+      port "db" {}
+    }
+
     task "redis" {
       driver = "docker"
       config {
         image = "redis:7"
-        port_map {
-          db = 6379
-        }
-      }
-      resources {
-        network {
-          port "db" {}
-        }
+        ports = ["db"]
       }
     }
   }
   group "cache2" {
-    count = 1
-    constraint { attribute = "${node.class}" value = "gpu" }
+    network {
+      port "db" {}
+    }
+
+    constraint {
+      attribute = "${node.class}"
+      value     = "gpu"
+    }
+
     task "redis" {
       driver = "docker"
+
       config {
         image = "redis:7"
-        port_map {
-          db = 6379
-        }
-      }
-      resources {
-        network {
-          port "db" {}
-        }
+        ports = ["db"]
       }
     }
   }

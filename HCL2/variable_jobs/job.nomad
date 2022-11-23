@@ -1,17 +1,19 @@
 variable "datacenters" {
-  type = list(string)
+  type        = list(string)
   description = "List of Nomad datacenters to run the job in. Defaults to `[\"dc1\"]`"
-  default = ["dc1"]
+  default     = ["dc1"]
 }
 
 variable "docker_image" {
-  type = string
+  type        = string
   description = "Docker image for the job to run"
+  default     = "redis"
 }
 
 variable "image_version" {
-  type = string
+  type        = string
   description = "Version of the docker image to run"
+  default     = 3
 }
 
 job "job1" {

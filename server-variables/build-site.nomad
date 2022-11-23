@@ -1,6 +1,6 @@
 job "build-site" {
   datacenters = ["dc1"]
-  type = "batch"
+  type        = "batch"
 
   parameterized {
     meta_required = ["site_name"]
@@ -8,16 +8,21 @@ job "build-site" {
 
   group "sitebuilder" {
     task "generate-password" {
+      driver = "raw_exec"
+
+      config {
+        command = "secret/generate_keys.sh"
+      }
 
       lifecycle {
-        hook = "prestart"
+        hook    = "prestart"
         sidecar = false
       }
 
       template {
         destination = "secret/generate_keys.sh"
-        env = true
-        data =<< EOT
+        env         = true
+        data        = <<EOT
 #!/bin/bash
 {{- $NMSN := env "NOMAD_META_site_name" -}}
 {{- $UUID := "${uuidv4}" -}}
@@ -30,30 +35,9 @@ consul kv put wordpress/sites/$Site/db/pass $UUID
 consul kv put wordpress/sites/$Site/db/name wordpress-$Site
 EOT
       }
-
-      driver = "raw_exec"
-      command = "secret/generate_keys.sh"
     }
 
     task "make-database" {
-
-      template {
-        destination = "local/run.sql"
-        data = << EOT
-CREATE DATABASE {{ printf "wordpress-%s" .Name }};
-CREATE USER {{ .User }} identified by {{ .Pass }};
-
-EOT
-      }
-
-      template {
-        destination = "secrets/env.txt"
-        env = true
-        data = << EOT
-MYSQL_PASSWORD=somewordpress
-EOT
-      }
-
       driver = "docker"
 
       config {
@@ -61,13 +45,27 @@ EOT
         args = [
           "--host=${MYSQL_HOST}",
           "--port=${MYSQL_PORT}",
-          "--user=root"
+          "--user=root",
           "--password=${MYSQL_PASSWORD}",
           "--execute=\"source /local/run.sql\""
         ]
       }
+
+      template {
+        destination = "local/run.sql"
+        data        = <<EOT
+CREATE DATABASE {{ printf "wordpress-%s" .Name }};
+CREATE USER {{ .User }} identified by {{ .Pass }};
+EOT
+      }
+
+      template {
+        destination = "secrets/env.txt"
+        env         = true
+        data        = <<EOT
+MYSQL_PASSWORD=somewordpress
+EOT
+      }
     }
   }
 }
-
-# $ docker run -v <path to sql>:/sql --link <mysql server container name>:mysql -it arey/mysql-client -h mysql -p <password> -D <database name> -e "source /sql/<your sql file>"

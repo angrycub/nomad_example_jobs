@@ -3,7 +3,7 @@ job "example" {
 
   group "cache" {
     network {
-      port  "db"  {}
+      port "db" {}
     }
 
     task "remote_syslog_stdout" {
@@ -12,13 +12,13 @@ job "example" {
       config {
         image = "octohost/remote_syslog"
         args = [
-         "-p", "29655", "-d", "logs5.papertrailapp.com", "/alloc/logs/redis.stdout.0"
+          "-p", "29655", "-d", "logs5.papertrailapp.com", "/alloc/logs/redis.stdout.0"
         ]
-     }
+      }
 
       lifecycle {
         sidecar = true
-        hook = "prestart"
+        hook    = "prestart"
       }
     }
 
@@ -28,13 +28,13 @@ job "example" {
       config {
         image = "octohost/remote_syslog"
         args = [
-         "-p", "29655", "-d", "logs5.papertrailapp.com", "/alloc/logs/redis.stderr.0"
+          "-p", "29655", "-d", "logs5.papertrailapp.com", "/alloc/logs/redis.stderr.0"
         ]
-     }
+      }
 
       lifecycle {
         sidecar = true
-        hook = "prestart"
+        hook    = "prestart"
       }
     }
 
@@ -44,7 +44,6 @@ job "example" {
       config {
         image = "redis:7"
         ports = ["db"]
-        }
       }
 
       resources {
