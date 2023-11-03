@@ -16,6 +16,11 @@ job "example" {
         ports          = ["db"]
         auth_soft_fail = true
       }
+
+      resources {
+        cpu    = 500
+        memory = 256
+      }
     }
   }
 }

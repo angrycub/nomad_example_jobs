@@ -1,0 +1,141 @@
+# Examples of using the `nomadService` in `template` blocks
+
+## Most space efficient way of rendering all instances of a service registered in Nomad
+
+### Template
+
+```go
+{{ print `{{ range nomadService "test-service" }}{{printf "%s=%s:%v\n" .Name .Address .Port}}{{ end -}}`}}
+```
+
+### Output
+
+```plaintext
+{{ range nomadService "test-service" }}{{printf "%s=%s:%v\n" .Name .Address .Port}}{{ end -}}
+```
+
+## Get a single instance from the returned services using `break`
+
+### Template
+
+```go
+{{ print `{{ range nomadService "test-service" }}{{printf "%s=%s:%v" .Name .Address .Port}}{{ break }}{{ end }}`}}
+```
+
+### Output
+
+```plaintext
+{{ range nomadService "test-service" }}{{printf "%s=%s:%v" .Name .Address .Port}}{{ break }}{{ end }}
+```
+
+## Get a single instance from the returned services using `index`
+
+### Template
+
+```go
+{{ print `{{ with nomadService "test-service" }}{{ with index . 0 }}{{printf "%s=%s:%v" .Name .Address .Port}}{{ end }}{{ end }}` }}
+```
+
+### Output
+
+```plaintext
+{{ with nomadService "test-service" }}{{ with index . 0 }}{{printf "%s=%s:%v" .Name .Address .Port}}{{ end }}{{ end }}
+```
+
+You can omit the `with` and its corresponding `end` if you assign the result of
+the index call to a variable explicitly.
+
+
+### Template
+
+```go
+{{ print `{{ with nomadService "test-service" }}{{ $S := index . 0 }}{{printf "%s=%s:%v" $S.Name $S.Address $S.Port}}{{ end }}` }}
+```
+
+### Output
+
+```plaintext
+{{ with nomadService "test-service" }}{{ $S := index . 0 }}{{printf "%s=%s:%v" $S.Name $S.Address $S.Port}}{{ end }}
+```
+
+However, you can not use the nomadService function's return value as a direct
+parameter of the index function due to the multi-pass nature of consul-template
+rendering. Attempting to run this template will result in an `reflect: slice
+index out of range` error.
+
+```go
+{{ print `{{ index (nomadService "test-service") 0 }}{{printf "%s=%s:%v" .Name .Address .Port}}` }}
+```
+{{- /* Keeping a copy of the command here for easy running if you want to prove the error.
+
+```plaintext
+{{ with (0 | index (nomadService "test-service") )}}{{printf "%s=%s:%v" .Name .Address .Port}}{{ end }}
+```
+*/ -}}{{ println }}
+
+---
+
+## Get a single instance from the returned services using rendezvous hashing.
+
+### Template
+
+```go
+{{ print `{{ range nomadService 1 "myRendezvousKey" "test-service" }}{{printf "%s=%s:%v" .Name .Address .Port}}{{ end }}` }}
+```
+
+### Output
+
+```plaintext
+{{ range nomadService 1 "myRendezvousKey" "test-service" }}{{ printf "%s=%s:%v" .Name .Address .Port}}{{ end }}
+```
+
+---
+
+## Get a single instance from the returned services using sprig_first
+
+### Template
+
+```go
+{{ print `{{ with nomadService "test-service" }}{{ with sprig_first . }}{{ printf "%s=%s:%v" .Name .Address .Port}}{{ end }}{{ end }}` }}
+```
+
+### Output
+
+```plaintext
+{{ with nomadService "test-service" }}{{ with sprig_first .}}{{ printf "%s=%s:%v" .Name .Address .Port}}{{ end }}{{ end }}
+```
+
+## Get a single instance from the returned services using sprig_first
+
+### Template
+
+```go
+{{ print `{{ with nomadService "test-service" | sprig_first }}{{ printf "%s=%s:%v" .Name .Address .Port}}{{ end }}` }}
+```
+
+### Output
+
+```plaintext
+{{ with nomadService "test-service" | sprig_first }}{{ printf "%s=%s:%v" .Name .Address .Port}}{{ end }}
+```
+
+This template also runs in cases where the service does not exist. It will not
+output anything.
+
+### Template
+
+```go
+{{ print `{{ with nomadService "bad-service" | sprig_first }}{{ printf "%s=%s:%v" .Name .Address .Port}}{{ end }}` }}
+```
+
+### Output
+
+```plaintext
+{{ with nomadService "bad-service" | sprig_first }}{{ printf "%s=%s:%v" .Name .Address .Port}}{{ end }}
+```
+
+## Conclusion
+
+This template demonstrates several usages of the nomadService function and
+helpers that will enable you to use Nomad service discovery to configure your
+Nomad workloads.

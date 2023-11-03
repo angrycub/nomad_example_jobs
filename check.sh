@@ -1,6 +1,11 @@
 #!/bin/bash
 
+error=0
+warn=0
+okay=0
+
 printError () {
+  ((error++))
   echo -n "- Checking ${CUR_FILE} ... "
 
   icon="🔴"
@@ -20,6 +25,7 @@ printError () {
 }
 
 printWarning () {
+  ((warn++))
   echo -n "- Checking ${CUR_FILE} ... "
 
   icon="🟡"
@@ -39,6 +45,7 @@ printWarning () {
 }
 
 printSuccess () {
+  ((okay++))
   if [ ${NO_SUCCESS:-unset} != "unset" ]; then
     continue
   fi
@@ -68,6 +75,11 @@ setupOutput() {
 }
 
 finishOutput() {
+    echo ""
+    echo "Summary ---"
+    echo "  Error: ${error}"
+    echo "   Warn: ${warn}"
+    echo "   Okay: ${okay}"
     endHTML
 }
 
@@ -108,6 +120,16 @@ endHTML() {
     cat <<HERE >> output.html
 </tbody>
 </table>
+
+<table>
+<thead><tr><th>Status</th><th>Count</th></tr></thead>
+<tbody>
+<tr><td>Error</td><td>${error}</td></tr>
+<tr><td>Warn</td><td>${warn}</td></tr>
+<tr><td>Okay</td><td>${okay}</td></tr>
+</tbody>
+</table>
+
 <script>
 \$(document).ready( function () {
     \$('#results').DataTable({
@@ -128,9 +150,10 @@ files=$(find -s ${1:-.}  -name "*.nomad")
 for file in ${files}; do
 
   CUR_FILE=${file}
-  out=$(nomad plan ${CUR_FILE} 2>&1)
+  pushd `dirname ${file}` > /dev/null
+  out=$(nomad plan `basename ${CUR_FILE}` 2>&1)
   ec=$?
-
+  popd > /dev/null
   if [ "${ec}" == "255" ]; then
     printError "${out}"
   fi

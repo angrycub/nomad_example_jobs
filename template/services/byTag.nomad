@@ -22,40 +22,39 @@ job "template" {
         destination = "local/template.out"
         data        = <<EOH
 Constructive Play
-{{ printf "%q" ( services | byTag ) }}
+{{ spew_sdump ( services | byTag ) }}
 ---
-{{ $tags := services | byTag }}
-{{ ( len $tags.standby ) }}
+{{ $tags := services | byTag }}{{ ( len $tags.standby ) }}
 ---
-Get Service By Tag.  0utput Alternate if None found
+Get Service By Tag.  Output Alternate if None found
 {{ $nomad := service "nomad" | byTag }}
 {{- if eq (len $nomad.http) 0 -}}
 no services
 {{- else -}}
     {{- range $service := $nomad.http -}}
-       {{- $service.Address }}
-    {{ end -}}
+       {{- println $service.Address -}}
+    {{- end -}}
 {{ end }}
 ---
-Get Service By Tag.  0utput Alternate if None found
+Get Service By Tag.  Output Alternate if None found
 {{ $nomad := service "nomad" | byTag }}
 {{- if eq (len $nomad.notATag) 0 -}}
 no services
 {{ else -}}
     {{- range $service := $nomad.notATag }}
-        {{ $service.Address }}
-    {{ end -}}
+        {{- println $service.Address -}}
+    {{- end -}}
 {{ end }}
 ---
-Get Service By Tag.  0utput Alternate if None found
+Get Service By Tag.  Output Alternate if None found
 {{ $tag := "notATag" }}
 {{ $nomad := service "nomad" | byTag }}
 {{- if eq (len (index $nomad $tag) ) 0 -}}
 no services
 {{ else -}}
     {{- range $service := index $nomad $tag }}
-        {{ $service.Address }}
-    {{ end -}}
+        {{- println $service.Address -}}
+    {{- end -}}
 {{ end }}
 
 EOH

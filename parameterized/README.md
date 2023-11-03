@@ -9,7 +9,7 @@ description: |-
 
 # Parameterized Jobs on Nomad
 
-Parameterized Nomad jobs encapsulate a set of work that can be carried out on various input values. 
+Parameterized Nomad jobs encapsulate a set of work that can be carried out on various input values.
 
 Jobs with the parameterized stanza register themselves to the cluster, but they do not run immediately.
 
@@ -68,7 +68,7 @@ For this tutorial, replace the placeholders in the minimal job template with the
 
 ### Set job type to batch
 
-The default job type of a Nomad job is **service**. For a batch job, you need to explicitly add the type attribute to the **job** stanza.
+The default Nomad job type is **service**. For a batch job, you need to explicitly add the type attribute to the **job** stanza.
 
 ```hcl
   type = "batch"
@@ -87,7 +87,7 @@ Inside of the **task** stanza, add the following `config` stanza. This configura
 
 ### Add a `template`
 
-Next, add a **template** stanza inside of the **task** stanza. This template will write the words `This is my template` to the **local/out.txt** file.
+Next, add a **template** stanza inside the **task** stanza. This template will write the words `This is my template` to the **local/out.txt** file.
 
 ```hcl
       template {
@@ -142,7 +142,7 @@ $ nomad job run template.nomad
 ==> Evaluation "fe273062" finished with status "complete"
 ```
 
-View the output from the job by running the `nomad alloc logs` command on the allocation that Nomad created. In the above output, the allocation ID is "**bbae901c**."
+View the output from the job by running the `nomad alloc logs` command on the allocation that Nomad created. In the preceding output, the allocation ID is "**bbae901c**."
 
 ```shell-session
 $ nomad alloc logs bbae901c
@@ -163,7 +163,7 @@ An empty `parameterized` stanza creates a parameterized job that can't be custom
 Before making the job parameterized, you will need to purge the original batch version. Run `nomad job stop` with the `-purge` flag on the `template` job.
 
 ```shell-session
-$ nomad job stop -purge template
+nomad job stop -purge template
 ```
 
 Run the parameterized version of the job.
@@ -177,17 +177,17 @@ Notice that the output doesn't show any scheduling activity—no evaluation or a
 
 ### If you get an error
 
-If you will receive the following error, it indicates that you missed purging the non-parameterized version of the template job. Run `nomad job stop -purge template` to resolve it.
+If you receive the following error, it indicates that you missed purging the non-parameterized version of the template job. Run `nomad job stop -purge template` to resolve it.
 
 ```shell-session
-$ nomad job run template.nomad 
+$ nomad job run template.nomad
 Error submitting job: Unexpected response code: 500 (cannot update non-parameterized job to being parameterized)
 ```
 
 Run the `nomad job status` command to verify your parameterized job is available for dispatch.
 
 ```shell-session
-$ nomad job status 
+$ nomad job status
 ID        Type                 Priority  Status   Submit Date
 template  batch/parameterized  50        running  2021-04-11T22:01:45-04:00
 ```
@@ -221,7 +221,7 @@ Parameterized jobs without variables can be used to provide a means for running 
 
 ## Add a dispatch variable
 
-Parameterized jobs also provide a the ability to send variables as part of dispatching the job. These variables can be optional or required.
+Parameterized jobs also provide the ability to send variables as part of dispatching the job. These variables can be optional or required.
 
 For example, the following parameterized stanza adds a required variable named `dispatcher_email` and an optional variable named `pager_email`.
 
@@ -232,7 +232,7 @@ For example, the following parameterized stanza adds a required variable named `
   }
 ```
 
-Add two variables to the template job's parameterized stanza—one required variable named `my_name` and an optional variable named `my_title`—by adding the following attributes inside of the parameterized stanza.
+Add two variables to the template job's parameterized stanza—one required variable named `my_name` and an optional variable named `my_title`—by adding the following attributes inside the parameterized stanza.
 
 ```hcl
     meta_required = ["my_name"]
@@ -251,7 +251,7 @@ Hello {{ if ( env "NOMAD_META_MY_TITLE" ) }}{{ env "NOMAD_META_MY_TITLE" }} {{ e
 ### Deploy and dispatch the job
 
 ```shell-session
-$ nomad run template.nomad              
+$ nomad run template.nomad
 Job registration successful
 ```
 
@@ -275,9 +275,9 @@ This is my template.
 Hello Learner.
 ```
 
-### Test the requirement of `my_name`
+### Test that `my_name` is required
 
-Because you put the **my_name** variable in the meta_required attribute's value list, the job will not run unless you provide it when dispatching. If you do not, you will receive an error. Try it now.
+Because you put the `my_name` variable in the **meta_required** attribute's value list, the job will not run unless you provide it when dispatching. If you do not, you will receive an error. Try it now.
 
 ```shell-session
 $ nomad job dispatch template
@@ -308,7 +308,7 @@ Hello awesome Learner.
 
 ### Set default values for optional variables
 
-You set default values for optional variables by adding the `meta` stanza inside the **job** stanza. Create a default of "diligent" for my_title by adding the following meta stanza.
+You set default values for optional variables by adding the `meta` stanza inside the **job** stanza. Create a default of "diligent" for `my_title` by adding the following meta stanza.
 
 ```hcl
   meta {
@@ -317,7 +317,7 @@ You set default values for optional variables by adding the `meta` stanza inside
 ```
 
 ```shell-session
-$ nomad job dispatch -meta my_name=Learner template    
+$ nomad job dispatch -meta my_name=Learner template
 Dispatched Job ID = template/dispatch-1618196625-aa9ba981
 Evaluation ID     = 999e5266
 
@@ -362,20 +362,3 @@ Hello fantastic Learner.
         file = "config.json"
       }
 ```
-
-## Additional discussion
-
-_Optional_
-
-Often times, support or TAMs ask you to add extra discussion to explain little
-more about cloud provider specific pitfalls, etc. You can add them here if it
-does not fit into anywhere else.
-
-## Next steps
-
-In this section, start with a brief **_summary_** of what you have learned in
-this tutorial re-emphasizing the business value. Then provide some guidance on the
-next steps to extend the user's knowledge. Briefly describe what the user will do in the next tutorial if the current collection is sequential.
-
-Add cross-referencing links to get more information about the feature (e.g.
-product doc page, webinar links, blog post, etc.).
