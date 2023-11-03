@@ -1,0 +1,19 @@
+{
+  "zookeeper": {
+    "job_name": "zookeeper",
+    "service": {
+      "name": "zookeeper"
+    },
+    "node_count": 3,
+    "resources": {
+      "cpu": 300,
+      "memory": 256
+    },
+    "volume": {
+      "source_prefix": "zk"
+    },
+    "datacenters": ["dc1"],
+    "image": "zookeeper:3.6.1"
+  }
+}
+

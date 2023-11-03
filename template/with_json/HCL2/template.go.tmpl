@@ -1,0 +1,20 @@
+{{- range $tag, $services := service "zookeeper" | byTag -}}
+  {{- range $services -}}
+    {{- $ID := split "-" .ID -}}
+    {{- $ALLOC := join "-" (slice $ID 0 (subtract 1 (len $ID ))) -}}
+    {{- if .ServiceMeta.ZK_ID -}}
+      {{- scratch.MapSet "allocs" $ALLOC $ALLOC -}}
+      {{- scratch.MapSet "tags" $tag $tag -}}
+      {{- scratch.MapSet $ALLOC "ZK_ID" .ServiceMeta.ZK_ID -}}
+      {{- scratch.MapSet $ALLOC (printf "%s_%s" $tag "address") .Address -}}
+      {{- scratch.MapSet $ALLOC (printf "%s_%s" $tag "port") .Port -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- range $ai, $a := scratch.MapValues "allocs" -}}
+  {{- $alloc := scratch.Get $a -}}
+  {{- with $alloc -}}
+server.{{ .ZK_ID }} = {{ .peer_address }}:{{ .peer_port }}:{{ .election_port }};{{.client_port}}{{println ""}}
+  {{- end -}}
+{{- end -}}
+

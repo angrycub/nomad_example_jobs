@@ -1,0 +1,11 @@
+{
+  "zookeeper": {
+    "job_name": "custom-zk",
+    "node_count": 1,
+    "image": "zookeeper:latest",
+    "service": {
+      "name": "zk-latest"
+    }
+  }
+}
+
