@@ -3,18 +3,13 @@
 This job uses Nomad Host Volumes to provide an internal s3 compatible storage
 environment which can be used to host private artifacts for a Nomad clusters.
 
-## Variations
+## Prerequisites
 
-- **consul-sd** - leverages Consul service registrations for locating the MinIO
-  instance.
+- **Consul** - This job leverages Consul service registrations for locating the
+  MinIO instance.
 
-- **secure-variables** - leverages Nomad service registrations for locating the
-  MinIO instance. The instance credentials are stored in a Nomad variable for
-  retrieval at runtime.  **Requires Nomad 1.4.0+**
+## Necessary configuration
 
-## Requirements
-
--
 ### Create the host volume in the configuration
 
 Create a folder on one of your Nomad clients to host your registry files. This
