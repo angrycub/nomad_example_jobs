@@ -3,7 +3,10 @@ job "prohibit-overlap.nomad" {
   type        = "batch"
 
   periodic {
-    cron  = "* * * * *"
+    crons = [
+      "* * * * * *"
+    ]
+
     prohibit_overlap = true
   }
 

@@ -3,7 +3,10 @@ job "example" {
   type        = "batch"
 
   periodic {
-    cron             = "*/1 * * * * *"
+    crons = [
+      "*/1 * * * * *"
+    ]
+
     prohibit_overlap = true
   }
 
