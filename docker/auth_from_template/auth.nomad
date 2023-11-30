@@ -6,20 +6,21 @@ job "auth" {
   group "docker" {
 
     task "redis" {
+      driver = "docker"
 
       template {
-        destination = "local/secret.env"
+        destination = "secrets/secret.env"
         env         = true
-        change_mode = "restart"
+        change_mode = "noop"
         data        = <<EOH
 DOCKER_USER={{ key "kv/docker/config/user" }}
 DOCKER_PASS={{ key "kv/docker/config/pass" }}
 EOH
       }
 
-      driver = "docker"
-
       config {
+        # Update this value for your private container
+        # registry
         image = "registry.service.consul:5000/redis:latest"
         auth {
           username = "${DOCKER_USER}"
