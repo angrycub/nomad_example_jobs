@@ -8,9 +8,10 @@ job "freedos" {
     }
 
     service {
-      name = "freedos"
-      tags = ["sample"]
-      port = "webvnc"
+      name     = "freedos"
+      tags     = ["sample"]
+      port     = "webvnc"
+      provider = "nomad"
 
       check {
         type     = "tcp"
