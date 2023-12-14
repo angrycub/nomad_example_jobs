@@ -3,53 +3,36 @@ job "minecraft" {
   type        = "service"
 
   group "minecraft" {
-    volume "minecraft" {
-      type   = "host"
-      source = "minecraft"
-    }
-
-    task "eula" {
-      driver = "exec"
-
-      volume_mount {
-        volume      = "minecraft"
-        destination = "/var/volume"
-      }
-
-      config {
-        command = "/bin/sh"
-        args    = ["-c", "echo 'eula=true' > /var/volume/eula.txt"]
-      }
-
-      lifecycle {
-        hook    = "prestart"
-        sidecar = false
-      }
-    }
-
     task "minecraft" {
       driver = "exec"
 
       config {
-        command = "/bin/sh"
-        args    = ["-c", "cd /var/volume && exec java -Xms1024M -Xmx2048M -jar /local/server.jar --nogui; while true; do sleep 5; done"]
+        command = "/usr/env bash"
+        args    = [
+          "-c",
+          <<EOT
+            java -Xms1024M -Xmx1024M -jar /local/server.jar --nogui
+          EOT
+        ]
       }
 
       artifact {
         source = "https://launcher.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149ac3a215f6c636b07/server.jar"
-        destination = "/var/volume"
+      }
+
+      template {
+        # We have to render the eula.txt file in the allocation root directory
+        # because the server.jar process is called with / as the current working
+        # directory. We can traverse backward from the task directory to the
+        # allocation's root directory with ../
+        destination = "${NOMAD_TASK_DIR}/../eula.txt"
+        data        = "eula=true"
       }
 
       resources {
-        cpu    = 500 
-        memory = 500
-      }
-
-      volume_mount {
-        volume      = "minecraft"
-        destination = "/var/volume"
+        cpu    = 500
+        memory = 1252
       }
     }
   }
 }
-
