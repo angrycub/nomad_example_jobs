@@ -3,7 +3,9 @@ job "template" {
   type        = "batch"
 
   periodic {
-    cron  = "* * * * *"
+    crons = [
+      "* * * * *"
+    ]
   }
 
   group "group" {
