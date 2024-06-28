@@ -92,7 +92,6 @@ EOH
       }
 
       config {
-        # image = "radiohead.retailshake.com/rs-airflow:2.8.0"
         image = "apache/airflow:2.2.5"
         entrypoint = ["/bin/bash"]
         volumes = [
@@ -106,12 +105,6 @@ EOH
       }
     }
     task "airflow-webserver" {
-      # volume_mount {
-      #   volume      = "jobVolume"
-      #   destination = "/disk-2"
-      #   read_only   = false
-      # }
-
       restart {
         attempts = 2
         interval = "10m"
@@ -124,12 +117,7 @@ EOH
         port = "afwebserver"
         tags = [
           "traefik.enable=true",
-          "traefik.http.routers.airflow.rule=Host(`airflow.preprod.retailshake.com`)"
-          # "traefik.http.routers.airflow.rule=PathPrefix(`/airflow`)"
-          # "traefik.http.middlewares.airflow.stripprefix.prefixes=/airflow,airflow,airflow/,/airflow/",
-          # "traefik.http.middlewares.add-airflow.addprefix.prefix=/airflow",
-          # "traefik.http.routers.airflow.middlewares=airflow@consulcatalog,add-airflow@consulcatalog"
-          # "traefik.http.middlewares.example.stripprefix.forceSlash=false"
+          "traefik.http.routers.airflow.rule=Host(`airflow.domain.com`)"
         ]
 
         check {
@@ -153,14 +141,14 @@ EOH
         AIRFLOW__API__AUTH_BACKEND= "airflow.api.auth.backend.basic_auth"
         _PIP_ADDITIONAL_REQUIREMENTS= "environs influxdb_client"
         AIRFLOW__SMTP__SMTP_HOST= "smtp.service.consul"
-        AIRFLOW__SMTP__SMTP_USER= "irwan@retailshake.com"
+        AIRFLOW__SMTP__SMTP_USER= ""
         AIRFLOW__SMTP__SMTP_PASSWORD= "urpatvervnsxcpjg"
-        AIRFLOW__SMTP__SMTP_MAIL_FROM= "airflow@retailshake.com"
+        AIRFLOW__SMTP__SMTP_MAIL_FROM= ""
         LM_EXPORTS_TOKEN= "${LM_EXPORTS_TOKEN}"
         LM_EXPORTS_COMPANIES= "${LM_EXPORTS_COMPANIES}"
         LM_EXPORTS_EMAILS= "${LM_EXPORTS_EMAILS}"
-        WEEKLY_ALERTS = "enjeux_prix_enseignes_liste,enjeux_prix_enseignes"
-        DAILY_ALERTS = "vendeur_prix_markeplaces"
+        WEEKLY_ALERTS = ""
+        DAILY_ALERTS = ""
         RS_PREPROD=1
         # AIRFLOW__WEBSERVER__BASE_URL="http://localhost:8080/airflow"
         # AIRFLOW__CLI__ENDPOINT_URL="http://localhost:8080/airflow"
@@ -189,64 +177,11 @@ EOH
 
       template  {
         data = <<EOD
-# -*- coding: utf-8 -*-
-from datetime import datetime
-from influxdb_client import InfluxDBClient, Point
-from influxdb_client.client.write_api import SYNCHRONOUS
-from environs import Env
-
-import logging
-
-env = Env()
-
-
-class GrafanaMonitor:
-    def __init__(self):
-        # TODO: find a way to get .env into airflow container
-        #  maybe use airflow.cfg? or put it in plugins folder?
-        self.url = env.str("INFLUXDB_URL", "http://green-day.retailshake.com:8086")
-        self.org = env.str("INFLUXDB_ORG", "retailshake")
-        self.token = env.str("INFLUXDB_TOKEN", "MIzHXfRMiEy09ePz69Xaq8sfpYdsfEpn8sB_qKxhQo3B5r0FjtSMh3n5AZW-6YZJIg5v_gxsYhDIFjL87AKdnA==")
-
-    def send_metrics(self, measurement: str, tags: dict = None, fields: dict = None):
-
-        if not measurement:
-            raise ValueError(
-                f"measurement must be set to write in InfluxDB, skipping fields {fields} with tags {tags}"
-            )
-
-        point = {
-            "measurement": measurement,
-            "time": datetime.utcnow(),
-        }
-
-        if fields:
-            point["fields"] = fields
-
-        if tags:
-            point["tags"] = tags
-
-        if self.url and self.org and self.token:
-            try:
-                client = InfluxDBClient(url = self.url, token=self.token, org=self.org)
-                write_api = client.write_api(write_options=SYNCHRONOUS)
-                # The bucket can be defined as an environment variable or set as default
-                bucket = env.str("INFLUXDB_BUCKET", "retailshake")
-
-                write_api.write(bucket=bucket, org=self.org, record=point)
-
-                logging.debug(f"sent to InfluxDB point {point}")
-
-            except Exception as e:
-                logging.error(e)
-        else:
-            logging.warning(f"Grafana not configured, logging Metrics: {point}")
+# pyton content
 EOD
-
-        destination = "local/grafana.py"
+        destination = "local/file.py"
       }
       config {
-        # image = "radiohead.retailshake.com/rs-airflow:2.8.0"
         image = "apache/airflow:2.2.5"
         entrypoint = ["/entrypoint"]
         args = ["airflow", "webserver"]
@@ -254,7 +189,6 @@ EOD
         ports=["afwebserver"]
         volumes = [
           "local/airflow.cfg/gistfile1.txt:/opt/airflow/airflow.cfg",
-          "local/grafana.py:/opt/airflow/plugins/grafana.py"
         ]
       }
       resources {
@@ -263,90 +197,11 @@ EOD
       }
     }
     task "airflow-worker" {
-      # volume_mount {
-      #   volume      = "jobVolume"
-      #   destination = "/disk-2"
-      #   read_only   = false
-      # }
-
       restart {
         attempts = 2
         interval = "10m"
         delay    = "15s"
         mode     = "fail"
-      }
-
-      template  {
-        data = <<EOD
-# -*- coding: utf-8 -*-
-from datetime import datetime
-from influxdb_client import InfluxDBClient, Point
-from influxdb_client.client.write_api import SYNCHRONOUS
-from environs import Env
-
-import logging
-
-env = Env()
-
-
-class GrafanaMonitor:
-    def __init__(self):
-        # TODO: find a way to get .env into airflow container
-        #  maybe use airflow.cfg? or put it in plugins folder?
-        self.url = env.str("INFLUXDB_URL", "http://green-day.retailshake.com:8086")
-        self.org = env.str("INFLUXDB_ORG", "retailshake")
-        self.token = env.str("INFLUXDB_TOKEN", "MIzHXfRMiEy09ePz69Xaq8sfpYdsfEpn8sB_qKxhQo3B5r0FjtSMh3n5AZW-6YZJIg5v_gxsYhDIFjL87AKdnA==")
-
-    def send_metrics(self, measurement: str, tags: dict = None, fields: dict = None):
-
-        if not measurement:
-            raise ValueError(
-                f"measurement must be set to write in InfluxDB, skipping fields {fields} with tags {tags}"
-            )
-
-        point = {
-            "measurement": measurement,
-            "time": datetime.utcnow(),
-        }
-
-        if fields:
-            point["fields"] = fields
-
-        if tags:
-            point["tags"] = tags
-
-        if self.url and self.org and self.token:
-            try:
-                client = InfluxDBClient(url = self.url, token=self.token, org=self.org)
-                write_api = client.write_api(write_options=SYNCHRONOUS)
-                # The bucket can be defined as an environment variable or set as default
-                bucket = env.str("INFLUXDB_BUCKET", "retailshake")
-
-                write_api.write(bucket=bucket, org=self.org, record=point)
-
-                logging.debug(f"sent to InfluxDB point {point}")
-
-            except Exception as e:
-                logging.error(e)
-        else:
-            logging.warning(f"Grafana not configured, logging Metrics: {point}")
-EOD
-
-        destination = "local/grafana.py"
-      }
-      template {
-        data = <<EOH
-{{ key "service_account_prod" }}
-EOH
-        destination = "secrets/creds_gcs_prod.json"
-      }
-
-
-      template {
-        data = <<EOH
-{{ key "service_account_airflow" }}
-EOH
-        destination = "secrets/creds.json"
       }
 
       driver = "docker"
@@ -364,14 +219,14 @@ EOH
         AIRFLOW__API__AUTH_BACKEND= "airflow.api.auth.backend.basic_auth"
         _PIP_ADDITIONAL_REQUIREMENTS= "environs influxdb_client"
         AIRFLOW__SMTP__SMTP_HOST= "smtp.service.consul"
-        AIRFLOW__SMTP__SMTP_USER= "irwan@retailshake.com"
-        AIRFLOW__SMTP__SMTP_PASSWORD= "urpatvervnsxcpjg"
-        AIRFLOW__SMTP__SMTP_MAIL_FROM= "airflow@retailshake.com"
+        AIRFLOW__SMTP__SMTP_USER= ""
+        AIRFLOW__SMTP__SMTP_PASSWORD= ""
+        AIRFLOW__SMTP__SMTP_MAIL_FROM= "airflow@domain.com"
         LM_EXPORTS_TOKEN= "${LM_EXPORTS_TOKEN}"
         LM_EXPORTS_COMPANIES= "${LM_EXPORTS_COMPANIES}"
         LM_EXPORTS_EMAILS= "${LM_EXPORTS_EMAILS}"
-        WEEKLY_ALERTS = "enjeux_prix_enseignes_liste,enjeux_prix_enseignes"
-        DAILY_ALERTS = "vendeur_prix_markeplaces"
+        WEEKLY_ALERTS = ""
+        DAILY_ALERTS = ""
         DUMB_INIT_SETSID = "0"
         BUCKET_ENV="preprod"
         AIRFLOW_UID=50000
@@ -412,13 +267,11 @@ EOH
       }
 
       config {
-        # image = "radiohead.retailshake.com/rs-airflow:2.8.0"
         image = "apache/airflow:2.2.5"
         entrypoint = ["/entrypoint"]
         args = ["airflow", "celery", "worker"]
         volumes = [
           "local/airflow.cfg/gistfile1.txt:/opt/airflow/airflow.cfg",
-          "local/grafana.py:/opt/airflow/plugins/grafana.py"
         ]
       }
       resources {
@@ -427,12 +280,6 @@ EOH
       }
     }
     task "airflow-scheduler" {
-      # volume_mount {
-      #   volume      = "jobVolume"
-      #   destination = "/disk-2"
-      #   read_only   = false
-      # }
-
       restart {
         attempts = 2
         interval = "10m"
@@ -454,14 +301,14 @@ EOH
         AIRFLOW__API__AUTH_BACKEND= "airflow.api.auth.backend.basic_auth"
         _PIP_ADDITIONAL_REQUIREMENTS= "environs influxdb_client"
         AIRFLOW__SMTP__SMTP_HOST= "smtp.service.consul"
-        AIRFLOW__SMTP__SMTP_USER= "irwan@retailshake.com"
-        AIRFLOW__SMTP__SMTP_PASSWORD= "urpatvervnsxcpjg"
-        AIRFLOW__SMTP__SMTP_MAIL_FROM= "airflow@retailshake.com"
+        AIRFLOW__SMTP__SMTP_USER= ""
+        AIRFLOW__SMTP__SMTP_PASSWORD= ""
+        AIRFLOW__SMTP__SMTP_MAIL_FROM= "airflow@domain.com"
         LM_EXPORTS_TOKEN= "${LM_EXPORTS_TOKEN}"
         LM_EXPORTS_COMPANIES= "${LM_EXPORTS_COMPANIES}"
         LM_EXPORTS_EMAILS= "${LM_EXPORTS_EMAILS}"
-        WEEKLY_ALERTS = "enjeux_prix_enseignes_liste,enjeux_prix_enseignes"
-        DAILY_ALERTS = "vendeur_prix_markeplaces"
+        WEEKLY_ALERTS = ""
+        DAILY_ALERTS = ""
         AIRFLOW_UID=50000
         RS_PREPROD=1
 
@@ -497,73 +344,13 @@ EOH
         destination = "local/airflow.cfg"
       }
 
-      template  {
-        data = <<EOD
-# -*- coding: utf-8 -*-
-from datetime import datetime
-from influxdb_client import InfluxDBClient, Point
-from influxdb_client.client.write_api import SYNCHRONOUS
-from environs import Env
-
-import logging
-
-env = Env()
-
-
-class GrafanaMonitor:
-    def __init__(self):
-        # TODO: find a way to get .env into airflow container
-        #  maybe use airflow.cfg? or put it in plugins folder?
-        self.url = env.str("INFLUXDB_URL", "http://green-day.retailshake.com:8086")
-        self.org = env.str("INFLUXDB_ORG", "retailshake")
-        self.token = env.str("INFLUXDB_TOKEN", "MIzHXfRMiEy09ePz69Xaq8sfpYdsfEpn8sB_qKxhQo3B5r0FjtSMh3n5AZW-6YZJIg5v_gxsYhDIFjL87AKdnA==")
-
-    def send_metrics(self, measurement: str, tags: dict = None, fields: dict = None):
-
-        if not measurement:
-            raise ValueError(
-                f"measurement must be set to write in InfluxDB, skipping fields {fields} with tags {tags}"
-            )
-
-        point = {
-            "measurement": measurement,
-            "time": datetime.utcnow(),
-        }
-
-        if fields:
-            point["fields"] = fields
-
-        if tags:
-            point["tags"] = tags
-
-        if self.url and self.org and self.token:
-            try:
-                client = InfluxDBClient(url = self.url, token=self.token, org=self.org)
-                write_api = client.write_api(write_options=SYNCHRONOUS)
-                # The bucket can be defined as an environment variable or set as default
-                bucket = env.str("INFLUXDB_BUCKET", "retailshake")
-
-                write_api.write(bucket=bucket, org=self.org, record=point)
-
-                logging.debug(f"sent to InfluxDB point {point}")
-
-            except Exception as e:
-                logging.error(e)
-        else:
-            logging.warning(f"Grafana not configured, logging Metrics: {point}")
-EOD
-
-        destination = "local/grafana.py"
-      }
       config {
-        # image = "radiohead.retailshake.com/rs-airflow:2.8.0"
         image = "apache/airflow:2.2.5"
         entrypoint = ["/entrypoint"]
         # command = "scheduler"
         args=["airflow", "scheduler"]
         volumes = [
           "local/airflow.cfg/gistfile1.txt:/opt/airflow/airflow.cfg",
-          "local/grafana.py:/opt/airflow/plugins/grafana.py"
         ]
       }
       resources {
@@ -572,12 +359,6 @@ EOD
       }
     }
     task "airflow-triggerer" {
-      # volume_mount {
-      #   volume      = "jobVolume"
-      #   destination = "/disk-2"
-      #   read_only   = true
-      # }
-
       restart {
         attempts = 2
         interval = "10m"
@@ -599,14 +380,14 @@ EOD
         AIRFLOW__API__AUTH_BACKEND= "airflow.api.auth.backend.basic_auth"
         _PIP_ADDITIONAL_REQUIREMENTS= "environs influxdb_client"
         AIRFLOW__SMTP__SMTP_HOST= "smtp.service.consul"
-        AIRFLOW__SMTP__SMTP_USER= "irwan@retailshake.com"
-        AIRFLOW__SMTP__SMTP_PASSWORD= "urpatvervnsxcpjg"
-        AIRFLOW__SMTP__SMTP_MAIL_FROM= "airflow@retailshake.com"
+        AIRFLOW__SMTP__SMTP_USER= ""
+        AIRFLOW__SMTP__SMTP_PASSWORD= ""
+        AIRFLOW__SMTP__SMTP_MAIL_FROM= "airflow@domain.com"
         LM_EXPORTS_TOKEN= "${LM_EXPORTS_TOKEN}"
         LM_EXPORTS_COMPANIES= "${LM_EXPORTS_COMPANIES}"
         LM_EXPORTS_EMAILS= "${LM_EXPORTS_EMAILS}"
-        WEEKLY_ALERTS = "enjeux_prix_enseignes_liste,enjeux_prix_enseignes"
-        DAILY_ALERTS = "vendeur_prix_markeplaces"
+        WEEKLY_ALERTS = ""
+        DAILY_ALERTS = ""
 
         AIRFLOW_UID=50000
         RS_PREPROD=1
@@ -630,72 +411,12 @@ EOD
         read_only = false
       }
 
-      template  {
-        data = <<EOD
-# -*- coding: utf-8 -*-
-from datetime import datetime
-from influxdb_client import InfluxDBClient, Point
-from influxdb_client.client.write_api import SYNCHRONOUS
-from environs import Env
-
-import logging
-
-env = Env()
-
-
-class GrafanaMonitor:
-    def __init__(self):
-        # TODO: find a way to get .env into airflow container
-        #  maybe use airflow.cfg? or put it in plugins folder?
-        self.url = env.str("INFLUXDB_URL", "http://green-day.retailshake.com:8086")
-        self.org = env.str("INFLUXDB_ORG", "retailshake")
-        self.token = env.str("INFLUXDB_TOKEN", "MIzHXfRMiEy09ePz69Xaq8sfpYdsfEpn8sB_qKxhQo3B5r0FjtSMh3n5AZW-6YZJIg5v_gxsYhDIFjL87AKdnA==")
-
-    def send_metrics(self, measurement: str, tags: dict = None, fields: dict = None):
-
-        if not measurement:
-            raise ValueError(
-                f"measurement must be set to write in InfluxDB, skipping fields {fields} with tags {tags}"
-            )
-
-        point = {
-            "measurement": measurement,
-            "time": datetime.utcnow(),
-        }
-
-        if fields:
-            point["fields"] = fields
-
-        if tags:
-            point["tags"] = tags
-
-        if self.url and self.org and self.token:
-            try:
-                client = InfluxDBClient(url = self.url, token=self.token, org=self.org)
-                write_api = client.write_api(write_options=SYNCHRONOUS)
-                # The bucket can be defined as an environment variable or set as default
-                bucket = env.str("INFLUXDB_BUCKET", "retailshake")
-
-                write_api.write(bucket=bucket, org=self.org, record=point)
-
-                logging.debug(f"sent to InfluxDB point {point}")
-
-            except Exception as e:
-                logging.error(e)
-        else:
-            logging.warning(f"Grafana not configured, logging Metrics: {point}")
-EOD
-
-        destination = "local/grafana.py"
-      }
-
       artifact {
         source      = "${var.conf}"
         destination = "local/airflow.cfg"
       }
 
       config {
-        # image = "radiohead.retailshake.com/rs-airflow:2.8.0"
         image = "apache/airflow:2.2.5"
         entrypoint = ["/entrypoint"]
         args=["airflow", "scheduler"]
@@ -703,7 +424,6 @@ EOD
         # args = ["triggerer"]
         volumes = [
           "local/airflow.cfg/gistfile1.txt:/opt/airflow/airflow.cfg",
-          "local/grafana.py:/opt/airflow/plugins/grafana.py"
         ]
       }
       resources {
