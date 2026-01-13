@@ -1,6 +1,9 @@
 job "example" {
   datacenters = ["dc1"]
   group "cache" {
+    network {
+      port "db" {}
+    }
     task "redis" {
       template {
         data = <<EOH
@@ -12,20 +15,23 @@ EOH
       driver = "docker"
       config {
         image = "redis:7"
-        port_map { db = 6379 }
+        ports = ["db"]
         mounts = [
           {
-            type = "bind"
-            target = "/root/config.yml"
-            source = "local/config.yml"
+            type     = "bind"
+            target   = "/root/config.yml"
+            source   = "local/config.yml"
             readonly = false
-            volume_options {
+            volume_options = {
               no_copy = false
             }
           }
         ]
       }
-      resources { network { port "db" {} } }
+      resources {
+        cpu    = 100
+        memory = 128
+      }
     }
   }
 }

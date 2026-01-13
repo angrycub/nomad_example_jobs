@@ -1,7 +1,7 @@
 job "restart" {
   datacenters = ["dc1"]
   meta {
-    "serial_num" = "2"
+    serial_num = "2"
   }
   group "group" {
     restart {

@@ -8,7 +8,7 @@ job "foo-service" {
   group "example" {
     count = 3
     meta {
-      "foo"="bar"
+      foo ="bar"
     }
 
     update {

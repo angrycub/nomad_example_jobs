@@ -6,9 +6,11 @@ job "efs-busybox" {
     count = 1
 
     volume "jobVolume" {
-      type      = "csi"
-      read_only = false
-      source    = "csiVolume"
+      type            = "csi"
+      read_only       = false
+      source          = "csiVolume"
+      attachment_mode = "file-system"
+      access_mode     = "multi-node-multi-writer"
     }
 
     task "busybox" {

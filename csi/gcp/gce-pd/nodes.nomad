@@ -10,7 +10,8 @@ job "nodes" {
 EOH
   destination = "secrets/creds.json"
       }
-      env { "GOOGLE_APPLICATION_CREDENTIALS" = "/secrets/creds.json"
+      env {
+        GOOGLE_APPLICATION_CREDENTIALS = "/secrets/creds.json"
       }
       config {
         image = "gcr.io/gke-release/gcp-compute-persistent-disk-csi-driver:v0.7.0-gke.0"

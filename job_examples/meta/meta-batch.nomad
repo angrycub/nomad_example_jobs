@@ -5,7 +5,7 @@ job "example" {
   type = "batch"
 
   meta {
-    "meta_key_1" = "meta_value_1"
+    meta_key_1 = "meta_value_1"
   }
 
   group "group" {

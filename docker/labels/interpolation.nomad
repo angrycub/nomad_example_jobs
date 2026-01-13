@@ -2,45 +2,32 @@ job "example" {
   datacenters = ["dc1"]
 
   group "cache" {
+    network {
+      port "db" {}
+    }
+
     task "redis" {
-      template {
-        destination = "secrets/log.env"
-        env = true
-        data = <<EOF
-DATADOG.LOG={{`
-            [{
-              "source": "atlas",
-              "service": "atlas",
-              "log_processing_rules": [{
-                "type": "exclude_at_match",
-                "name": "archivist_sensitive_urls",
-                "pattern": "Archivist upload completion callback received"
-              }]
-            }]
-` | parseJSON | toJSON | toJSON }}
-EOF
-      }
       driver = "docker"
+
+      template {
+        destination = "local/env"
+        env         = true
+        data        = <<EOH
+DATADOG_LOG=[{"source": "atlas", "service": "atlas"}]
+EOH
+      }
 
       config {
         image = "redis:7"
-
-        port_map {
-          db = 6379
+        ports = ["db"]
+        labels = {
+          "com.datadoghq.ad.logs" = "${DATADOG_LOG}"
         }
-	labels {
-          com.datadoghq.ad.logs = "${DATADOG.LOG}"
-	}
       }
 
       resources {
         cpu    = 500
         memory = 256
-
-        network {
-          mbits = 10
-          port "db" {}
-        }
       }
     }
   }

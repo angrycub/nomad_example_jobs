@@ -5,10 +5,18 @@ job "mysql-server" {
   group "mysql-server" {
     count = 1
 
+    network {
+      port "db" {
+        static = 3306
+      }
+    }
+
     volume "mysql" {
-      type      = "csi"
-      read_only = false
-      source    = "mysql"
+      type            = "csi"
+      read_only       = false
+      source          = "mysql"
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
     }
 
     restart {
@@ -35,20 +43,12 @@ job "mysql-server" {
         image = "hashicorp/mysql-portworx-demo:latest"
         args = ["--datadir", "/srv/mysql"]
 
-        port_map {
-          db = 3306
-        }
+        ports = ["db"]
       }
 
       resources {
         cpu    = 500
-        memory = 512 
-
-        network {
-          port "db" {
-            static = 3306
-          }
-        }
+        memory = 512
       }
 
       service {

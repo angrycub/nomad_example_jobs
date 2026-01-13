@@ -12,7 +12,7 @@ job "node" {
       }
 
       env {
-        CSI_ENDPOINT="unix:///csi/csi.sock"    
+        CSI_ENDPOINT="unix:///csi/csi.sock"
         HCLOUD_TOKEN="«your token»"
       }
 
@@ -24,3 +24,4 @@ job "node" {
     }
   }
 }
+
