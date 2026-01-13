@@ -2,38 +2,34 @@ job "example" {
   datacenters = ["dc1"]
 
   group "cache" {
+    network {
+      port "db" {}
+    }
+
     task "redis" {
       driver = "docker"
 
       config {
         image = "redis:7"
-
-        port_map {
-          db = 6379
-        }
-	labels = {
-          "com.datadoghq.ad.logs" = <<EOF
+        ports = ["db"]
+        labels = {
+          "com.datadoghq.ad.logs" = <<EOL
             [{
               "source": "atlas",
               "service": "atlas",
               "log_processing_rules": [{
                 "type": "exclude_at_match",
-                "name": "archivist_sensitive_urls",
-                "pattern": "Archivist upload completion callback received"
+                "name": "exclude_healthcheck",
+                "pattern": "\"healthcheck\":{\"healthy\":true}"
               }]
             }]
-EOF
-	}
+EOL
+        }
       }
 
       resources {
         cpu    = 500
         memory = 256
-
-        network {
-          mbits = 10
-          port "db" {}
-        }
       }
     }
   }
