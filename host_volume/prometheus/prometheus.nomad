@@ -9,7 +9,14 @@ job "prometheus" {
     canary = 0
   }
   group "monitoring" {
-    volume "prometheus" { type="host" config { source="prometheus" } }
+    network {
+      port "grafana_ui" {}
+      port "prometheus_ui" {}
+    }
+    volume "prometheus" {
+      type   = "host"
+      source = "prometheus"
+    }
     count = 1
     restart {
       attempts = 10
@@ -17,9 +24,14 @@ job "prometheus" {
       delay = "25s"
       mode = "delay"
     }
-    ephemeral_disk { size = 1000 }
+    ephemeral_disk {
+      size = 1000
+    }
     task "grafana" {
-      volume_mount { volume="prometheus" destination="/mnt/prometheus" }
+      volume_mount {
+        volume      = "prometheus"
+        destination = "/mnt/prometheus"
+      }
       artifact {
         source="https://gist.githubusercontent.com/angrycub/046cee11bd3d8c4ab9a3819646c9660c/raw/c699095c2cb25b896e2c709da588b668ce82f8b5/prometheus_nomad.json"
         destination="local/provisioning/dashboards/dashs"
@@ -56,16 +68,17 @@ datasources:
 EOH
       }
       env {
-        "GF_SERVER_ROOT_URL"="http://127.0.0.1:9999/grafana/"
-        "GF_PATHS_PROVISIONING"="/${NOMAD_TASK_DIR}/provisioning"
+        GF_SERVER_ROOT_URL ="http://127.0.0.1:9999/grafana/"
+        GF_PATHS_PROVISIONING ="/${NOMAD_TASK_DIR}/provisioning"
       }
       driver = "docker"
       config {
         image = "grafana/grafana:6.1.4"
-        port_map { grafana_ui = 3000 }
+        ports = ["grafana_ui"]
       }
       resources {
-        network { port "grafana_ui" {} }
+        cpu    = 200
+        memory = 256
       }
       service {
         name = "grafana-ui"
@@ -81,7 +94,10 @@ EOH
     }
 
     task "prometheus" {
-      volume_mount { volume="prometheus" destination="/prometheus/data" }
+      volume_mount {
+        volume      = "prometheus"
+        destination = "/prometheus/data"
+      }
       template  {
         change_mode = "noop"
         destination="local/prometheus.yml"
@@ -122,12 +138,11 @@ EOH
           "--web.route-prefix=/",
           "--config.file=/local/prometheus.yml"     
         ]
-        port_map { prometheus_ui = 9090 }
+        ports = ["prometheus_ui"]
       }
       resources {
         cpu    = 500
         memory = 256
-        network { port "prometheus_ui" {} }
       }
       service {
         name = "prometheus-ui"

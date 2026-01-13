@@ -6,9 +6,11 @@ job "mysql-server" {
     count = 1
 
     volume "mysql" {
-      type      = "csi"
-      read_only = false
-      source    = "mysql"
+      type            = "csi"
+      read_only       = false
+      source          = "mysql"
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
     }
 
     restart {

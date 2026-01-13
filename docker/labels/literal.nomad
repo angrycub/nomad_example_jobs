@@ -7,7 +7,7 @@ job "example" {
 
       config {
         image = "redis:7"
-        labels {
+        labels = {
           "com.datadoghq.ad.logs" ="[{\"source\": \"nginx\", \"service\": \"webapp\"}]"
         }
         port_map {

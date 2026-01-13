@@ -1,5 +1,5 @@
 job "java_files" {
-  datacenters = ["dc1"],
+  datacenters = ["dc1"]
   group "exec" {
     ephemeral_disk {
       migrate = true

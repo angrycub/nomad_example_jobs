@@ -28,8 +28,8 @@ EOF
         port_map {
           db = 6379
         }
-	labels {
-          com.datadoghq.ad.logs = "${DATADOG.LOG}"
+	labels = {
+          "com.datadoghq.ad.logs" = "${DATADOG.LOG}"
 	}
       }
 

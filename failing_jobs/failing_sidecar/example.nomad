@@ -2,13 +2,19 @@ job "example" {
   datacenters = ["dc1"]
 
   group "cache" {
+    network {
+      port "db" {}
+    }
     task "redis" {
       driver = "docker"
       config {
         image = "redis:7"
-        port_map { db = 6379 }
+        ports = ["db"]
       }
-      resources { network { port "db" {} } }
+      resources {
+        cpu    = 100
+        memory = 128
+      }
       service {
         name = "redis"
         tags = ["cache"]
@@ -27,6 +33,10 @@ job "example" {
       config {
         command = "/bin/bash"
         args = ["-c", "echo \"I don't feel so good....\"; sleep 5; echo \"see... I told you I was sick...\"; exit 1"]
+      }
+      resources {
+        cpu    = 50
+        memory = 32
       }
     }
   }

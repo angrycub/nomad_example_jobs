@@ -1,6 +1,7 @@
 variable "site_name" {
-  type = string
+  type        = string
   description = "The site_name is used to set the consul tag for the website. This makes them available at \"site_name.wordpress-sites.service.consul\""
+  default     = "my-website"
 }
 
 job "my-website" {

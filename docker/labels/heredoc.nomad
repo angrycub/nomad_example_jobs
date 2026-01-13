@@ -11,8 +11,8 @@ job "example" {
         port_map {
           db = 6379
         }
-	labels {
-          com.datadoghq.ad.logs = <<EOF
+	labels = {
+          "com.datadoghq.ad.logs" = <<EOF
             [{
               "source": "atlas",
               "service": "atlas",
