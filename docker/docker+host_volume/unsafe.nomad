@@ -2,6 +2,9 @@ job "example" {
   datacenters = ["dc1"]
 
   group "cache" {
+    network {
+      port "db" {}
+    }
     volume "test" {
       type      = "host"
       source    = "container-test"
@@ -15,14 +18,17 @@ job "example" {
       }
       config {
         image = "redis:7"
-        port_map { db = 6379 }
+        ports = ["db"]
         volumes = [
           "/opt/nomad/volumes/container-test/folder1:/folder1",
           "/opt/nomad/volumes/container-test/folder2:/folder2"
         ]
      }
 
-      resources { network { port "db" {} } }
+      resources {
+        cpu    = 100
+        memory = 128
+      }
 
       service {
         port = "db"

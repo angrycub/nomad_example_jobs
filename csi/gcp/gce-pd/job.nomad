@@ -10,9 +10,11 @@ job "alpine" {
     }
 
     volume "jobVolume" {
-      type      = "csi"
-      read_only = false
-      source    = "myVolume"
+      type            = "csi"
+      read_only       = false
+      source          = "myVolume"
+      attachment_mode = "file-system"
+      access_mode     = "single-node-writer"
     }
 
     task "docker" {

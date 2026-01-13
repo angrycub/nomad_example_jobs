@@ -6,6 +6,10 @@ job http6 {
   group "group" {
     count = 1
 
+    network {
+      port "http" {}
+    }
+
     task "server" {
       template {
         data = <<EOH
@@ -33,7 +37,9 @@ EOH
         args = ["${NOMAD_PORT_http}"]
       }
 
-      resources { memory = 10 cpu = 50 network { port "http" {} }
+      resources {
+        memory = 10
+        cpu    = 50
       }
     }
   }

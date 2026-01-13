@@ -2,23 +2,24 @@ job "example" {
   datacenters = ["dc1"]
 
   group "cache" {
+    network {
+      port "db" {}
+    }
+
     task "redis" {
       driver = "docker"
 
       config {
         image = "redis:7"
-        labels {
-          "com.datadoghq.ad.logs" ="[{\"source\": \"nginx\", \"service\": \"webapp\"}]"
-        }
-        port_map {
-          db = 6379
+        ports = ["db"]
+        labels = {
+          "com.datadoghq.ad.logs" = "[{\"source\": \"nginx\", \"service\": \"webapp\"}]"
         }
       }
 
       resources {
-        network {
-          port "db" {}
-        }
+        cpu    = 500
+        memory = 256
       }
     }
   }

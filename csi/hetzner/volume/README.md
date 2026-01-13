@@ -28,7 +28,7 @@ $ nomad agent -dev -config=config.nomad
 ```
 
 For full clusters, verify that your clients have the appropriate permission
-configured for the docker plugin. Once properly configured, you will be able to
+configured for the Docker plugin. Once properly configured, you will be able to
 run the node.nomad file, wait for the plugins to become healthy, register the
 volume, and then run the job.nomad file.
 

@@ -13,6 +13,7 @@ job "cn-demo" {
     service {
       name = "uuid-api"
       port = "${NOMAD_PORT_api}"
+      task = "generate"
 
       connect {
         native = true
@@ -44,6 +45,7 @@ job "cn-demo" {
     service {
       name = "uuid-fe"
       port = "25000"
+      task = "frontend"
 
       connect {
         native = true
